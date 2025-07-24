@@ -1,0 +1,1002 @@
+<!-- Top Header Bar -->
+    <div class="bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-4 shadow-lg">
+        <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center">
+            <!-- Left side - Enhanced Tagline -->
+            <div class="text-sm font-medium mb-2 sm:mb-0 flex items-center space-x-2">
+                <i class="fas fa-globe-americas text-green-200"></i>
+                <span class="hidden sm:inline">Empowering Pakistanis for Global Opportunities</span>
+                <span class="sm:hidden">OEC Pakistan</span>
+            </div>
+            
+            <!-- Right side - Enhanced Action buttons -->
+            <div class="flex flex-wrap justify-center sm:justify-end gap-2">
+                <!-- Desktop buttons with enhanced styling -->
+                <div class="hidden lg:flex gap-3">
+                    <a href="foreign_employer.html" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                        <i class="fas fa-briefcase mr-1"></i>
+                        Employer
+                    </a>
+                    <a href="oep.html" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                        <i class="fas fa-user-tie mr-1"></i>
+                        OEP
+                    </a>
+                    <a href="https://jobs.oec.gov.pk/home" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                        <i class="fas fa-search mr-1"></i>
+                        Job Seeker
+                    </a>
+                    
+                    <a href="eps.html" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                        <i class="fas fa-star mr-1"></i>
+                        EPS Korea
+                    </a>
+                    <a href="https://softskills.oec.gov.pk/" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                        <i class="fas fa-star mr-1"></i>
+                        Soft Skills
+                    </a>
+                </div>
+                
+                <!-- Mobile enhanced buttons -->
+                <div class="lg:hidden flex gap-2 overflow-x-auto pb-1">
+                    <a href="#" class="px-3 py-1.5 bg-white/15 hover:bg-white/25 rounded text-xs font-medium transition-all whitespace-nowrap">
+                        <i class="fas fa-briefcase mr-1"></i>Employer
+                    </a>
+                    <a href="#" class="px-3 py-1.5 bg-white/15 hover:bg-white/25 rounded text-xs font-medium transition-all whitespace-nowrap">
+                        <i class="fas fa-user-tie mr-1"></i>OEP
+                    </a>
+                    <a href="#" class="px-3 py-1.5 bg-white/15 hover:bg-white/25 rounded text-xs font-medium transition-all whitespace-nowrap">
+                        <i class="fas fa-search mr-1"></i>Jobs
+                    </a>
+                    <a href="#" class="px-3 py-1.5 bg-yellow-400 text-green-800 hover:bg-yellow-300 rounded text-xs font-bold transition-all whitespace-nowrap">
+                        <i class="fas fa-star mr-1"></i>EPS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Main Navigation Bar -->
+    <nav class="glass-effect shadow-2xl sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Enhanced Logo -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <div class=""></div>
+                        <img src="https://jobs.oec.gov.pk/assets/logo2-removebg-preview.png" alt="OEC Logo"  style="width: 300px;">
+                    </div> 
+                </div>
+
+                <!-- Enhanced Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-1" style="background-image: url(https://oec.gov.pk/assets/media/1.png);">
+                    <!-- Home -->
+                    <a href="#" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50 group">
+                        <i class="fas fa-home text-lg"></i>
+                        <span class="font-medium">Home</span>
+                    </a>
+
+                    <!-- About Us - Tab Style Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50">
+                            <i class="fas fa-info-circle text-lg"></i>
+                            <span class="font-medium">About Us</span>
+                            <i class="fas fa-chevron-down text-sm transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        
+                        <!-- Tab-style dropdown -->
+                        <div class="tab-dropdown absolute left-0 mt-2 w-[800px] rounded-2xl shadow-2xl border hidden group-hover:block slide-down z-50">
+                            <!-- Tab Navigation -->
+                            <div class="flex bg-gray-50 rounded-t-2xl border-b">
+                                <button class="tab-button active px-6 py-4 text-sm font-semibold rounded-tl-2xl transition-all" onclick="showTab('about-overview')">
+                                    <i class="fas fa-building mr-2"></i>Overview
+                                </button>
+                                <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('about-leadership')">
+                                    <i class="fas fa-users mr-2"></i>Leadership
+                                </button>
+                                <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('about-mission')">
+                                    <i class="fas fa-bullseye mr-2"></i>Mission & Vision
+                                </button>
+                                <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('about-achievements')">
+                                    <i class="fas fa-trophy mr-2"></i>Achievements
+                                </button>
+                            </div>
+                            
+                            <!-- Tab Content -->
+                            <div class="p-8 custom-scroll max-h-96 overflow-y-auto">
+                                <!-- Overview Tab -->
+                                <div id="about-overview" class="tab-content active">
+                                    <div class="grid grid-cols-2 gap-8">
+                                        <div class="space-y-4">
+                                            <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg relative">
+                                                <img src="https://jobs.oec.gov.pk/thumbnail.png" alt="OEC Building" class="w-full h-32 object-cover">
+                                                <div class="image-overlay absolute inset-0 flex items-center justify-center">
+                                                    <i class="fas fa-play-circle text-4xl text-white"></i>
+                                                </div>
+                                                <div class="p-4">
+                                                    <h3 class="font-bold text-gray-800 mb-2">About OEC</h3>
+                                                    <p class="text-sm text-gray-600">Leading organization for overseas employment</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center space-x-3">
+                                                        <i class="fas fa-eye text-green-600"></i>
+                                                        <span class="font-semibold">OEC at Glance</span>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                                </div>
+                                                <div class="expand-content mt-4">
+                                                    <p class="text-sm text-gray-600 mb-3">Comprehensive overview of our organization's structure, services, and impact.</p>
+                                                    <div class="grid grid-cols-2 gap-4 text-xs">
+                                                        <div class="bg-green-50 p-2 rounded">
+                                                            <strong>Established:</strong> 1976
+                                                        </div>
+                                                        <div class="bg-blue-50 p-2 rounded">
+                                                            <strong>Workers Sent:</strong> 11M+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="space-y-4">
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center space-x-3">
+                                                        <i class="fas fa-gavel text-green-600"></i>
+                                                        <span class="font-semibold">Governing Law</span>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                                </div>
+                                                <div class="expand-content mt-4">
+                                                    <p class="text-sm text-gray-600">Legal framework and regulations governing overseas employment.</p>
+                                                    <ul class="mt-2 space-y-1 text-xs text-gray-500">
+                                                        <li>• Emigration Ordinance 1979</li>
+                                                        <li>• Emigration Rules 1979</li>
+                                                        <li>• OEC Act 1976</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center space-x-3">
+                                                        <i class="fas fa-cogs text-green-600"></i>
+                                                        <span class="font-semibold">Our Functions</span>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                                </div>
+                                                <div class="expand-content mt-4">
+                                                    <p class="text-sm text-gray-600">Core functions and services provided by OEC.</p>
+                                                    <div class="mt-2 grid grid-cols-1 gap-2 text-xs">
+                                                        <div class="flex items-center space-x-2">
+                                                            <i class="fas fa-check-circle text-green-500"></i>
+                                                            <span>Worker Registration</span>
+                                                        </div>
+                                                        <div class="flex items-center space-x-2">
+                                                            <i class="fas fa-check-circle text-green-500"></i>
+                                                            <span>Employment Promotion</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Leadership Tab -->
+                                <div id="about-leadership" class="tab-content">
+                                    <div class="grid grid-cols-3 gap-6">
+                                        
+                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                            <img src="../../../assets/images/minister.jpg" alt="Executives" class="w-full h-40 object-cover">
+                                            <div class="p-4">
+                                                <h3 class="font-bold text-gray-800">Our Executives</h3>
+                                                <!-- <p class="text-sm text-gray-600">Senior Management</p> -->
+                                                <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">Meet Team →</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                            <img src="../../../assets/images/md.jpg" alt="Managing Director" class="w-full h-40 object-cover">
+                                            <div class="p-4">
+                                                <h3 class="font-bold text-gray-800">Managing Director</h3>
+                                                <!-- <p class="text-sm text-gray-600">Executive Leadership</p> -->
+                                                <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">Read Message →</button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                            <img src="../../../assets/images/board.png" alt="Board of Directors" class="w-full h-40 object-cover">
+                                            <div class="p-4">
+                                                <h3 class="font-bold text-gray-800">Board of Directors</h3>
+                                                <!-- <p class="text-sm text-gray-600">Governance Body</p> -->
+                                                <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">View Board →</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Mission & Vision Tab -->
+                                <div id="about-mission" class="tab-content">
+                                    <div class="grid grid-cols-2 gap-8">
+                                        <div class="space-y-6">
+                                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6">
+                                                <div class="flex items-center space-x-3 mb-4">
+                                                    <i class="fas fa-bullseye text-2xl text-green-600"></i>
+                                                    <h3 class="text-lg font-bold text-green-800">Our Mission</h3>
+                                                </div>
+                                                <p class="text-gray-700 leading-relaxed">To facilitate safe, legal, and dignified overseas employment opportunities for Pakistani workers while ensuring their welfare and protection abroad.</p>
+                                            </div>
+                                            
+                                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
+                                                <div class="flex items-center space-x-3 mb-4">
+                                                    <i class="fas fa-eye text-2xl text-blue-600"></i>
+                                                    <h3 class="text-lg font-bold text-blue-800">Our Vision</h3>
+                                                </div>
+                                                <p class="text-gray-700 leading-relaxed">To be the leading organization in overseas employment services, recognized globally for excellence and innovation.</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="space-y-4">
+                                            <h3 class="text-lg font-bold text-gray-800 mb-4">Core Values</h3>
+                                            <div class="space-y-3">
+                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                                    <i class="fas fa-shield-alt text-green-600"></i>
+                                                    <span class="font-medium">Integrity</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                                    <i class="fas fa-star text-yellow-500"></i>
+                                                    <span class="font-medium">Excellence</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                                    <i class="fas fa-lightbulb text-blue-600"></i>
+                                                    <span class="font-medium">Innovation</span>
+                                                </div>
+                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                                    <i class="fas fa-handshake text-purple-600"></i>
+                                                    <span class="font-medium">Service</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Achievements Tab -->
+                                <div id="about-achievements" class="tab-content">
+                                    <div class="grid grid-cols-2 gap-8">
+                                        <div class="space-y-4">
+                                            <h3 class="text-lg font-bold text-gray-800 mb-4">Key Achievements</h3>
+                                            <div class="space-y-4">
+                                                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-2xl font-bold">150K+</h4>
+                                                            <p class="text-green-100">Workers Sent Abroad</p>
+                                                        </div>
+                                                        <i class="fas fa-users text-3xl text-green-200"></i>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-2xl font-bold">$150B+</h4>
+                                                            <p class="text-blue-100">Remittances Generated</p>
+                                                        </div>
+                                                        <i class="fas fa-dollar-sign text-3xl text-blue-200"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="space-y-4">
+                                            <h3 class="text-lg font-bold text-gray-800 mb-4">Service Timelines</h3>
+                                            <div class="space-y-3">
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                                        <span class="text-green-600 font-bold text-sm">1</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Registration</p>
+                                                        <p class="text-sm text-gray-600">1-2 days</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                        <span class="text-blue-600 font-bold text-sm">2</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Documentation</p>
+                                                        <p class="text-sm text-gray-600">3-5 days</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                                        <span class="text-purple-600 font-bold text-sm">3</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Processing</p>
+                                                        <p class="text-sm text-gray-600">7-10 days</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Similar enhanced dropdowns for other menu items... -->
+                    <!-- For brevity, I'll show the pattern for one more menu item -->
+
+                    <!-- Emigrants - Enhanced Tab Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50">
+                            <i class="fas fa-suitcase text-lg"></i>
+                            <span class="font-medium">Emigrants</span>
+                            <i class="fas fa-chevron-down text-sm transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        
+                        <div class="tab-dropdown absolute left-0 mt-2 w-[700px] rounded-2xl shadow-2xl border hidden group-hover:block slide-down z-50">
+                            <div class="flex bg-gray-50 rounded-t-2xl border-b">
+                                <button class="tab-button active px-6 py-4 text-sm font-semibold rounded-tl-2xl transition-all" onclick="showTab('emigrants-eps')">
+                                    <i class="fas fa-flag mr-2"></i>EPS Korea
+                                </button>
+                                <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('emigrants-services')">
+                                    <i class="fas fa-handshake mr-2"></i>Services
+                                </button>
+                                <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('emigrants-industry')">
+                                    <i class="fas fa-industry mr-2"></i>Industries
+                                </button>
+                            </div>
+                            
+                            <div class="p-8 custom-scroll max-h-96 overflow-y-auto">
+                                <!-- EPS Korea Tab -->
+                                <div id="emigrants-eps" class="tab-content active">
+                                    <div class="grid grid-cols-2 gap-6">
+                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                            <img src="../../../assets/images/eps.jpg" alt="EPS Korea" class="w-full h-32 object-cover">
+                                            <div class="p-4">
+                                                <h3 class="font-bold text-gray-800 mb-2">Employment Permit System</h3>
+                                                <p class="text-sm text-gray-600 mb-3">Government-to-government program for Korean employment</p>
+                                                <div class="flex space-x-2">
+                                                    <button class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Labour Contracts</button>
+                                                    <button class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Results</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="space-y-3">
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center space-x-3">
+                                                        <i class="fas fa-file-contract text-red-600"></i>
+                                                        <span class="font-semibold">Labour Contracts</span>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                                </div>
+                                                <div class="expand-content mt-4">
+                                                    <p class="text-sm text-gray-600">Standard employment contracts for Korean employment.</p>
+                                                    <div class="mt-2 space-y-1 text-xs text-gray-500">
+                                                        <div class="flex justify-between"><span>Contract Duration:</span>
+                                                           <span class="font-medium">3 Years</span>
+                                                       </div>
+                                                       <div class="flex justify-between">
+                                                           <span>Minimum Wage:</span>
+                                                           <span class="font-medium">₩9,160/hour</span>
+                                                       </div>
+                                                       <div class="flex justify-between">
+                                                           <span>Working Hours:</span>
+                                                           <span class="font-medium">40 hours/week</span>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           
+                                           <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                               <div class="flex items-center justify-between">
+                                                   <div class="flex items-center space-x-3">
+                                                       <i class="fas fa-chart-line text-green-600"></i>
+                                                       <span class="font-semibold">EPS Results</span>
+                                                   </div>
+                                                   <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                               </div>
+                                               <div class="expand-content mt-4">
+                                                   <p class="text-sm text-gray-600">Latest test results and selection outcomes.</p>
+                                                   <div class="mt-2 grid grid-cols-2 gap-2 text-xs">
+                                                       <div class="bg-green-50 p-2 rounded text-center">
+                                                           <div class="font-bold text-green-800">15,000+</div>
+                                                           <div class="text-green-600">Selected 2024</div>
+                                                       </div>
+                                                       <div class="bg-blue-50 p-2 rounded text-center">
+                                                           <div class="font-bold text-blue-800">85%</div>
+                                                           <div class="text-blue-600">Success Rate</div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               
+                               <!-- Services Tab -->
+                               <div id="emigrants-services" class="tab-content">
+                                   <div class="grid grid-cols-3 gap-4">
+                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                           <div class="h-24 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                                               <i class="fas fa-shield-alt text-3xl text-white"></i>
+                                           </div>
+                                           <div class="p-4">
+                                               <h3 class="font-bold text-gray-800 text-sm">Worker Protection</h3>
+                                               <p class="text-xs text-gray-600">Comprehensive welfare services</p>
+                                           </div>
+                                       </div>
+                                       
+                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                           <div class="h-24 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                                               <i class="fas fa-graduation-cap text-3xl text-white"></i>
+                                           </div>
+                                           <div class="p-4">
+                                               <h3 class="font-bold text-gray-800 text-sm">Pre-Departure Training</h3>
+                                               <p class="text-xs text-gray-600">Skills and cultural orientation</p>
+                                           </div>
+                                       </div>
+                                       
+                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                           <div class="h-24 bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                                               <i class="fas fa-handshake text-3xl text-white"></i>
+                                           </div>
+                                           <div class="p-4">
+                                               <h3 class="font-bold text-gray-800 text-sm">Service Agreements</h3>
+                                               <p class="text-xs text-gray-600">Foreign employment contracts</p>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               
+                               <!-- Industry Tab -->
+                               <div id="emigrants-industry" class="tab-content">
+                                   <div class="grid grid-cols-2 gap-6">
+                                       <div>
+                                           <h3 class="font-bold text-gray-800 mb-4">Industries We Serve</h3>
+                                           <div class="space-y-2">
+                                               <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                                   <i class="fas fa-industry text-gray-600"></i>
+                                                   <span class="font-medium">Manufacturing</span>
+                                                   <span class="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded">High Demand</span>
+                                               </div>
+                                               <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                                   <i class="fas fa-hard-hat text-yellow-600"></i>
+                                                   <span class="font-medium">Construction</span>
+                                                   <span class="ml-auto text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded">Moderate</span>
+                                               </div>
+                                               <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                                   <i class="fas fa-fish text-blue-600"></i>
+                                                   <span class="font-medium">Fisheries</span>
+                                                   <span class="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Seasonal</span>
+                                               </div>
+                                               <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                                   <i class="fas fa-seedling text-green-600"></i>
+                                                   <span class="font-medium">Agriculture</span>
+                                                   <span class="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Growing</span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       
+                                       <div>
+                                           <h3 class="font-bold text-gray-800 mb-4">Fee Structure</h3>
+                                           <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6">
+                                               <div class="space-y-3">
+                                                   <div class="flex justify-between items-center">
+                                                       <span class="text-sm font-medium">Registration Fee</span>
+                                                       <span class="font-bold text-green-700">PKR 2,000</span>
+                                                   </div>
+                                                   <div class="flex justify-between items-center">
+                                                       <span class="text-sm font-medium">Processing Fee</span>
+                                                       <span class="font-bold text-green-700">PKR 5,000</span>
+                                                   </div>
+                                                   <div class="flex justify-between items-center">
+                                                       <span class="text-sm font-medium">Protector Fee</span>
+                                                       <span class="font-bold text-green-700">PKR 15,000</span>
+                                                   </div>
+                                                   <hr class="border-green-200">
+                                                   <div class="flex justify-between items-center">
+                                                       <span class="font-semibold">Total</span>
+                                                       <span class="font-bold text-lg text-green-800">PKR 22,000</span>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- Continue with other menu items using similar enhanced styling... -->
+                   <!-- Development Hub -->
+                   <div class="relative group">
+                       <button class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50">
+                           <i class="fas fa-rocket text-lg"></i>
+                           <span class="font-medium">Development Hub</span>
+                           <i class="fas fa-chevron-down text-sm transition-transform group-hover:rotate-180"></i>
+                       </button>
+                       
+                       <div class="dropdown absolute left-0 mt-2 w-96 bg-white rounded-2xl shadow-2xl border hidden group-hover:block slide-down">
+                           <div class="p-6">
+                               <div class="grid grid-cols-2 gap-4">
+                                   <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                       <div class="h-20 bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center">
+                                           <i class="fas fa-trophy text-2xl text-white"></i>
+                                       </div>
+                                       <div class="p-3">
+                                           <h3 class="font-bold text-gray-800 text-sm">Success Stories</h3>
+                                           <p class="text-xs text-gray-600">Worker achievements</p>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                       <div class="h-20 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                                           <i class="fas fa-project-diagram text-2xl text-white"></i>
+                                       </div>
+                                       <div class="p-3">
+                                           <h3 class="font-bold text-gray-800 text-sm">Projects</h3>
+                                           <p class="text-xs text-gray-600">Development initiatives</p>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                       <div class="h-20 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                                           <i class="fas fa-lightbulb text-2xl text-white"></i>
+                                       </div>
+                                       <div class="p-3">
+                                           <h3 class="font-bold text-gray-800 text-sm">Future Plans</h3>
+                                           <p class="text-xs text-gray-600">Strategic roadmap</p>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                       <div class="h-20 bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                                           <i class="fas fa-handshake text-2xl text-white"></i>
+                                       </div>
+                                       <div class="p-3">
+                                           <h3 class="font-bold text-gray-800 text-sm">MoUs</h3>
+                                           <p class="text-xs text-gray-600">Partnerships</p>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- Media Center -->
+                   <div class="relative group">
+                       <button class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50">
+                           <i class="fas fa-tv text-lg"></i>
+                           <span class="font-medium">Media Center</span>
+                           <i class="fas fa-chevron-down text-sm transition-transform group-hover:rotate-180"></i>
+                       </button>
+                       
+                       <div class="tab-dropdown absolute left-0 mt-2 w-[600px] rounded-2xl shadow-2xl border hidden group-hover:block slide-down z-50">
+                           <div class="flex bg-gray-50 rounded-t-2xl border-b">
+                               <button class="tab-button active px-6 py-4 text-sm font-semibold rounded-tl-2xl transition-all" onclick="showTab('media-news')">
+                                   <i class="fas fa-newspaper mr-2"></i>News
+                               </button>
+                               <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('media-events')">
+                                   <i class="fas fa-calendar mr-2"></i>Events
+                               </button>
+                               <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('media-resources')">
+                                   <i class="fas fa-download mr-2"></i>Resources
+                               </button>
+                           </div>
+                           
+                           <div class="p-6 custom-scroll max-h-80 overflow-y-auto">
+                               <!-- News Tab -->
+                               <div id="media-news" class="tab-content active">
+                                   <div class="space-y-4">
+                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                           <img src="../../../assets/images/eps_2.jpg" alt="News" class="w-full h-24 object-cover">
+                                           <div class="p-4">
+                                               <h3 class="font-bold text-gray-800 text-sm mb-2">Latest Announcements</h3>
+                                               <div class="space-y-2 text-xs">
+                                                   <div class="flex items-center space-x-2">
+                                                       <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                                       <span>EPS Korea 2024 Results Announced</span>
+                                                   </div>
+                                                   <div class="flex items-center space-x-2">
+                                                       <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                                       <span>New Training Programs Launched</span>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       
+                                       <div class="grid grid-cols-2 gap-4">
+                                           <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                               <div class="flex items-center justify-between">
+                                                   <div class="flex items-center space-x-3">
+                                                       <i class="fas fa-bullhorn text-blue-600"></i>
+                                                       <span class="font-semibold text-sm">Press Releases</span>
+                                                   </div>
+                                                   <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                               </div>
+                                               <div class="expand-content mt-3">
+                                                   <div class="space-y-2 text-xs">
+                                                       <div class="p-2 bg-gray-50 rounded">
+                                                           <div class="font-medium">Q4 2024 Performance</div>
+                                                           <div class="text-gray-600">Dec 15, 2024</div>
+                                                       </div>
+                                                       <div class="p-2 bg-gray-50 rounded">
+                                                           <div class="font-medium">New Partnership MoU</div>
+                                                           <div class="text-gray-600">Dec 10, 2024</div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           
+                                           <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                               <div class="flex items-center justify-between">
+                                                   <div class="flex items-center space-x-3">
+                                                       <i class="fas fa-highlight text-yellow-600"></i>
+                                                       <span class="font-semibold text-sm">Highlights</span>
+                                                   </div>
+                                                   <i class="fas fa-chevron-right expand-icon transition-transform"></i>
+                                               </div>
+                                               <div class="expand-content mt-3">
+                                                   <div class="space-y-2 text-xs">
+                                                       <div class="flex items-center space-x-2">
+                                                           <i class="fas fa-star text-yellow-500"></i>
+                                                           <span>Record remittances in 2024</span>
+                                                       </div>
+                                                       <div class="flex items-center space-x-2">
+                                                           <i class="fas fa-award text-blue-500"></i>
+                                                           <span>Excellence award received</span>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               
+                               <!-- Events Tab -->
+                               <div id="media-events" class="tab-content">
+                                   <div class="grid grid-cols-2 gap-6">
+                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                           <img src="../../../assets/images/akmal_Sab.jpg" alt="Photo Gallery" class="w-full h-20 object-cover">
+                                           <div class="p-3">
+                                               <h3 class="font-bold text-gray-800 text-sm">Pictures Gallery</h3>
+                                               <p class="text-xs text-gray-600">Event photos and moments</p>
+                                               <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">View Gallery →</button>
+                                           </div>
+                                       </div>
+                                       
+                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                           <img src="../../../assets/images/md.jpg" alt="Video Gallery" class="w-full h-20 object-cover">
+                                           <div class="p-3">
+                                               <h3 class="font-bold text-gray-800 text-sm">Video Gallery</h3>
+                                               <p class="text-xs text-gray-600">Documentary and interviews</p>
+                                               <button class="mt-2 text-xs text-red-600 hover:text-red-700 font-medium">Watch Videos →</button>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               
+                               <!-- Resources Tab -->
+                               <div id="media-resources" class="tab-content">
+                                   <div class="grid grid-cols-2 gap-4">
+                                       <div class="space-y-3">
+                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                               <i class="fas fa-briefcase text-purple-600"></i>
+                                               <div>
+                                                   <div class="font-medium text-sm">Careers</div>
+                                                   <div class="text-xs text-gray-600">Job opportunities</div>
+                                               </div>
+                                           </div>
+                                           
+                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                               <i class="fas fa-download text-green-600"></i>
+                                               <div>
+                                                   <div class="font-medium text-sm">Downloads</div>
+                                                   <div class="text-xs text-gray-600">Forms & documents</div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       
+                                       <div class="space-y-3">
+                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                               <i class="fas fa-question-circle text-blue-600"></i>
+                                               <div>
+                                                   <div class="font-medium text-sm">FAQs</div>
+                                                   <div class="text-xs text-gray-600">Common questions</div>
+                                               </div>
+                                           </div>
+                                           
+                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                               <i class="fas fa-link text-orange-600"></i>
+                                               <div>
+                                                   <div class="font-medium text-sm">Useful Links</div>
+                                                   <div class="text-xs text-gray-600">External resources</div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- Reports & Analytics -->
+                   <a href="/reports" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50 group">
+                       <i class="fas fa-chart-bar text-lg"></i>
+                       <span class="font-medium">Reports & Analytics</span>
+                   </a>
+
+                   <!-- Contact Us -->
+                   <div class="relative group">
+                       <button class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50">
+                           <i class="fas fa-phone text-lg"></i>
+                           <span class="font-medium">Contact Us</span>
+                           <i class="fas fa-chevron-down text-sm transition-transform group-hover:rotate-180"></i>
+                       </button>
+                       
+                       <div class="dropdown absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border hidden group-hover:block slide-down">
+                           <div class="p-6">
+                               <div class="space-y-4">
+                                   <div class="image-card bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-4">
+                                       <div class="flex items-center space-x-3">
+                                           <i class="fas fa-building text-2xl"></i>
+                                           <div>
+                                               <h3 class="font-bold">Headquarters</h3>
+                                               <p class="text-sm opacity-90">Main office location</p>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="grid grid-cols-2 gap-3">
+                                       <div class="text-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer">
+                                           <i class="fas fa-plane text-blue-600 text-lg mb-2"></i>
+                                           <div class="text-sm font-medium">Travel Office</div>
+                                       </div>
+                                       
+                                       <div class="text-center p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors cursor-pointer">
+                                           <i class="fas fa-map-marker-alt text-purple-600 text-lg mb-2"></i>
+                                           <div class="text-sm font-medium">Regional Offices</div>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="bg-gray-50 rounded-lg p-4">
+                                       <div class="flex items-center space-x-3 mb-3">
+                                           <i class="fas fa-comment text-green-600"></i>
+                                           <span class="font-semibold">Send Feedback</span>
+                                       </div>
+                                       <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+                                           Submit Feedback
+                                       </button>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+               <!-- Mobile Menu Toggle --> 
+                <div class="lg:hidden">
+                    <button id="mobile-menu-btn" class="cursor-pointer p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <div class="w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                            <span class="mobile-line w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+                            <span class="mobile-line w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+                            <span class="mobile-line w-6 h-0.5 bg-gray-600 transition-all duration-300"></span>
+                        </div>
+                    </button>
+                </div>
+           </div>
+
+           <!-- Enhanced Mobile Menu -->
+          <div id="mobile-menu" class="mobile-menu lg:hidden bg-white border-t border-gray-200 shadow-lg">
+
+            <div class="py-4">
+                   <div class="space-y-1">
+                       <a href="#" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all rounded-lg mx-2">
+                           <i class="fas fa-home w-5 text-lg"></i>
+                           <span class="font-medium">Home</span>
+                       </a>
+                       
+                       <!-- Enhanced mobile dropdowns with same expandable functionality -->
+                       <details class="group mx-2">
+                           <summary class="flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all cursor-pointer rounded-lg">
+                               <div class="flex items-center space-x-3">
+                                   <i class="fas fa-info-circle w-5 text-lg"></i>
+                                   <span class="font-medium">About Us</span>
+                               </div>
+                               <i class="fas fa-chevron-down text-sm group-open:rotate-180 transition-transform"></i>
+                           </summary>
+                           <div class="bg-gray-50 mt-2 rounded-lg mx-4">
+                               <!-- Mobile expandable cards -->
+                               <div class="space-y-2 p-3">
+                                   <div class="expandable-card border border-gray-200 rounded-lg p-3" onclick="toggleExpand(this)">
+                                       <div class="flex items-center justify-between">
+                                           <span class="text-sm font-medium">About OEC</span>
+                                           <i class="fas fa-chevron-right expand-icon transition-transform text-xs"></i>
+                                       </div>
+                                       <div class="expand-content mt-2">
+                                           <p class="text-xs text-gray-600">Learn about our organization, history, and mission to serve Pakistani workers worldwide.</p>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="expandable-card border border-gray-200 rounded-lg p-3" onclick="toggleExpand(this)">
+                                       <div class="flex items-center justify-between">
+                                           <span class="text-sm font-medium">Leadership Team</span>
+                                           <i class="fas fa-chevron-right expand-icon transition-transform text-xs"></i>
+                                       </div>
+                                       <div class="expand-content mt-2">
+                                           <p class="text-xs text-gray-600">Meet our board of directors, executives, and management team.</p>
+                                       </div>
+                                   </div>
+                                   
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Mission & Vision</a>
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Achievements</a>
+                               </div>
+                           </div>
+                       </details>
+                       
+                       <!-- Continue similar pattern for other mobile menu items -->
+                       <details class="group mx-2">
+                           <summary class="flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all cursor-pointer rounded-lg">
+                               <div class="flex items-center space-x-3">
+                                   <i class="fas fa-suitcase w-5 text-lg"></i>
+                                   <span class="font-medium">Emigrants</span>
+                               </div>
+                               <i class="fas fa-chevron-down text-sm group-open:rotate-180 transition-transform"></i>
+                           </summary>
+                           <div class="bg-gray-50 mt-2 rounded-lg mx-4 p-3">
+                               <div class="image-card bg-white rounded-lg overflow-hidden shadow-sm mb-3">
+                                   <div class="h-16 bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center">
+                                       <i class="fas fa-flag text-white text-xl"></i>
+                                   </div>
+                                   <div class="p-3">
+                                       <h3 class="font-bold text-sm">EPS Korea</h3>
+                                       <p class="text-xs text-gray-600">Employment opportunities in South Korea</p>
+<div class="mt-2 space-y-1">
+                                           <a href="#" class="block text-xs text-gray-500 hover:text-green-600">Labour Contracts</a>
+                                           <a href="#" class="block text-xs text-gray-500 hover:text-green-600">EPS Results</a>
+                                           <a href="#" class="block text-xs text-gray-500 hover:text-green-600">Committed Workers</a>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="space-y-2">
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Foreign Services Agreement</a>
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">How to get Protector</a>
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Pre-Departure Orientation</a>
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Industry We Serve</a>
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Fee Structure</a>
+                               </div>
+                           </div>
+                       </details>
+                       
+                       <details class="group mx-2">
+                           <summary class="flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all cursor-pointer rounded-lg">
+                               <div class="flex items-center space-x-3">
+                                   <i class="fas fa-rocket w-5 text-lg"></i>
+                                   <span class="font-medium">Development Hub</span>
+                               </div>
+                               <i class="fas fa-chevron-down text-sm group-open:rotate-180 transition-transform"></i>
+                           </summary>
+                           <div class="bg-gray-50 mt-2 rounded-lg mx-4 p-3">
+                               <div class="grid grid-cols-2 gap-2 mb-3">
+                                   <div class="text-center p-2 bg-white rounded-lg">
+                                       <i class="fas fa-trophy text-yellow-500 text-lg mb-1"></i>
+                                       <div class="text-xs font-medium">Success Stories</div>
+                                   </div>
+                                   <div class="text-center p-2 bg-white rounded-lg">
+                                       <i class="fas fa-project-diagram text-blue-500 text-lg mb-1"></i>
+                                       <div class="text-xs font-medium">Projects</div>
+                                   </div>
+                               </div>
+                               <div class="space-y-2">
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Future Plans</a>
+                                   <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">MoUs</a>
+                               </div>
+                           </div>
+                       </details>
+                       
+                       <details class="group mx-2">
+                           <summary class="flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all cursor-pointer rounded-lg">
+                               <div class="flex items-center space-x-3">
+                                   <i class="fas fa-tv w-5 text-lg"></i>
+                                   <span class="font-medium">Media Center</span>
+                               </div>
+                               <i class="fas fa-chevron-down text-sm group-open:rotate-180 transition-transform"></i>
+                           </summary>
+                           <div class="bg-gray-50 mt-2 rounded-lg mx-4 p-3">
+                               <div class="space-y-3">
+                                   <div class="expandable-card border border-gray-200 rounded-lg p-3" onclick="toggleExpand(this)">
+                                       <div class="flex items-center justify-between">
+                                           <div class="flex items-center space-x-2">
+                                               <i class="fas fa-newspaper text-blue-600"></i>
+                                               <span class="text-sm font-medium">Latest News</span>
+                                           </div>
+                                           <i class="fas fa-chevron-right expand-icon transition-transform text-xs"></i>
+                                       </div>
+                                       <div class="expand-content mt-2">
+                                           <div class="space-y-1 text-xs">
+                                               <div class="p-2 bg-white rounded">
+                                                   <div class="font-medium">EPS Korea Results 2024</div>
+                                                   <div class="text-gray-500">Latest selection outcomes</div>
+                                               </div>
+                                               <div class="p-2 bg-white rounded">
+                                                   <div class="font-medium">New Training Programs</div>
+                                                   <div class="text-gray-500">Skills development initiatives</div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="grid grid-cols-2 gap-2">
+                                       <div class="text-center p-2 bg-white rounded-lg">
+                                           <i class="fas fa-images text-green-500 text-lg mb-1"></i>
+                                           <div class="text-xs font-medium">Photo Gallery</div>
+                                       </div>
+                                       <div class="text-center p-2 bg-white rounded-lg">
+                                           <i class="fas fa-video text-red-500 text-lg mb-1"></i>
+                                           <div class="text-xs font-medium">Video Gallery</div>
+                                       </div>
+                                   </div>
+                                   
+                                   <div class="space-y-1">
+                                       <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Downloads</a>
+                                       <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">FAQs</a>
+                                       <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-green-600 transition-all rounded">Useful Links</a>
+                                   </div>
+                               </div>
+                           </div>
+                       </details>
+                       
+                       <a href="/reports" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all rounded-lg mx-2">
+                           <i class="fas fa-chart-bar w-5 text-lg"></i>
+                           <span class="font-medium">Reports & Analytics</span>
+                       </a>
+                       
+                       <details class="group mx-2">
+                           <summary class="flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all cursor-pointer rounded-lg">
+                               <div class="flex items-center space-x-3">
+                                   <i class="fas fa-phone w-5 text-lg"></i>
+                                   <span class="font-medium">Contact Us</span>
+                               </div>
+                               <i class="fas fa-chevron-down text-sm group-open:rotate-180 transition-transform"></i>
+                           </summary>
+                           <div class="bg-gray-50 mt-2 rounded-lg mx-4 p-3">
+                               <div class="space-y-3">
+                                   <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-3">
+                                       <div class="flex items-center space-x-2">
+                                           <i class="fas fa-building"></i>
+                                           <span class="font-medium">Headquarters</span>
+                                       </div>
+                                       <p class="text-xs mt-1 opacity-90">OEC Main Office, Islamabad</p>
+                                   </div>
+                                   
+                                   <div class="grid grid-cols-2 gap-2">
+                                       <div class="text-center p-2 bg-white rounded-lg border border-gray-200">
+                                           <i class="fas fa-plane text-blue-500 text-lg mb-1"></i>
+                                           <div class="text-xs font-medium">Travel Office</div>
+                                       </div>
+                                       <div class="text-center p-2 bg-white rounded-lg border border-gray-200">
+                                           <i class="fas fa-map-marker-alt text-purple-500 text-lg mb-1"></i>
+                                           <div class="text-xs font-medium">Regional</div>
+                                       </div>
+                                   </div>
+                                   
+                                   <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+                                       <i class="fas fa-comment mr-2"></i>
+                                       Send Feedback
+                                   </button>
+                               </div>
+                           </div>
+                       </details>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </nav>

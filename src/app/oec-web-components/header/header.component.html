@@ -12,11 +12,11 @@
             <div class="flex flex-wrap justify-center sm:justify-end gap-2">
                 <!-- Desktop buttons with enhanced styling -->
                 <div class="hidden lg:flex gap-3">
-                    <a href="foreign_employer.html" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                    <a [routerLink]="'/foreign-employer'" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
                         <i class="fas fa-briefcase mr-1"></i>
                         Employer
                     </a>
-                    <a href="oep.html" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                    <a [routerLink]="'/oep'" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
                         <i class="fas fa-user-tie mr-1"></i>
                         OEP
                     </a>
@@ -25,7 +25,7 @@
                         Job Seeker
                     </a>
                     
-                    <a href="eps.html" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
+                    <a [routerLink]="'/eps'" target="_blank" class="px-4 py-2 bg-white/15 hover:bg-white/25 rounded-lg text-xs font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm border border-white/20">
                         <i class="fas fa-star mr-1"></i>
                         EPS Korea
                     </a>
@@ -69,7 +69,7 @@
                 <!-- Enhanced Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-1" style="background-image: url(https://oec.gov.pk/assets/media/1.png);">
                     <!-- Home -->
-                    <a href="#" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50 group">
+                    <a [routerLink]="'/home'" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50 group">
                         <i class="fas fa-home text-lg"></i>
                         <span class="font-medium">Home</span>
                     </a>
@@ -98,6 +98,9 @@
                                 <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('about-achievements')">
                                     <i class="fas fa-trophy mr-2"></i>Achievements
                                 </button>
+                                <button class="tab-button px-6 py-4 text-sm font-semibold transition-all hover:bg-green-50" onclick="showTab('about-why-choose')">
+                                    <i class="fas fa-star mr-2"></i>Why Choose OEC
+                                </button>
                             </div>
                             
                             <!-- Tab Content -->
@@ -106,18 +109,23 @@
                                 <div id="about-overview" class="tab-content active">
                                     <div class="grid grid-cols-2 gap-8">
                                         <div class="space-y-4">
-                                            <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg relative">
-                                                <img src="https://jobs.oec.gov.pk/thumbnail.png" alt="OEC Building" class="w-full h-32 object-cover">
-                                                <div class="image-overlay absolute inset-0 flex items-center justify-center">
-                                                    <i class="fas fa-play-circle text-4xl text-white"></i>
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" (click)="toggleExpand($event)">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center space-x-3">
+                                                        <i class="fa-solid fa-building text-green-600"></i>
+                                                        <span class="font-semibold">About OEC</span>
+                                                    </div>
+                                                    <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
-                                                <div class="p-4">
-                                                    <h3 class="font-bold text-gray-800 mb-2">About OEC</h3>
-                                                    <p class="text-sm text-gray-600">Leading organization for overseas employment</p>
+                                                <div class="expand-content mt-4">
+                                                    <p class="text-sm text-gray-600 mb-3">Leading organization for overseas employment.</p>
+                                                    <a [routerLink]="'/about-us'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
+                                                        View More →
+                                                    </a>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" (click)="toggleExpand($event)">
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-eye text-green-600"></i>
@@ -135,12 +143,15 @@
                                                             <strong>Workers Sent:</strong> 11M+
                                                         </div>
                                                     </div>
+                                                    <a [routerLink]="'/oec-at-glance'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
+                                                        View More →
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                
                                         <div class="space-y-4">
-                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" (click)="toggleExpand($event)">
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-gavel text-green-600"></i>
@@ -155,10 +166,13 @@
                                                         <li>• Emigration Rules 1979</li>
                                                         <li>• OEC Act 1976</li>
                                                     </ul>
+                                                    <a [routerLink]="'/governing-law'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
+                                                        View More →
+                                                    </a>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" onclick="toggleExpand(this)">
+                                
+                                            <div class="expandable-card border border-gray-200 rounded-xl p-4" (click)="toggleExpand($event)">
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-cogs text-green-600"></i>
@@ -178,6 +192,9 @@
                                                             <span>Employment Promotion</span>
                                                         </div>
                                                     </div>
+                                                    <a [routerLink]="'/our-functions'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
+                                                        View More →
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +219,7 @@
                                             <div class="p-4">
                                                 <h3 class="font-bold text-gray-800">Managing Director</h3>
                                                 <!-- <p class="text-sm text-gray-600">Executive Leadership</p> -->
-                                                <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">Read Message →</button>
+                                                <a [routerLink]="'/managing-director-message'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">Read Message →</a>
                                             </div>
                                         </div>
                                         
@@ -211,7 +228,7 @@
                                             <div class="p-4">
                                                 <h3 class="font-bold text-gray-800">Board of Directors</h3>
                                                 <!-- <p class="text-sm text-gray-600">Governance Body</p> -->
-                                                <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">View Board →</button>
+                                                <a [routerLink]="'/board-of-directors'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">View Board →</a>
                                             </div>
                                         </div>
                                     </div>
@@ -258,6 +275,9 @@
                                                     <span class="font-medium">Service</span>
                                                 </div>
                                             </div>
+                                            <div class="space-y-4">
+                                                <a [routerLink]="'/core-values'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Read all →</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -287,6 +307,9 @@
                                                         <i class="fas fa-dollar-sign text-3xl text-blue-200"></i>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="space-y-4">
+                                                <a [routerLink]="'/key-achievements'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Read all →</a>
                                             </div>
                                         </div>
                                         
@@ -320,6 +343,84 @@
                                                         <p class="text-sm text-gray-600">7-10 days</p>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="space-y-4">
+                                                <a [routerLink]="'/service-timelines'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Complete Timeline →</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Why Choose OEC Tab -->
+                                <div id="about-why-choose" class="tab-content">
+                                    <div class="grid grid-cols-2 gap-8">
+                                        <div class="space-y-4">
+                                            <h3 class="text-lg font-bold text-gray-800 mb-4">Why Choose OEC?</h3>
+                                            <div class="space-y-4">
+                                                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-xl font-bold">Government Owned</h4>
+                                                            <p class="text-green-100">Sole public sector manpower exporter</p>
+                                                        </div>
+                                                        <i class="fas fa-shield-alt text-3xl text-green-200"></i>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+                                                    <div class="flex items-center justify-between">
+                                                        <div>
+                                                            <h4 class="text-xl font-bold">Transparent Process</h4>
+                                                            <p class="text-blue-100">No hidden fees or middlemen</p>
+                                                        </div>
+                                                        <i class="fas fa-eye text-3xl text-blue-200"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="space-y-4">
+                                            <h3 class="text-lg font-bold text-gray-800 mb-4">Key Advantages</h3>
+                                            <div class="space-y-3">
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-check text-green-600 text-sm"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Merit-based Selection</p>
+                                                        <p class="text-sm text-gray-600">Fair and equal opportunities</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-globe text-blue-600 text-sm"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Global Partnerships</p>
+                                                        <p class="text-sm text-gray-600">Government-to-government agreements</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-headset text-purple-600 text-sm"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">24/7 Support</p>
+                                                        <p class="text-sm text-gray-600">Comprehensive assistance</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                                                        <i class="fas fa-certificate text-orange-600 text-sm"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-medium">Certified Training</p>
+                                                        <p class="text-sm text-gray-600">Skills development programs</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="space-y-4">
+                                                <a [routerLink]="'/why-choose-oec'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
                                             </div>
                                         </div>
                                     </div>
@@ -417,6 +518,10 @@
                                                    </div>
                                                </div>
                                            </div>
+
+                                           <div class="space-y-4 mx-4">
+                                            <a [routerLink]="'/eps'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">View More →</a>
+                                           </div>
                                        </div>
                                    </div>
                                </div>
@@ -432,6 +537,9 @@
                                                <h3 class="font-bold text-gray-800 text-sm">Worker Protection</h3>
                                                <p class="text-xs text-gray-600">Comprehensive welfare services</p>
                                            </div>
+                                           <div class="space-y-4 mx-4">
+                                            <a [routerLink]="'/protector-process-guide'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
+                                           </div>
                                        </div>
                                        
                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
@@ -442,6 +550,9 @@
                                                <h3 class="font-bold text-gray-800 text-sm">Pre-Departure Training</h3>
                                                <p class="text-xs text-gray-600">Skills and cultural orientation</p>
                                            </div>
+                                           <div class="space-y-4 mx-4">
+                                            <a [routerLink]="'/pre-departure-training'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
+                                           </div>
                                        </div>
                                        
                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
@@ -451,6 +562,9 @@
                                            <div class="p-4">
                                                <h3 class="font-bold text-gray-800 text-sm">Service Agreements</h3>
                                                <p class="text-xs text-gray-600">Foreign employment contracts</p>
+                                           </div>
+                                           <div class="space-y-4 mx-4">
+                                            <a [routerLink]="'/foreign-service-agreements'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
                                            </div>
                                        </div>
                                    </div>
@@ -482,6 +596,9 @@
                                                    <span class="font-medium">Agriculture</span>
                                                    <span class="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Growing</span>
                                                </div>
+                                               <div class="space-y-4 mx-4">
+                                                <a [routerLink]="'/industries'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
+                                               </div>
                                            </div>
                                        </div>
                                        
@@ -505,6 +622,9 @@
                                                    <div class="flex justify-between items-center">
                                                        <span class="font-semibold">Total</span>
                                                        <span class="font-bold text-lg text-green-800">PKR 22,000</span>
+                                                   </div>
+                                                   <div class="space-y-4 mx-4">
+                                                    <a [routerLink]="'/fees-structure'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
                                                    </div>
                                                </div>
                                            </div>
@@ -535,6 +655,9 @@
                                            <h3 class="font-bold text-gray-800 text-sm">Success Stories</h3>
                                            <p class="text-xs text-gray-600">Worker achievements</p>
                                        </div>
+                                       <div class="space-y-4 mx-4">
+                                        <a [routerLink]="'/success-stories'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
+                                       </div>
                                    </div>
                                    
                                    <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
@@ -544,6 +667,9 @@
                                        <div class="p-3">
                                            <h3 class="font-bold text-gray-800 text-sm">Projects</h3>
                                            <p class="text-xs text-gray-600">Development initiatives</p>
+                                       </div>
+                                       <div class="space-y-4 mx-4">
+                                        <a [routerLink]="'/projects'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
                                        </div>
                                    </div>
                                    
@@ -555,6 +681,9 @@
                                            <h3 class="font-bold text-gray-800 text-sm">Future Plans</h3>
                                            <p class="text-xs text-gray-600">Strategic roadmap</p>
                                        </div>
+                                       <div class="space-y-4 mx-4">
+                                        <a [routerLink]="'/future-plans'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
+                                       </div>
                                    </div>
                                    
                                    <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
@@ -564,6 +693,9 @@
                                        <div class="p-3">
                                            <h3 class="font-bold text-gray-800 text-sm">MoUs</h3>
                                            <p class="text-xs text-gray-600">Partnerships</p>
+                                       </div>
+                                       <div class="space-y-4 mx-4">
+                                        <a [routerLink]="'/mous'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">Learn More →</a>
                                        </div>
                                    </div>
                                </div>
@@ -610,6 +742,9 @@
                                                        <span>New Training Programs Launched</span>
                                                    </div>
                                                </div>
+                                               <div class="space-y-4 mx-4">
+                                                <a [routerLink]="'/latest-announcements'" class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">View More →</a>
+                                               </div>
                                            </div>
                                        </div>
                                        
@@ -633,6 +768,13 @@
                                                            <div class="text-gray-600">Dec 10, 2024</div>
                                                        </div>
                                                    </div>
+                                                   <div class="space-y-4 mx-4">
+                                                    <a 
+                                                    [routerLink]="'/press-release'" 
+                                                    class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">
+                                                    View More →
+                                                  </a>
+                                                   </div>
                                                </div>
                                            </div>
                                            
@@ -655,6 +797,13 @@
                                                            <span>Excellence award received</span>
                                                        </div>
                                                    </div>
+                                                   <div class="space-y-4 mx-4">
+                                                    <a 
+                                                    [routerLink]="'/news-highlights'" 
+                                                    class="mt-2 text-xs text-green-800 hover:text-green-900 font-medium inline-block">
+                                                    View More →
+                                                    </a>
+                                                    </div>
                                                </div>
                                            </div>
                                        </div>
@@ -669,7 +818,7 @@
                                            <div class="p-3">
                                                <h3 class="font-bold text-gray-800 text-sm">Pictures Gallery</h3>
                                                <p class="text-xs text-gray-600">Event photos and moments</p>
-                                               <button class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">View Gallery →</button>
+                                               <a [routerLink]="'/gallery'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">View Gallery →</a>
                                            </div>
                                        </div>
                                        
@@ -678,7 +827,7 @@
                                            <div class="p-3">
                                                <h3 class="font-bold text-gray-800 text-sm">Video Gallery</h3>
                                                <p class="text-xs text-gray-600">Documentary and interviews</p>
-                                               <button class="mt-2 text-xs text-red-600 hover:text-red-700 font-medium">Watch Videos →</button>
+                                               <a [routerLink]="'/gallery'" class="mt-2 text-xs text-red-600 hover:text-red-700 font-medium">Watch Videos →</a>
                                            </div>
                                        </div>
                                    </div>
@@ -688,39 +837,43 @@
                                <div id="media-resources" class="tab-content">
                                    <div class="grid grid-cols-2 gap-4">
                                        <div class="space-y-3">
-                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                           <a href="/careers" class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                                                <i class="fas fa-briefcase text-purple-600"></i>
-                                               <div>
+                                               <div class="flex-1">
                                                    <div class="font-medium text-sm">Careers</div>
                                                    <div class="text-xs text-gray-600">Job opportunities</div>
                                                </div>
-                                           </div>
+                                               <div class="text-xs text-green-600 font-medium">View More →</div>
+                                           </a>
                                            
-                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                           <a href="/document-downloads" class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                                                <i class="fas fa-download text-green-600"></i>
-                                               <div>
+                                               <div class="flex-1">
                                                    <div class="font-medium text-sm">Downloads</div>
                                                    <div class="text-xs text-gray-600">Forms & documents</div>
                                                </div>
-                                           </div>
+                                               <div class="text-xs text-green-600 font-medium">View More →</div>
+                                           </a>
                                        </div>
                                        
                                        <div class="space-y-3">
-                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                           <a href="/faqs" class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                                                <i class="fas fa-question-circle text-blue-600"></i>
-                                               <div>
+                                               <div class="flex-1">
                                                    <div class="font-medium text-sm">FAQs</div>
                                                    <div class="text-xs text-gray-600">Common questions</div>
                                                </div>
-                                           </div>
+                                               <div class="text-xs text-green-600 font-medium">View More →</div>
+                                           </a>
                                            
-                                           <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                           <a href="/useful-links" class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                                                <i class="fas fa-link text-orange-600"></i>
-                                               <div>
+                                               <div class="flex-1">
                                                    <div class="font-medium text-sm">Useful Links</div>
                                                    <div class="text-xs text-gray-600">External resources</div>
                                                </div>
-                                           </div>
+                                               <div class="text-xs text-green-600 font-medium">View More →</div>
+                                           </a>
                                        </div>
                                    </div>
                                </div>
@@ -729,7 +882,7 @@
                    </div>
 
                    <!-- Reports & Analytics -->
-                   <a href="/reports" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50 group">
+                   <a [routerLink]="'/report-statistics'" class="flex items-center space-x-2 px-4 py-3 text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg hover:bg-green-50 group">
                        <i class="fas fa-chart-bar text-lg"></i>
                        <span class="font-medium">Reports & Analytics</span>
                    </a>

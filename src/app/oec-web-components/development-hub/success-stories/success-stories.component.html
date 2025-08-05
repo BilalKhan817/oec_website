@@ -1,0 +1,109 @@
+<app-header></app-header>
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="success-stories-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a class="breadcrumb-link">Development Hub</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Success Stories</span>
+  </div>
+  <h1 class="success-stories-title">Real People. Real Impact. Real Change.</h1>
+  
+  <section class="success-stories-section">
+    <h2 class="success-stories-section-title">What This Section Offers</h2>
+    <p>
+      An inspiring gallery of Pakistani workers who successfully achieved their dreams of working abroad through OEC. Each story reflects transparent process, fair employment, social mobility, and comprehensive support before and after deployment.
+    </p>
+  </section>
+
+  <section class="success-stories-section">
+    <h2 class="success-stories-section-title">Success Stories</h2>
+    <div class="stories-table">
+      <div class="story-row header">
+        <div class="story-name">Name & Location</div>
+        <div class="story-profession">Profession</div>
+        <div class="story-testimonial">Testimonial</div>
+      </div>
+      <div class="story-row">
+        <div class="story-name">
+          <span class="story-icon">👩‍⚕️</span>
+          Ayesha Khan
+          <div class="story-location">Nurse, KSA 🇸🇦</div>
+        </div>
+        <div class="story-profession">Healthcare</div>
+        <div class="story-testimonial">"Thanks to OEC, I am now working in a Riyadh hospital with full legal protection and a great salary. Everything was clear and official."</div>
+      </div>
+      <div class="story-row">
+        <div class="story-name">
+          <span class="story-icon">👨‍🏭</span>
+          Muhammad Bilal
+          <div class="story-location">Factory Worker, Korea 🇰🇷</div>
+        </div>
+        <div class="story-profession">Manufacturing</div>
+        <div class="story-testimonial">"I passed the CBT through OEC's guidance and now earn over 400,000 PKR per month. Korea is clean, safe, and full of opportunities."</div>
+      </div>
+      <div class="story-row">
+        <div class="story-name">
+          <span class="story-icon">👩‍⚕️</span>
+          Lubna Faisal
+          <div class="story-location">Nurse, Italy 🇮🇹</div>
+        </div>
+        <div class="story-profession">Healthcare</div>
+        <div class="story-testimonial">"I am proud to serve in Italy's healthcare sector. OEC made my journey easy, from training to visa."</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="success-stories-section">
+    <h2 class="success-stories-section-title">Visual Gallery Options</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card" (click)="onVideoStoryClick()">
+        <div class="gallery-icon">📹</div>
+        <h3>Video Stories</h3>
+        <p>Watch real testimonials from our successful candidates</p>
+      </div>
+      <div class="gallery-card" (click)="onSocialMediaClick()">
+        <div class="gallery-icon">📱</div>
+        <h3>Social Media</h3>
+        <p>Follow our candidates' journeys on social platforms</p>
+      </div>
+      <div class="gallery-card" (click)="onBeforeAfterClick()">
+        <div class="gallery-icon">🔄</div>
+        <h3>Before & After</h3>
+        <p>See the transformation in our candidates' lives</p>
+      </div>
+      <div class="gallery-card" (click)="onShareableCardsClick()">
+        <div class="gallery-icon">📤</div>
+        <h3>Shareable Cards</h3>
+        <p>Download and share inspiring success stories</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="success-stories-section">
+    <h2 class="success-stories-section-title">Ready to Start Your Journey?</h2>
+    <div class="cta-box">
+      <p><strong>Join thousands of successful Pakistanis who have transformed their lives through OEC</strong></p>
+      <div class="cta-actions">
+        <button class="cta-button" (click)="onExploreOpportunities()">Explore Opportunities</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

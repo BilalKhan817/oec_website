@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   isMobileMenuOpen = false;
   activeTab = 'about-overview';
-  
+  constructor(private router: Router) {}
   ngOnInit(): void {
     this.initializeScrollEffects();
   }
@@ -22,19 +22,25 @@ export class HeaderComponent implements OnInit {
   }
   
   toggleExpand(event: Event): void {
-    const element = event.currentTarget as HTMLElement;
-    const content = element.querySelector('.expand-content');
-    const icon:any = element.querySelector('.expand-icon');
-    
-    if (content && icon) {
+
+    event.stopPropagation();
+  
+    const icon = event.currentTarget as HTMLElement;
+    const card = icon.closest('.expandable-card');
+    if (!card) return;
+  
+    const content = card.querySelector('.expand-content');
+    const expandIcon = card.querySelector('.expand-icon') as HTMLElement;
+  
+    if (content && expandIcon) {
       const isActive = content.classList.contains('active');
-      
+  
       if (isActive) {
         content.classList.remove('active');
-        icon.style.transform = 'rotate(0deg)';
+        expandIcon.style.transform = 'rotate(0deg)';
       } else {
         content.classList.add('active');
-        icon.style.transform = 'rotate(90deg)';
+        expandIcon.style.transform = 'rotate(90deg)';
       }
     }
   }

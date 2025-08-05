@@ -1,0 +1,236 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="careers-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Resources</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Careers</span>
+  </div>
+  <h1 class="careers-title">Join Our Mission to Serve Pakistan Globally</h1>
+  
+  <section class="careers-section">
+    <h2 class="careers-section-title">Purpose</h2>
+    <p>
+      This section lists career opportunities within the Overseas Employment Corporation 
+      (OEC), including permanent jobs, contract-based positions, internships, and consultant roles. It 
+      ensures transparency and encourages merit-based recruitment within the organization.
+    </p>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">What You'll Find Here</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">💼</span>
+        <span class="feature-text">Latest Job Vacancies at OEC</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎓</span>
+        <span class="feature-text">Internship Programs</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📋</span>
+        <span class="feature-text">Hiring Policies & Recruitment Procedures</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">👨‍💼</span>
+        <span class="feature-text">Consultant Opportunities</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📝</span>
+        <span class="feature-text">Application Forms & Deadlines</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">Latest Job Postings</h2>
+    <div class="jobs-table">
+      <div class="job-row header">
+        <div class="job-position">Position Title</div>
+        <div class="job-grade">Grade / Contract</div>
+        <div class="job-location">Posting Location</div>
+        <div class="job-deadline">Deadline</div>
+        <div class="job-action">Apply</div>
+      </div>
+      <div class="job-row" *ngFor="let job of jobPostings">
+        <div class="job-position">
+          <span class="job-icon">{{job.icon}}</span>
+          {{job.title}}
+        </div>
+        <div class="job-grade">
+          <span class="grade-badge" [class]="'grade-' + job.grade.toLowerCase()">
+            {{job.grade}}
+          </span>
+        </div>
+        <div class="job-location">{{job.location}}</div>
+        <div class="job-deadline">
+          <span class="deadline-icon">📅</span>
+          {{job.deadline}}
+        </div>
+        <div class="job-action">
+          <a [href]="job.applyLink" class="apply-button" target="_blank">
+            <span class="action-icon">{{job.actionIcon}}</span>
+            {{job.actionText}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">🎓 Internship Program</h2>
+    <div class="internship-content">
+      <p>OEC offers internships for graduates in the following areas:</p>
+      <div class="internship-areas">
+        <div class="area-item">
+          <span class="area-icon">👥</span>
+          <span class="area-text">Human Resources</span>
+        </div>
+        <div class="area-item">
+          <span class="area-icon">💻</span>
+          <span class="area-text">IT & Software</span>
+        </div>
+        <div class="area-item">
+          <span class="area-icon">🌍</span>
+          <span class="area-text">International Relations</span>
+        </div>
+        <div class="area-item">
+          <span class="area-icon">📢</span>
+          <span class="area-text">Marketing & Communications</span>
+        </div>
+        <div class="area-item">
+          <span class="area-icon">⚖️</span>
+          <span class="area-text">Legal & Compliance</span>
+        </div>
+      </div>
+      <div class="internship-details">
+        <div class="detail-item">
+          <span class="detail-icon">⏱️</span>
+          <span class="detail-label">Duration:</span>
+          <span class="detail-value">6–12 weeks</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">💰</span>
+          <span class="detail-label">Stipend:</span>
+          <span class="detail-value">As per government policy</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon">🏆</span>
+          <span class="detail-label">Certificate:</span>
+          <span class="detail-value">Issued upon successful completion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">Hiring & Recruitment Policy</h2>
+    <div class="policy-list">
+      <div class="policy-item">
+        <span class="policy-icon">📰</span>
+        <span class="policy-text">All OEC jobs are advertised in leading newspapers and the official website</span>
+      </div>
+      <div class="policy-item">
+        <span class="policy-icon">🏛️</span>
+        <span class="policy-text">BPS positions follow Federal Government rules</span>
+      </div>
+      <div class="policy-item">
+        <span class="policy-icon">📋</span>
+        <span class="policy-text">Consultant roles are hired via PPRA-compliant procedures</span>
+      </div>
+      <div class="policy-item">
+        <span class="policy-icon">📧</span>
+        <span class="policy-text">Shortlisted applicants are informed via email & SMS</span>
+      </div>
+      <div class="policy-item">
+        <span class="policy-icon">🤝</span>
+        <span class="policy-text">Equal Opportunity Employer – Women, Minorities, and Differently-abled encouraged to apply</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">Downloadable Forms</h2>
+    <div class="forms-grid">
+      <div class="form-card" *ngFor="let form of downloadableForms">
+        <div class="form-icon">{{form.icon}}</div>
+        <div class="form-content">
+          <h3 class="form-title">{{form.title}}</h3>
+          <p class="form-description">{{form.description}}</p>
+        </div>
+        <a [href]="form.downloadLink" class="download-button" target="_blank">
+          <span class="download-icon">📥</span>
+          Download
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">Contact Information</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <div class="contact-details">
+          <span class="contact-label">For job queries:</span>
+          <span class="contact-value">careers@oec.gov.pk</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">☎️</span>
+        <div class="contact-details">
+          <span class="contact-label">Contact:</span>
+          <span class="contact-value">051-9253252</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers-section">
+    <h2 class="careers-section-title">Career Statistics</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">💼</div>
+        <div class="stat-number">{{totalPositions}}</div>
+        <div class="stat-label">Open Positions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+        <div class="stat-number">{{internshipSlots}}</div>
+        <div class="stat-label">Internship Slots</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👨‍💼</div>
+        <div class="stat-number">{{consultantRoles}}</div>
+        <div class="stat-label">Consultant Roles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-number">{{applicationForms}}</div>
+        <div class="stat-label">Application Forms</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,149 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="document-downloads-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Resources</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Documents-Download</span>
+  </div>
+  <h1 class="document-downloads-title">Easy Access to Important Forms, Guidelines & Manuals</h1>
+  
+  <section class="document-downloads-section">
+    <h2 class="document-downloads-section-title">Purpose</h2>
+    <p>
+      This section provides public access to essential documents related to recruitment, registration, 
+      payment, training, medical requirements, and employer partnerships. All files are categorized 
+      and regularly updated to ensure clarity and support for both job seekers and employers.
+    </p>
+  </section>
+
+  <section class="document-downloads-section">
+    <h2 class="document-downloads-section-title">Categories of Downloads</h2>
+    <div class="categories-table">
+      <div class="category-row header">
+        <div class="category-name">Category</div>
+        <div class="category-icon-col">📁</div>
+        <div class="document-types">Document Types</div>
+      </div>
+      <div class="category-row" *ngFor="let category of documentCategories">
+        <div class="category-name">
+          <span class="category-icon">{{category.icon}}</span>
+          {{category.name}}
+        </div>
+        <div class="category-icon-col">
+          <span class="category-icon-small">{{category.icon}}</span>
+        </div>
+        <div class="document-types">{{category.documentTypes}}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="document-downloads-section">
+    <h2 class="document-downloads-section-title">Sample Document List</h2>
+    <div class="documents-grid">
+      <div class="document-card" *ngFor="let document of sampleDocuments">
+        <div class="document-header">
+          <div class="document-icon">{{document.icon}}</div>
+          <div class="document-info">
+            <h3 class="document-name">{{document.name}}</h3>
+            <div class="document-meta">
+              <span class="document-format">{{document.format}}</span>
+              <span class="document-size">{{document.size}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="document-description">{{document.description}}</div>
+        <div class="document-tags">
+          <span class="language-tag" *ngFor="let language of document.languages">{{language}}</span>
+        </div>
+        <div class="document-actions">
+          <a [href]="document.downloadLink" class="download-button" target="_blank">
+            <span class="download-icon">📥</span>
+            Download
+          </a>
+          <span class="download-count" *ngIf="document.downloadCount">
+            {{document.downloadCount}} downloads
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="document-downloads-section">
+    <h2 class="document-downloads-section-title">Features</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">📂</span>
+        <span class="feature-text">Category-wise browsing</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔍</span>
+        <span class="feature-text">Search bar (by keyword or document name)</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <span class="feature-text">Download count indicator (for admin insight)</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🌐</span>
+        <span class="feature-text">Language tags: 🇵🇰 Urdu | 🇬🇧 English | 🇰🇷 Korean (where applicable)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="document-downloads-section">
+    <h2 class="document-downloads-section-title">Disclaimer</h2>
+    <div class="disclaimer-content">
+      <p>
+        All documents are official publications of Overseas Employment Corporation (OEC). 
+        Unauthorized duplication, misuse, or modification is prohibited. For verification or clarification, 
+        email: <a href="mailto:info@oec.gov.pk" class="contact-link">info@oec.gov.pk</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="document-downloads-section">
+    <h2 class="document-downloads-section-title">Quick Search</h2>
+    <div class="search-section">
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Search documents by name or keyword..." 
+          class="search-input"
+          [(ngModel)]="searchTerm"
+          (input)="filterDocuments()"
+        >
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="filter-tags">
+        <span class="filter-tag" 
+              *ngFor="let tag of filterTags" 
+              [class.active]="tag.active"
+              (click)="toggleFilter(tag)">
+          {{tag.name}}
+        </span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

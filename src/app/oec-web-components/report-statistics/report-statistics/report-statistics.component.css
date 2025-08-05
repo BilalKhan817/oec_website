@@ -1,0 +1,413 @@
+.report-statistics-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    background: rgba(255,255,255,0.97);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 32px rgba(16,185,129,0.10), 0 1.5px 8px rgba(59,130,246,0.08);
+    padding: 2.5rem 2rem 2rem 2rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(16,185,129,0.08);
+    animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .report-statistics-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #059669;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(16,185,129,0.08);
+  }
+  
+  .report-section {
+    margin-bottom: 2.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e0f2fe;
+  }
+  
+  .report-section:last-child {
+    border-bottom: none;
+  }
+  
+  .report-section-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #059669;
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .purpose-list, .subsection-list, .features-list, .insights-list, .charts-list, .downloads-list, .display-list, .backend-list, .filters-list {
+    margin: 0 0 0 1.2rem;
+    padding: 0;
+    list-style: none;
+    color: #334155;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .purpose-list li, .subsection-list li, .features-list li, .insights-list li, .charts-list li, .downloads-list li, .display-list li, .backend-list li, .filters-list li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .section-desc {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .report-features, .sample-data, .insights, .charts, .downloads, .display-features, .backend-source, .filters {
+    margin-bottom: 1.2rem;
+  }
+  
+  .features-title, .sample-title, .insights-title, .charts-title, .downloads-title, .display-title, .backend-title, .filters-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+  }
+  
+  .sample-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    border-radius: 0.7rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.05);
+  }
+  
+  .sample-table th, .sample-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+    font-size: 1rem;
+  }
+  
+  .sample-table th {
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-weight: 600;
+  }
+  
+  .sample-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .country-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .country-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.08);
+    padding: 1.2rem 1.5rem;
+    min-width: 220px;
+    flex: 1 1 220px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .country-flag {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+  }
+  
+  .country-info {
+    flex: 1;
+  }
+  
+  .country-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #059669;
+    margin-bottom: 0.2rem;
+  }
+  
+  .country-desc, .country-stats, .country-sectors, .country-mou, .country-visa {
+    font-size: 0.98rem;
+    color: #334155;
+    margin-bottom: 0.1rem;
+  }
+  
+  .downloads-list a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .downloads-list a:hover {
+    color: #059669;
+    text-decoration: underline;
+  }
+  
+  .note {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    color: #92400e;
+    margin-top: 1.2rem;
+    font-size: 0.98rem;
+  }
+  
+  @media (max-width: 900px) {
+    .report-statistics-container {
+      padding: 1.2rem 0.5rem;
+    }
+    .country-cards {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .report-statistics-title {
+      font-size: 1.3rem;
+    }
+    .report-section-title {
+      font-size: 1.05rem;
+    }
+    .country-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+    }
+    .country-flag {
+      font-size: 1.5rem;
+    }
+    .sample-table th, .sample-table td {
+      padding: 0.5rem 0.5rem;
+      font-size: 0.95rem;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* New decorative elements styling */
+.decorative-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+  
+  .floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    animation: float 15s infinite ease-in-out;
+  }
+  
+  .circle-1 {
+    width: 120px;
+    height: 120px;
+    top: 15%;
+    left: 5%;
+    animation-delay: 0s;
+  }
+  
+  .circle-2 {
+    width: 80px;
+    height: 80px;
+    top: 70%;
+    left: 10%;
+    animation-delay: 2s;
+  }
+  
+  .circle-3 {
+    width: 150px;
+    height: 150px;
+    top: 30%;
+    right: 8%;
+    animation-delay: 4s;
+  }
+  
+  .circle-4 {
+    width: 60px;
+    height: 60px;
+    top: 80%;
+    right: 15%;
+    animation-delay: 6s;
+  }
+  
+  .floating-diamond {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(59, 130, 246, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    transform: rotate(45deg);
+    animation: float 12s infinite ease-in-out;
+  }
+  
+  .diamond-1 {
+    top: 20%;
+    right: 5%;
+    animation-delay: 1s;
+  }
+  
+  .diamond-2 {
+    bottom: 25%;
+    left: 8%;
+    animation-delay: 3s;
+  }
+  
+  .floating-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
+    animation: floatHorizontal 20s infinite linear;
+  }
+  
+  .line-1 {
+    width: 200px;
+    top: 40%;
+    left: -200px;
+    animation-delay: 0s;
+  }
+  
+  .line-2 {
+    width: 150px;
+    top: 65%;
+    right: -150px;
+    animation-delay: 5s;
+  }
+  
+  .pulsing-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.3);
+    animation: pulse 4s infinite ease-in-out;
+  }
+  
+  .dot-1 {
+    top: 25%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  
+  .dot-2 {
+    top: 60%;
+    right: 25%;
+    animation-delay: 1.5s;
+  }
+  
+  .dot-3 {
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 2.5s;
+  }
+  
+  /* Animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+  
+  @keyframes floatHorizontal {
+    0% {
+      transform: translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(calc(100vw + 200px));
+      opacity: 0;
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.3;
+    }
+  }
+
+  .protector-breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    background: rgba(16,185,129,0.08);
+    border-radius: 999px;
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.98rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.08);
+    width: fit-content;
+  }
+  
+  .breadcrumb-link {
+    color: #059669;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .breadcrumb-link:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  .breadcrumb-separator {
+    color: #94a3b8;
+    font-size: 1.1em;
+    margin: 0 0.2em;
+  }
+  
+  .breadcrumb-current {
+    color: #334155;
+    font-weight: 600;
+  }
+  
+  @media (max-width: 600px) {
+    .protector-breadcrumb {
+      font-size: 0.88rem;
+      padding: 0.4rem 0.7rem;
+    }
+  }
+  

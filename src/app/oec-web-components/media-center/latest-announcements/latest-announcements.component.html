@@ -1,0 +1,162 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="announcements-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">News</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Latest Announcements</span>
+  </div>
+  <h1 class="announcements-title">Important Notices for Applicants, Employers, and Partners</h1>
+  
+  <section class="announcements-section">
+    <h2 class="announcements-section-title">Purpose</h2>
+    <p>
+      This section displays all time-sensitive, public-facing notices issued by OEC. Whether it's a 
+      new job demand, EPS result, interview schedule, or fee deadline — this is the go-to hub for 
+      updates.
+    </p>
+  </section>
+
+  <section class="announcements-section">
+    <h2 class="announcements-section-title">Display Features</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">📅</span>
+        <span class="feature-text">Posting Date</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📄</span>
+        <span class="feature-text">Title of Announcement</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📝</span>
+        <span class="feature-text">Short Description</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔗</span>
+        <span class="feature-text">Download PDF or Read More</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="announcements-section">
+    <h2 class="announcements-section-title">Filters</h2>
+    <div class="filters-container">
+      <div class="filter-group">
+        <label for="countryFilter">Country:</label>
+        <select id="countryFilter" [(ngModel)]="selectedCountry" (change)="filterAnnouncements()">
+          <option value="">All Countries</option>
+          <option value="Korea">Korea</option>
+          <option value="KSA">KSA</option>
+          <option value="Italy">Italy</option>
+          <option value="Japan">Japan</option>
+          <option value="UAE">UAE</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="categoryFilter">Category:</label>
+        <select id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterAnnouncements()">
+          <option value="">All Categories</option>
+          <option value="EPS">EPS</option>
+          <option value="Interviews">Interviews</option>
+          <option value="Fee Notice">Fee Notice</option>
+          <option value="Orientation">Orientation</option>
+          <option value="Job Demand">Job Demand</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="dateFilter">Date Range:</label>
+        <select id="dateFilter" [(ngModel)]="selectedDateRange" (change)="filterAnnouncements()">
+          <option value="">All Dates</option>
+          <option value="today">Today</option>
+          <option value="week">This Week</option>
+          <option value="month">This Month</option>
+          <option value="quarter">This Quarter</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="announcements-section">
+    <h2 class="announcements-section-title">Sample Announcements</h2>
+    <div class="announcements-list">
+      <div class="announcement-card" *ngFor="let announcement of filteredAnnouncements">
+        <div class="announcement-header">
+          <div class="announcement-title">
+            <span class="announcement-icon">{{announcement.icon}}</span>
+            {{announcement.title}}
+          </div>
+          <div class="announcement-date">
+            <span class="date-icon">📅</span>
+            Posted: {{announcement.postedDate}}
+          </div>
+        </div>
+        <div class="announcement-description">
+          {{announcement.description}}
+        </div>
+        <div class="announcement-meta">
+          <span class="announcement-category" [class]="'category-' + announcement.category.toLowerCase()">
+            {{announcement.category}}
+          </span>
+          <span class="announcement-country">
+            <span class="country-flag">{{announcement.countryFlag}}</span>
+            {{announcement.country}}
+          </span>
+        </div>
+        <div class="announcement-actions">
+          <a [href]="announcement.link" class="action-button" target="_blank">
+            <span class="action-icon">{{announcement.actionIcon}}</span>
+            {{announcement.actionText}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="announcements-section">
+    <h2 class="announcements-section-title">Quick Stats</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📢</div>
+        <div class="stat-number">{{totalAnnouncements}}</div>
+        <div class="stat-label">Total Announcements</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-number">{{urgentAnnouncements}}</div>
+        <div class="stat-label">Urgent Notices</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-number">{{thisWeekAnnouncements}}</div>
+        <div class="stat-label">This Week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-number">{{activeCountries}}</div>
+        <div class="stat-label">Active Countries</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,131 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="press-release-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">News</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Press Release</span>
+  </div>
+  <h1 class="press-release-title">Official Statements from OEC to the Public & Media</h1>
+  
+  <section class="press-release-section">
+    <h2 class="press-release-section-title">Purpose</h2>
+    <p>
+      This section contains formal communications issued by the Overseas Employment 
+      Corporation (OEC) to inform the media, stakeholders, and public about significant decisions, 
+      new initiatives, international agreements, policy updates, or institutional responses to public 
+      concerns.
+    </p>
+    <div class="purpose-features">
+      <div class="feature-item">
+        <span class="feature-icon">✅</span>
+        <span class="feature-text">Authenticated and published with approval</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📋</span>
+        <span class="feature-text">Structured in formal format (headline, lead, body)</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📁</span>
+        <span class="feature-text">Archived and downloadable for public access</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="press-release-section">
+    <h2 class="press-release-section-title">Display Format</h2>
+    <div class="format-table">
+      <div class="format-row header">
+        <div class="format-field">Field</div>
+        <div class="format-content">Content Type</div>
+        <div class="format-description">Description</div>
+      </div>
+      <div class="format-row">
+        <div class="format-field">
+          <span class="field-icon">📅</span>
+          Date
+        </div>
+        <div class="format-content">Release date</div>
+        <div class="format-description">Official publication date of the press release</div>
+      </div>
+      <div class="format-row">
+        <div class="format-field">
+          <span class="field-icon">📰</span>
+          Headline
+        </div>
+        <div class="format-content">Title of press release</div>
+        <div class="format-description">Main headline capturing the key message</div>
+      </div>
+      <div class="format-row">
+        <div class="format-field">
+          <span class="field-icon">📝</span>
+          Summary
+        </div>
+        <div class="format-content">2–3 line teaser (optional)</div>
+        <div class="format-description">Brief overview of the press release content</div>
+      </div>
+      <div class="format-row">
+        <div class="format-field">
+          <span class="field-icon">🔗</span>
+          Download
+        </div>
+        <div class="format-content">[PDF] / [Read Full Statement]</div>
+        <div class="format-description">Action buttons for accessing full content</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="press-release-section">
+    <h2 class="press-release-section-title">Sample Press Releases</h2>
+    <div class="press-releases-list">
+      <div class="press-release-card" *ngFor="let release of pressReleases">
+        <div class="press-release-header">
+          <div class="press-release-date">
+            <span class="date-icon">📅</span>
+            {{release.date}}
+          </div>
+          <div class="press-release-category" [class]="'category-' + release.category.toLowerCase()">
+            {{release.category}}
+          </div>
+        </div>
+        <div class="press-release-title-section">
+          <h3 class="press-release-headline">{{release.headline}}</h3>
+          <div class="press-release-summary">
+            {{release.summary}}
+          </div>
+        </div>
+        <div class="press-release-actions">
+          <a [href]="release.pdfLink" class="action-button pdf-button" target="_blank">
+            <span class="action-icon">📄</span>
+            Download PDF
+          </a>
+          <a [href]="release.readLink" class="action-button read-button" target="_blank">
+            <span class="action-icon">📖</span>
+            {{release.actionText}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

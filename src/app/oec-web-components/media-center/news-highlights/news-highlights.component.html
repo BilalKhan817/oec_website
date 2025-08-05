@@ -1,0 +1,170 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="news-highlights-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">News</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">News Highlights</span>
+  </div>
+  <h1 class="news-highlights-title">Featured Media Stories, Official Coverage & Institutional Updates</h1>
+  
+  <section class="news-highlights-section">
+    <h2 class="news-highlights-section-title">Purpose</h2>
+    <p>
+      This section showcases OEC's presence in national and international media, including 
+      published news articles, televised reports, achievements, and senior leadership interviews. 
+      It serves to increase public transparency, enhance institutional credibility, and keep 
+      stakeholders informed of OEC's milestones.
+    </p>
+  </section>
+
+  <section class="news-highlights-section">
+    <h2 class="news-highlights-section-title">Display Format</h2>
+    <div class="format-features">
+      <div class="format-item">
+        <span class="format-icon">🗓️</span>
+        <div class="format-content">
+          <span class="format-label">Date of Publication</span>
+          <span class="format-description">When the news was published or aired</span>
+        </div>
+      </div>
+      <div class="format-item">
+        <span class="format-icon">📰</span>
+        <div class="format-content">
+          <span class="format-label">Headline</span>
+          <span class="format-description">Main news title and story focus</span>
+        </div>
+      </div>
+      <div class="format-item">
+        <span class="format-icon">🖼️</span>
+        <div class="format-content">
+          <span class="format-label">Thumbnail Image or Media Logo</span>
+          <span class="format-description">Visual representation of the news source</span>
+        </div>
+      </div>
+      <div class="format-item">
+        <span class="format-icon">📄</span>
+        <div class="format-content">
+          <span class="format-label">Short Summary (50–80 words)</span>
+          <span class="format-description">Brief overview of the news content</span>
+        </div>
+      </div>
+      <div class="format-item">
+        <span class="format-icon">🔗</span>
+        <div class="format-content">
+          <span class="format-label">Read Full Story</span>
+          <span class="format-description">Link to external or internal page</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news-highlights-section">
+    <h2 class="news-highlights-section-title">Filters</h2>
+    <div class="filters-container">
+      <div class="filter-group">
+        <label for="yearFilter">Year:</label>
+        <select id="yearFilter" [(ngModel)]="selectedYear" (change)="filterNews()">
+          <option value="">All Years</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="projectFilter">Project:</label>
+        <select id="projectFilter" [(ngModel)]="selectedProject" (change)="filterNews()">
+          <option value="">All Projects</option>
+          <option value="EPS Korea">EPS Korea</option>
+          <option value="Italy Nurses">Italy Nurses</option>
+          <option value="AI Portal">AI Portal</option>
+          <option value="Germany GIZ">Germany GIZ</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="mediaFilter">Media Type:</label>
+        <select id="mediaFilter" [(ngModel)]="selectedMedia" (change)="filterNews()">
+          <option value="">All Media</option>
+          <option value="Print">Print</option>
+          <option value="TV">TV</option>
+          <option value="Digital">Digital</option>
+          <option value="International">International</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="news-highlights-section">
+    <h2 class="news-highlights-section-title">Sample News Items</h2>
+    <div class="news-grid">
+      <div class="news-card" *ngFor="let news of filteredNews">
+        <div class="news-header">
+          <div class="news-date">
+            <span class="date-icon">🗓️</span>
+            {{news.date}}
+          </div>
+          <div class="news-media-logo">
+            <span class="media-logo">{{news.mediaLogo}}</span>
+          </div>
+        </div>
+        <div class="news-thumbnail">
+          <div class="thumbnail-placeholder">
+            <span class="thumbnail-icon">{{news.thumbnailIcon}}</span>
+          </div>
+        </div>
+        <div class="news-content">
+          <h3 class="news-headline">{{news.headline}}</h3>
+          <p class="news-summary">{{news.summary}}</p>
+          <div class="news-meta">
+            <span class="news-project" [class]="'project-' + news.project.toLowerCase().replace(' ', '-')">
+              {{news.project}}
+            </span>
+            <span class="news-media-type" [class]="'media-' + news.mediaType.toLowerCase()">
+              {{news.mediaType}}
+            </span>
+          </div>
+        </div>
+        <div class="news-actions">
+          <a [href]="news.readLink" class="action-button read-button" target="_blank">
+            <span class="action-icon">📖</span>
+            Read Full Story
+          </a>
+          <a *ngIf="news.videoLink" [href]="news.videoLink" class="action-button video-button" target="_blank">
+            <span class="action-icon">🎥</span>
+            Watch Video
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="news-highlights-section">
+    <h2 class="news-highlights-section-title">Featured Media Partners</h2>
+    <div class="media-partners">
+      <div class="partner-logo" *ngFor="let partner of mediaPartners">
+        <span class="partner-icon">{{partner.logo}}</span>
+        <span class="partner-name">{{partner.name}}</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,135 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="useful-links-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Resources</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">Useful Links</span>
+  </div>
+  <h1 class="useful-links-title">Access Key Partner Websites, Government Portals & Resources</h1>
+  
+  <section class="useful-links-section">
+    <h2 class="useful-links-section-title">Purpose</h2>
+    <p>
+      This section helps users easily access external resources that are directly linked to OEC's 
+      operations, such as skill verification bodies, embassies, ministries, training organizations, and 
+      regulatory authorities.
+    </p>
+    <p>
+      It ensures that applicants, employers, and public visitors have one-click access to official sources 
+      of information and verification.
+    </p>
+  </section>
+
+  <section class="useful-links-section">
+    <h2 class="useful-links-section-title">Categorized Link List</h2>
+    
+    <div class="link-categories">
+      <div class="link-category" *ngFor="let category of linkCategories">
+        <h3 class="category-header">
+          <span class="category-icon">{{category.icon}}</span>
+          {{category.name}}
+        </h3>
+        
+        <div class="links-grid">
+          <div class="link-card" *ngFor="let link of category.links">
+            <div class="link-header">
+              <div class="link-icon">{{link.icon}}</div>
+              <div class="link-info">
+                <h4 class="link-name">{{link.name}}</h4>
+                <p class="link-description">{{link.description}}</p>
+              </div>
+            </div>
+            <div class="link-actions">
+              <a [href]="link.url" class="visit-button" target="_blank" rel="noopener noreferrer">
+                <span class="visit-icon">🌐</span>
+                Visit Website
+              </a>
+              <span class="link-type" [class]="'type-' + link.type.toLowerCase()">
+                {{link.type}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="useful-links-section">
+    <h2 class="useful-links-section-title">Quick Access</h2>
+    <div class="quick-access-grid">
+      <div class="quick-access-item" *ngFor="let quickLink of quickAccessLinks">
+        <div class="quick-icon">{{quickLink.icon}}</div>
+        <div class="quick-content">
+          <h3 class="quick-title">{{quickLink.title}}</h3>
+          <p class="quick-description">{{quickLink.description}}</p>
+        </div>
+        <a [href]="quickLink.url" class="quick-button" target="_blank" rel="noopener noreferrer">
+          <span class="quick-button-icon">🔗</span>
+          Access
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="useful-links-section">
+    <h2 class="useful-links-section-title">Important Notice</h2>
+    <div class="notice-content">
+      <div class="notice-icon">⚠️</div>
+      <div class="notice-text">
+        <p>
+          <strong>External Link Disclaimer:</strong> These links are provided for your convenience and direct you to external websites. 
+          OEC is not responsible for the content, accuracy, or availability of external sites. 
+          Always verify information from official sources.
+        </p>
+        <p>
+          <strong>Security Note:</strong> When accessing external websites, ensure you're on the official government domain 
+          (ending in .gov.pk, .gov.sa, etc.) to avoid phishing attempts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="useful-links-section">
+    <h2 class="useful-links-section-title">Contact Support</h2>
+    <div class="support-options">
+      <div class="support-item">
+        <div class="support-icon">📧</div>
+        <div class="support-content">
+          <h3 class="support-title">Email Support</h3>
+          <p class="support-description">For questions about external links or resources</p>
+          <span class="support-value">info@oec.gov.pk</span>
+        </div>
+      </div>
+      <div class="support-item">
+        <div class="support-icon">📞</div>
+        <div class="support-content">
+          <h3 class="support-title">Phone Support</h3>
+          <p class="support-description">Call us for immediate assistance</p>
+          <span class="support-value">051-9253252</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,109 @@
+<app-header></app-header>
+
+<!-- Decorative animated elements -->
+<div class="decorative-elements">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+  <div class="floating-circle circle-4"></div>
+  <div class="floating-diamond diamond-1"></div>
+  <div class="floating-diamond diamond-2"></div>
+  <div class="floating-line line-1"></div>
+  <div class="floating-line line-2"></div>
+  <div class="pulsing-dot dot-1"></div>
+  <div class="pulsing-dot dot-2"></div>
+  <div class="pulsing-dot dot-3"></div>
+</div>
+
+<div class="faqs-container animate-fade-in-up">
+  <div class="protector-breadcrumb">
+    <a  class="breadcrumb-link">Home</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Media Center</a>
+    <span class="breadcrumb-separator">/</span>
+    <a  class="breadcrumb-link">Resources</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">FAQs</span>
+  </div>
+  <h1 class="faqs-title">Quick Answers to Common Queries</h1>
+  
+  <section class="faqs-section">
+    <h2 class="faqs-section-title">Purpose</h2>
+    <p>
+      This section provides clear, concise answers to the most frequently asked questions by job 
+      seekers, employers, and stakeholders about the services, processes, and responsibilities of OEC. 
+      It helps reduce confusion, support self-service, and minimize unnecessary calls or visits.
+    </p>
+  </section>
+
+  <section class="faqs-section">
+    <h2 class="faqs-section-title">Suggested FAQ Categories</h2>
+    <div class="categories-grid">
+      <div class="category-item" *ngFor="let category of faqCategories">
+        <div class="category-icon">{{category.icon}}</div>
+        <div class="category-content">
+          <h3 class="category-title">{{category.title}}</h3>
+          <p class="category-description">{{category.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faqs-section">
+    <h2 class="faqs-section-title">Sample FAQs</h2>
+    
+    <div class="faq-categories">
+      <div class="faq-category" *ngFor="let category of faqData">
+        <h3 class="category-header">
+          <span class="category-icon">{{category.icon}}</span>
+          {{category.name}}
+        </h3>
+        
+        <div class="faq-list">
+          <div class="faq-item" *ngFor="let faq of category.faqs">
+            <div class="faq-question" (click)="toggleFaq(faq)">
+              <span class="question-icon">❓</span>
+              <span class="question-text">{{faq.question}}</span>
+              <span class="toggle-icon" [class.expanded]="faq.isExpanded">▼</span>
+            </div>
+            <div class="faq-answer" [class.expanded]="faq.isExpanded">
+              <span class="answer-icon">💡</span>
+              <span class="answer-text">{{faq.answer}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="faqs-section">
+    <h2 class="faqs-section-title">Need More Help?</h2>
+    <div class="help-options">
+      <div class="help-item">
+        <div class="help-icon">📞</div>
+        <div class="help-content">
+          <h3 class="help-title">Call Us</h3>
+          <p class="help-description">Speak directly with our support team</p>
+          <span class="help-value">051-9253252</span>
+        </div>
+      </div>
+      <div class="help-item">
+        <div class="help-icon">📧</div>
+        <div class="help-content">
+          <h3 class="help-title">Email Support</h3>
+          <p class="help-description">Send us your detailed questions</p>
+          <span class="help-value">info@oec.gov.pk</span>
+        </div>
+      </div>
+      <div class="help-item">
+        <div class="help-icon">💬</div>
+        <div class="help-content">
+          <h3 class="help-title">Live Chat</h3>
+          <p class="help-description">Get instant answers online</p>
+          <span class="help-value">Available 9 AM - 5 PM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

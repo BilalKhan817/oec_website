@@ -72,8 +72,8 @@
         }
         
         .expand-content {
-            max-height: 0;
-            overflow: hidden;
+            /* max-height: 0; */
+            /* overflow: hidden; */
             transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
@@ -741,9 +741,8 @@
 }
 
 /* Expandable Card Enhancements */
-.expandable-card {
-    position: relative;
-    overflow: hidden;
+.expandable-card a {
+    color: #059669;
 }
 
 .expandable-card::before {
@@ -756,11 +755,11 @@
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05));
     transition: width 0.3s ease;
 }
-
+/* 
 .expandable-card.active::before,
 .expandable-card:hover::before {
     width: 100%;
-}
+} */
 
 .expand-content {
     max-height: 0;

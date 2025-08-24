@@ -41,6 +41,7 @@ import { DocumentDownloadsComponent } from './oec-web-components/media-center/do
 import { UsefulLinksComponent } from './oec-web-components/media-center/useful-links/useful-links.component';
 import { GalleryComponent, SafePipe } from './oec-web-components/media-center/gallery/gallery.component';
 import { ReportStatisticsComponent } from './oec-web-components/report-statistics/report-statistics/report-statistics.component';
+import { ContactUsComponent } from './oec-web-components/contact-us/contact-us.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'document-downloads', component: DocumentDownloadsComponent },
   { path: 'useful-links', component: UsefulLinksComponent },
   { path: 'report-statistics', component: ReportStatisticsComponent },
+  { path: 'contact-us', component: ContactUsComponent },
   { path: '**', redirectTo: '' }
 ];
 
@@ -118,7 +120,8 @@ const routes: Routes = [
     UsefulLinksComponent,
     GalleryComponent,
     SafePipe,
-    ReportStatisticsComponent
+    ReportStatisticsComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,

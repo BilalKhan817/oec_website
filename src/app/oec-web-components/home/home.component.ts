@@ -1,5 +1,7 @@
 // components/home/home.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ApiService, Banner, Announcement } from './../..//api.service';
+import { DomSanitizer, SafeHtml,SafeResourceUrl  } from '@angular/platform-browser';
 
 interface Slide {
   id: number;
@@ -47,6 +49,16 @@ interface Service {
 export class HomeComponent implements OnInit, OnDestroy {
   currentSlide = 0;
   isModalVisible = false;
+  announcements: Announcement[] = [];
+  activeBanners: any[] = [];
+processedBanners: any[] = [];
+  aboutOecData : any;
+  executives : any;
+  servicesData: any;
+processedVideoUrl: any = null;
+  
+  constructor(private apiService: ApiService,
+  private sanitizer: DomSanitizer) {}
   
   slides: Slide[] = [
     {
@@ -95,48 +107,48 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   ];
 
-  executives: Executive[] = [
-    {
-      id: 1,
-      name: 'Mr. Mian Shahbaz Sharif',
-      position: 'Prime Minister of Pakistan',
-      image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1710441012205.jpeg',
-      profileUrl: 'https://establishment.gov.pk/ProfileDetail/ZDliMDY3MTktZDM1OS00M2Y0LTlmMWItNWU0MWUzYTg4MWIz',
-      badge: 'PRIME MINISTER'
-    },
-    {
-      id: 2,
-      name: 'Mr. Chaudhry Salik Hussain',
-      position: 'Federal Minister',
-      image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1710441192949.jpeg',
-      profileUrl: 'https://ophrd.gov.pk/ProfileDetail/ZTRiMTFkZDUtMjQwZi00NzMzLWE3NWItOGVhM2MwOGRlYzBj',
-      badge: 'FEDERAL MINISTER'
-    },
-    {
-      id: 3,
-      name: 'Mr. Ch Ehsan-ul-Haq Bajwa',
-      position: 'Parliamentary Secretary',
-      image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1710441551850.jpeg',
-      profileUrl: 'https://ophrd.gov.pk/ProfileDetail/MWVjZTY5NDEtMjZmNy00MzM0LTlhYTktYzE1ZmFhYjgwMjMx',
-      badge: 'PARLIAMENTARY SECRETARY'
-    },
-    {
-      id: 4,
-      name: 'Nadeem Aslam Chaudhary',
-      position: 'Federal Secretary',
-      image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1748245849238.jpeg',
-      profileUrl: 'https://ophrd.gov.pk/ProfileDetail/NTBiMmQ4YjAtMzFiNC00MTYxLWIwNDYtOTU0YzdiM2QxM2Nj',
-      badge: 'FEDERAL SECRETARY'
-    },
-    {
-      id: 5,
-      name: 'Mr. Naseer Khan Kashani',
-      position: 'Managing Director',
-      image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1748246014178.jpeg',
-      profileUrl: 'https://oec.gov.pk/details',
-      badge: 'MANAGING DIRECTOR'
-    }
-  ];
+  // executives: Executive[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Mr. Mian Shahbaz Sharif',
+  //     position: 'Prime Minister of Pakistan',
+  //     image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1710441012205.jpeg',
+  //     profileUrl: 'https://establishment.gov.pk/ProfileDetail/ZDliMDY3MTktZDM1OS00M2Y0LTlmMWItNWU0MWUzYTg4MWIz',
+  //     badge: 'PRIME MINISTER'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Mr. Chaudhry Salik Hussain',
+  //     position: 'Federal Minister',
+  //     image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1710441192949.jpeg',
+  //     profileUrl: 'https://ophrd.gov.pk/ProfileDetail/ZTRiMTFkZDUtMjQwZi00NzMzLWE3NWItOGVhM2MwOGRlYzBj',
+  //     badge: 'FEDERAL MINISTER'
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Mr. Ch Ehsan-ul-Haq Bajwa',
+  //     position: 'Parliamentary Secretary',
+  //     image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1710441551850.jpeg',
+  //     profileUrl: 'https://ophrd.gov.pk/ProfileDetail/MWVjZTY5NDEtMjZmNy00MzM0LTlhYTktYzE1ZmFhYjgwMjMx',
+  //     badge: 'PARLIAMENTARY SECRETARY'
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Nadeem Aslam Chaudhary',
+  //     position: 'Federal Secretary',
+  //     image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1748245849238.jpeg',
+  //     profileUrl: 'https://ophrd.gov.pk/ProfileDetail/NTBiMmQ4YjAtMzFiNC00MTYxLWIwNDYtOTU0YzdiM2QxM2Nj',
+  //     badge: 'FEDERAL SECRETARY'
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Mr. Naseer Khan Kashani',
+  //     position: 'Managing Director',
+  //     image: 'https://jobs.oec.gov.pk/uploads/executive/Executive-1748246014178.jpeg',
+  //     profileUrl: 'https://oec.gov.pk/details',
+  //     badge: 'MANAGING DIRECTOR'
+  //   }
+  // ];
 
   services: Service[] = [
     {
@@ -260,8 +272,183 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.initializeAnimations();
     this.checkModalDisplay();
     this.initializeCounterAnimations();
+    this.getAnnouncements()
+    this.getActiveBanners()
+    this.getAboutOec()
+    this.getExecutives()
+  this.getServices();
   }
+  getServices() {
+  this.apiService.getServices().subscribe({
+    next: (response) => {
+      this.servicesData = response.data;
+    },
+    error: (error) => {
+      console.error('Error loading services:', error);
+    }
+  });
+}
 
+onServiceClick(service: any): void {
+  console.log('Service clicked:', service);
+  // Add navigation or modal logic here
+}
+
+onGetStartedClick(): void {
+  // Add navigation to registration/signup page
+  window.open('/register', '_blank');
+}
+
+onLearnMoreClick(): void {
+  // Add navigation to services detail page
+  window.open('/services', '_blank');
+}
+ getAnnouncements(){
+ this.apiService.getAnnouncements().subscribe({
+   next: (announcements) => {
+     this.announcements = announcements;
+   },
+   error: (error) => {
+     console.error('Error loading announcements:', error);
+   }
+ });
+}
+getAboutOec() {
+  this.apiService.getAboutOec().subscribe({
+    next: (response) => {
+      this.aboutOecData = response.data;
+      // Process URL once when data loads
+      const url = this.aboutOecData?.youtube_video_link || 'https://www.youtube.com/embed/2FomaOFxmoQ';
+      this.processedVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    },
+    error: (error) => {
+      console.error('Error loading About OEC:', error);
+    }
+  });
+}
+getExecutives(){
+  this.apiService.getExecutives().subscribe({
+   next: (executives) => {
+     this.executives = executives.data;
+   },
+   error: (error) => {
+     console.error('Error loading announcements:', error);
+   }
+ });
+}
+openProfile(profileUrl: string): void {
+  if (profileUrl) {
+    window.open(profileUrl, '_blank');
+  }
+} 
+getExecutiveImageUrl(executive: any): string {
+  if (executive.image_url) {
+    return this.apiService.getImageUrl(executive.image_url);
+  }
+  return 'https://via.placeholder.com/300x200?text=No+Image';
+}
+getSafeUrl() {
+  console.log("HERE::::");
+  
+  const url = this.aboutOecData?.youtube_video_link || 'https://www.youtube.com/embed/2FomaOFxmoQ';
+  return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+}
+onAboutButtonClick(): void {
+  const link = this.aboutOecData?.button_link || '/about';
+  if (link.startsWith('http')) {
+    window.open(link, '_blank');
+  } else {
+    window.location.href = link;
+  }
+}
+onBannerButtonClick(banner: Banner, type: 'green' | 'gray'): void {
+ const link = type === 'green' ? banner.green_button_link : banner.gray_button_link;
+ 
+ if (link.startsWith('http')) {
+   window.open(link, '_blank');
+ } else {
+   window.location.href = link;
+ }
+}
+getBannerSubtitleAsArray(banner: Banner): string[] {
+ if (banner.banner_subtitle_type === 'points' && Array.isArray(banner.banner_subtitle)) {
+   return banner.banner_subtitle;
+ }
+ return [];
+}
+getBannerImageUrl(banner: Banner): string {
+  const imageUrl = this.apiService.getImageUrl(banner.background_image);
+  console.log('Image URL:', imageUrl);
+  return imageUrl;
+}
+ getActiveBanners(){
+  this.apiService.getActiveBanners().subscribe({
+    next: (banners) => {
+      this.activeBanners = banners;
+      // Process URLs once when data loads
+      this.processedBanners = banners.map(banner => ({
+        ...banner,
+        processedImageUrl: this.apiService.getImageUrl(banner.background_image)
+      }));
+      console.log('Banners processed:', this.processedBanners);
+    },
+    error: (error) => {
+      console.error('Error loading banners:', error);
+      this.activeBanners = [];
+      this.processedBanners = [];
+    }
+  });
+}
+getBannerTitleHtml(banner: Banner): SafeHtml {
+  if (banner.banner_title_highlight?.text) {
+    const highlightedTitle = banner.banner_title.replace(
+      banner.banner_title_highlight.text,
+      `<span style="color: ${banner.banner_title_highlight.color}">${banner.banner_title_highlight.text}</span>`
+    );
+    return this.sanitizer.bypassSecurityTrustHtml(highlightedTitle);
+  }
+  return this.sanitizer.bypassSecurityTrustHtml(banner.banner_title);
+}
+onAnnouncementClick(announcement: Announcement, type: 'orange' | 'blue'): void {
+ const link = type === 'orange' ? announcement.orange_button_link : announcement.blue_button_link;
+ 
+ if (link.startsWith('http')) {
+   window.open(link, '_blank');
+ } else {
+   window.location.href = link;
+ }
+}
+getAnnouncementBackgroundClass(category: string): string {
+  const colorMap: { [key: string]: string } = {
+    'Hot': 'bg-gradient-to-r from-red-50 to-red-100 border-red-200',
+    'Registration': 'bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200', // Changed to blue
+    'New': 'bg-gradient-to-r from-green-50 to-green-100 border-green-200',
+    'Notice': 'bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200',
+    'Jobs': 'bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200',
+    'Courses': 'bg-gradient-to-r from-teal-50 to-teal-100 border-teal-200',
+    'Award': 'bg-gradient-to-r from-green-50 to-green-100 border-green-200',
+    'Training': 'bg-gradient-to-r from-indigo-50 to-indigo-100 border-indigo-200',
+    'Scholarship': 'bg-gradient-to-r from-yellow-50 to-yellow-100 border-yellow-200'
+  };
+  
+  return colorMap[category] || 'bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200';
+}
+
+getAnnouncementBadgeClass(category: string): string {
+  const colorMap: { [key: string]: string } = {
+    'Hot': 'bg-red-100 text-red-600',
+    'Registration': 'bg-blue-100 text-blue-600', // Changed to blue
+    'New': 'bg-green-100 text-green-600',
+    'Notice': 'bg-purple-100 text-purple-600',
+    'Jobs': 'bg-orange-100 text-orange-600',
+    'Courses': 'bg-teal-100 text-teal-600',
+    'Award': 'bg-green-100 text-green-600',
+    'Training': 'bg-indigo-100 text-indigo-600',
+    'Scholarship': 'bg-yellow-100 text-yellow-600'
+  };
+  
+  return colorMap[category] || 'bg-gray-100 text-gray-600';
+}
   ngOnDestroy(): void {
     if (this.slideInterval) {
       clearInterval(this.slideInterval);

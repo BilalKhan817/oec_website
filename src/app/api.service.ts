@@ -323,6 +323,15 @@ getServices(): Observable<any> {
   return `${baseUrl}${imagePath}`;
 }
 
+  // ===== About Us: Board of Directors =====
+
+  getBoardOfDirectors(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/board-of-directors`)
+      .pipe(
+        catchError(this.handleError<any>('getBoardOfDirectors', {}))
+      );
+  }
+
   /**
    * Check API health
    */

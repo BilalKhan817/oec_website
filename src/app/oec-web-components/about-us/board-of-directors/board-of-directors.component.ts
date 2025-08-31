@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
   selector: 'app-board-of-directors',
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardOfDirectorsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private apiService: ApiService) { }
+  boardofDirectors: any = [];
   ngOnInit(): void {
+    this.getBoardofDirectors()
     // Component initialization logic can be added here
+  }
+
+  getBoardofDirectors() {
+    this.apiService.getBoardOfDirectors().subscribe((data: any) => {
+      this.boardofDirectors = data;
+    });
   }
 
   /**

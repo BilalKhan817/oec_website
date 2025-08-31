@@ -32,64 +32,21 @@
   <section class="highlights-card animate-fade-in-up">
     <div class="highlights-title">Executive Highlights</div>
     <ul class="highlights-list">
-      <li><strong>Prime Minister of Pakistan, Mr. Mian Shahbaz Sharif</strong> – providing national vision and leadership.</li>
-      <li><strong>Federal Minister, Mr. Chaudhry Salik Hussain</strong> – steering policy and strategic direction.</li>
-      <li><strong>Parliamentary Secretary, Mr. Ch. Ehsan-ul-Haq Bajwa</strong> – supporting legislative oversight and workforce initiatives.</li>
-      <li><strong>Federal Secretary, Mr. Nadeem Aslam Chaudhary</strong> – ensuring operational efficiency and policy implementation.</li>
-      <li><strong>Managing Director, Mr. Naseer Khan Kashani</strong> – leading OEC’s execution, innovation, and organizational management.</li>
+      <li *ngFor="let executive of executives">
+        <strong>{{ executive.position }}, {{ executive.name }}</strong>
+      </li>
     </ul>
   </section>
 
   <!-- Grid copied from Home hero executives, adapted to local styles -->
   <section class="executives-grid">
-    <!-- Executive 1: Prime Minister -->
-    <div class="executive-card">
+    <div class="executive-card" *ngFor="let executive of executives">
       <div class="executive-image">
-        <img src="https://jobs.oec.gov.pk/uploads/executive/Executive-1710441012205.jpeg" alt="Mr. Mian Shahbaz Sharif">
+        <img [src]="getExecutiveImageUrl(executive)"  [alt]="executive.name">
       </div>
-      <div class="badge-gradient">PRIME MINISTER</div>
-      <h3 class="executive-name">Mr. Mian Shahbaz Sharif</h3>
-      <p class="executive-role">Prime Minister of Pakistan</p>
-    </div>
-
-    <!-- Executive 2: Federal Minister -->
-    <div class="executive-card">
-      <div class="executive-image">
-        <img src="https://jobs.oec.gov.pk/uploads/executive/Executive-1710441192949.jpeg" alt="Mr. Chaudhry Salik Hussain">
-      </div>
-      <div class="badge-gradient">FEDERAL MINISTER</div>
-      <h3 class="executive-name">Mr. Chaudhry Salik Hussain</h3>
-      <p class="executive-role">Federal Minister</p>
-    </div>
-
-    <!-- Executive 3: Parliamentary Secretary -->
-    <div class="executive-card">
-      <div class="executive-image">
-        <img src="https://jobs.oec.gov.pk/uploads/executive/Executive-1710441551850.jpeg" alt="Mr. Ch Ehsan-ul-Haq Bajwa">
-      </div>
-      <div class="badge-gradient">PARLIAMENTARY SECRETARY</div>
-      <h3 class="executive-name">Mr. Ch Ehsan-ul-Haq Bajwa</h3>
-      <p class="executive-role">Parliamentary Secretary</p>
-    </div>
-
-    <!-- Executive 4: Federal Secretary -->
-    <div class="executive-card">
-      <div class="executive-image">
-        <img src="https://jobs.oec.gov.pk/uploads/executive/Executive-1748245849238.jpeg" alt="Nadeem Aslam Chaudhary">
-      </div>
-      <div class="badge-gradient">FEDERAL SECRETARY</div>
-      <h3 class="executive-name">Nadeem Aslam Chaudhary</h3>
-      <p class="executive-role">Federal Secretary</p>
-    </div>
-
-    <!-- Executive 5: Managing Director -->
-    <div class="executive-card">
-      <div class="executive-image">
-        <img src="https://jobs.oec.gov.pk/uploads/executive/Executive-1748246014178.jpeg" alt="Mr. Naseer Khan Kashani">
-      </div>
-      <div class="badge-gradient">MANAGING DIRECTOR</div>
-      <h3 class="executive-name">Mr. Naseer Khan Kashani</h3>
-      <p class="executive-role">Managing Director</p>
+      <div class="badge-gradient">{{ executive.badge }}</div>
+      <h3 class="executive-name">{{ executive.name }}</h3>
+      <p class="executive-role">{{ executive.position }}</p>
     </div>
   </section>
 </div>

@@ -73,48 +73,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="table-row">
-                <td>Secretary, OP&HRD (Chairperson)</td>
-                <td>Federal Secretary</td>
-                <td>Government of Pakistan</td>
-              </tr>
-              <tr class="table-row">
-                <td>Joint Secretary (OP Division)</td>
-                <td>Director General, BEOE</td>
-                <td>Ministry of OP&HRD</td>
-              </tr>
-              <tr class="table-row">
-                <td>Managing Director, OEC</td>
-                <td>Ex-Officio Member</td>
-                <td>OEC Operations</td>
-              </tr>
-              <tr class="table-row">
-                <td>Representative from Ministry of Finance</td>
-                <td>Member</td>
-                <td>Financial oversight</td>
-              </tr>
-              <tr class="table-row">
-                <td>Representative from NAVTTC</td>
-                <td>Member</td>
-                <td>Skill development liaison</td>
-              </tr>
-              <tr class="table-row">
-                <td>Private Sector Expert (HR/Overseas)</td>
-                <td>Member (nominated)</td>
-                <td>Industry & policy input</td>
-              </tr>
-              <tr class="table-row">
-                <td>Legal Advisor</td>
-                <td>Member (nominated)</td>
-                <td>Legal & compliance advisory</td>
+              <tr class="table-row" *ngFor="let b of boardofDirectors">
+                <td>{{ b.name }}</td>
+                <td>{{ b.designation }}</td>
+                <td>{{ b.representing }}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!-- <div class="note-box">
-          <p><strong>Note:</strong> Final composition subject to current government notification. Latest BoD notification 
-          should be made downloadable.</p>
-        </div> -->
       </div>
     </div>
   </section>

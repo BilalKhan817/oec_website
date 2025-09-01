@@ -50,7 +50,8 @@ export interface Banner {
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:3000/api'; // Update this to your API URL
+  private baseUrl = 'https://oec.gov.pk/api'; // Update this to your API URL
+  // private baseUrl = 'http://localhost:3000/api'; // Update this to your API URL
   
   // BehaviorSubjects for real-time data updates
   private announcementsSubject = new BehaviorSubject<Announcement[]>([]);

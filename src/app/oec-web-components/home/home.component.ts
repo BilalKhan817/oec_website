@@ -435,11 +435,12 @@ getAnnouncementBackgroundClass(category: string): string {
 }
 
 getAnnouncementBadgeClass(category: string): string {
+  // console.log('Category:', category);
   const colorMap: { [key: string]: string } = {
-    'Hot': 'bg-red-100 text-red-600',
-    'Registration': 'bg-blue-100 text-blue-600', // Changed to blue
-    'New': 'bg-green-100 text-green-600',
-    'Notice': 'bg-purple-100 text-purple-600',
+    'urgent': 'bg-red-100 text-red-600',
+    'general': 'bg-blue-100 text-blue-600', // Changed to blue
+    'news': 'bg-green-100 text-green-600',
+    'update': 'bg-purple-100 text-purple-600',
     'Jobs': 'bg-orange-100 text-orange-600',
     'Courses': 'bg-teal-100 text-teal-600',
     'Award': 'bg-green-100 text-green-600',

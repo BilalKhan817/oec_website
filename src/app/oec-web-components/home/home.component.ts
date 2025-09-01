@@ -55,7 +55,11 @@ processedBanners: any[] = [];
   aboutOecData : any;
   executives : any;
   servicesData: any;
+  statisticsData: any;
 processedVideoUrl: any = null;
+  // Add these new properties for collapse functionality
+  industryCollapseOpen = true;
+  degreeCollapseOpen = false;
   
   constructor(private apiService: ApiService,
   private sanitizer: DomSanitizer) {}
@@ -276,7 +280,393 @@ processedVideoUrl: any = null;
     this.getActiveBanners()
     this.getAboutOec()
     this.getExecutives()
+    this.industrystats()
   this.getServices();
+  }
+
+
+   toggleIndustryCollapse(): void {
+    this.industryCollapseOpen = !this.industryCollapseOpen;
+  }
+
+
+isDegreeOpen(industryName: string): boolean {
+  return !!this.statisticsData[industryName];
+}
+toggleDegreeCollapse(industryName: string) {
+  this.statisticsData[industryName] = !this.isDegreeOpen(industryName);
+}
+  // Get degree count
+  getDegreeCount(): number {
+    return this.statisticsData?.byDegreeLevel ? Object.keys(this.statisticsData.byDegreeLevel).length : 0;
+  }
+// Get top degree levels with improved data processing
+  getTopDegreeLevel(): any[] {
+    if (!this.statisticsData?.byDegreeLevel) return [];
+    
+    return Object.keys(this.statisticsData.byDegreeLevel)
+      .map(key => {
+        const data = this.statisticsData.byDegreeLevel[key];
+        return {
+          name: key,
+          uniqueUsers: data.uniqueUsers,
+          level: data.level,
+          percentage: data.percentage || this.getPercentage(data.uniqueUsers)
+        };
+      })
+      .sort((a, b) => b.uniqueUsers - a.uniqueUsers)
+      .slice(0, 50); // Show top 50 degree levels
+  }
+
+    onDownloadReport(): void {
+    if (!this.statisticsData) {
+      console.log('No data available for download');
+      return;
+    }
+
+    console.log('Generating industry report...');
+    this.generateReport();
+  }
+
+   generateReport(): void {
+    if (!this.statisticsData) return;
+
+    const reportData = {
+      reportTitle: 'OEC Industry & Education Statistics Report',
+      generatedAt: new Date().toISOString(),
+      summary: {
+        totalUsers: this.statisticsData.totalUsers,
+        totalEducationRecords: this.statisticsData.totalEducationRecords,
+        numberOfIndustries: this.getIndustryCount(),
+        numberOfDegreeTypes: this.getDegreeCount(),
+        topIndustryByUsers: this.statisticsData.summary?.topIndustryByUsers,
+        mostCommonDegree: this.statisticsData.summary?.mostCommonDegree,
+        averageDegreeLevelScore: this.statisticsData.summary?.averageDegreeLevelScore
+      },
+      industryBreakdown: this.getIndustriesArray().map(industry => ({
+        name: industry.name,
+        uniqueUsers: industry.data.uniqueUsers,
+        totalEducationRecords: industry.data.totalEducationRecords,
+        marketSharePercentage: this.getPercentage(industry.data.uniqueUsers),
+        topDegrees: this.getTopDegrees(industry.data.degreeBreakdown)
+      })),
+      degreeBreakdown: this.getTopDegreeLevel(),
+      rawData: {
+        byIndustry: this.statisticsData.byIndustry,
+        byDegreeLevel: this.statisticsData.byDegreeLevel
+      }
+    };
+
+    // Create downloadable JSON file
+    const dataStr = JSON.stringify(reportData, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+    const exportFileDefaultName = `OEC-Industry-Statistics-Report-${dateStr}.json`;
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.style.display = 'none';
+    document.body.appendChild(linkElement);
+    linkElement.click();
+    document.body.removeChild(linkElement);
+
+    console.log('Report downloaded successfully');
+  }
+onIndustryDetails(industry: any): void {
+    console.log('Showing details for industry:', industry.name);
+    
+    // You could implement a modal dialog here with detailed statistics
+    // For now, let's log the detailed information
+    const details = {
+      industry: industry.name,
+      users: industry.data.uniqueUsers,
+      records: industry.data.totalEducationRecords,
+      marketShare: this.getPercentage(industry.data.uniqueUsers),
+      topDegrees: this.getTopDegrees(industry.data.degreeBreakdown),
+      allDegrees: Object.keys(industry.data.degreeBreakdown).map(key => ({
+        name: key,
+        count: industry.data.degreeBreakdown[key].count,
+        level: industry.data.degreeBreakdown[key].level
+      })).sort((a, b) => b.count - a.count)
+    };
+    
+    console.log('Industry Details:', details);
+    
+    // You could open a modal or navigate to a detailed view:
+    // this.openIndustryModal(details);
+    // or
+    // this.router.navigate(['/industry-details'], { state: { industry: details } });
+  }
+   getFormattedStatistics(): any {
+    if (!this.statisticsData) return null;
+
+    return {
+      overview: {
+        totalUsers: this.statisticsData.totalUsers.toLocaleString(),
+        totalEducationRecords: this.statisticsData.totalEducationRecords.toLocaleString(),
+        industriesCount: this.getIndustryCount(),
+        degreesCount: this.getDegreeCount()
+      },
+      topIndustries: this.getIndustriesArray().slice(0, 5),
+      topDegrees: this.getTopDegreeLevel().slice(0, 10)
+    };
+  }
+  // Method to export data to CSV format
+  exportToCSV(dataType: 'industries' | 'degrees'): void {
+    if (!this.statisticsData) return;
+
+    let csvContent = '';
+    let filename = '';
+
+    if (dataType === 'industries') {
+      csvContent = 'Industry Name,Unique Users,Total Education Records,Market Share %\n';
+      this.getIndustriesArray().forEach((industry:any) => {
+        const row = `"${industry.name}",${industry.data.uniqueUsers},${industry.data.totalEducationRecords},${this.getPercentage(industry.data.uniqueUsers)}\n`;
+        csvContent += row;
+      });
+      filename = 'OEC-Industries-Statistics.csv';
+    } else {
+      csvContent = 'Degree Name,Unique Users,Level,Percentage\n';
+      this.getTopDegreeLevel().forEach(degree => {
+        const row = `"${degree.name}",${degree.uniqueUsers},${degree.level},${degree.percentage}\n`;
+        csvContent += row;
+      });
+      filename = 'OEC-Degrees-Statistics.csv';
+    }
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+ searchStatistics(searchTerm: string): { industries: any[]; degrees: any[] } | null {
+  if (!this.statisticsData || !searchTerm?.trim()) {
+    return null;
+  }
+
+  const lowerTerm = searchTerm.toLowerCase();
+
+  const industries = this.getIndustriesArray().filter((industry: any) =>
+    industry.name?.toLowerCase().includes(lowerTerm)
+  );
+
+  const degrees = this.getTopDegreeLevel().filter((degree: any) =>
+    degree.name?.toLowerCase().includes(lowerTerm)
+  );
+
+  return { industries, degrees };
+}
+
+
+getIndustryIcon(industryName: string): string {
+  const iconMap: { [key: string]: string } = {
+    // Manufacturing & Production
+    'Manufacturing': 'fas fa-industry',
+    'Textile': 'fas fa-tshirt',
+    'Food Processing': 'fas fa-utensils',
+    'Chemical': 'fas fa-flask',
+    'Automotive': 'fas fa-car',
+    'Electronics': 'fas fa-microchip',
+    'Pharmaceutical': 'fas fa-pills',
+    
+    // Technology & IT
+    'Information Technology': 'fas fa-laptop-code',
+    'Software': 'fas fa-code',
+    'Telecommunications': 'fas fa-broadcast-tower',
+    'Digital Marketing': 'fas fa-digital-tachograph',
+    
+    // Services
+    'Healthcare': 'fas fa-heartbeat',
+    'Education': 'fas fa-graduation-cap',
+    'Banking': 'fas fa-university',
+    'Finance': 'fas fa-chart-line',
+    'Insurance': 'fas fa-shield-alt',
+    'Real Estate': 'fas fa-building',
+    'Hospitality': 'fas fa-concierge-bell',
+    'Tourism': 'fas fa-plane',
+    'Transportation': 'fas fa-truck',
+    'Logistics': 'fas fa-shipping-fast',
+    
+    // Construction & Engineering
+    'Construction': 'fas fa-hard-hat',
+    'Engineering': 'fas fa-cogs',
+    'Architecture': 'fas fa-drafting-compass',
+    'Civil Engineering': 'fas fa-road',
+    
+    // Agriculture & Natural Resources
+    'Agriculture': 'fas fa-seedling',
+    'Mining': 'fas fa-mountain',
+    'Oil & Gas': 'fas fa-oil-well',
+    'Energy': 'fas fa-bolt',
+    'Renewable Energy': 'fas fa-solar-panel',
+    
+    // Media & Communications
+    'Media': 'fas fa-tv',
+    'Broadcasting': 'fas fa-radio',
+    'Printing': 'fas fa-print',
+    'Advertising': 'fas fa-bullhorn',
+    
+    // Retail & Commerce
+    'Retail': 'fas fa-shopping-cart',
+    'E-commerce': 'fas fa-shopping-bag',
+    'Sales': 'fas fa-handshake',
+    
+    // Government & Public Sector
+    'Government': 'fas fa-landmark',
+    'Public Administration': 'fas fa-users-cog',
+    'Defense': 'fas fa-shield-alt',
+    'Law Enforcement': 'fas fa-gavel',
+    
+    // Professional Services
+    'Consulting': 'fas fa-user-tie',
+    'Legal': 'fas fa-balance-scale',
+    'Accounting': 'fas fa-calculator',
+    'Human Resources': 'fas fa-users',
+    
+    // Other Common Industries
+    'Sports': 'fas fa-futbol',
+    'Entertainment': 'fas fa-film',
+    'Fashion': 'fas fa-tshirt',
+    'Beauty': 'fas fa-spa',
+    'Security': 'fas fa-lock',
+    'Cleaning': 'fas fa-broom',
+    'Maintenance': 'fas fa-wrench'
+  };
+  
+  // Try exact match first
+  if (iconMap[industryName]) {
+    return iconMap[industryName];
+  }
+  
+  // Try partial match (case insensitive)
+  const lowerIndustry = industryName.toLowerCase();
+  for (const [key, value] of Object.entries(iconMap)) {
+    if (lowerIndustry.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerIndustry)) {
+      return value;
+    }
+  }
+  
+  // Default icon if no match found
+  return 'fas fa-briefcase';
+}
+
+  getIndustriesArray(): any[] {
+  if (!this.statisticsData?.byIndustry) return [];
+  
+  return Object.keys(this.statisticsData.byIndustry).map(key => ({
+    name: key,
+    data: this.statisticsData.byIndustry[key]
+  })).sort((a, b) => b.data.uniqueUsers - a.data.uniqueUsers);
+}
+
+// Method to get industry count
+getIndustryCount(): number {
+  return this.statisticsData?.byIndustry ? Object.keys(this.statisticsData.byIndustry).length : 0;
+}
+
+// Method to calculate percentage
+getPercentage(value: number): string {
+  if (!this.statisticsData?.totalUsers || this.statisticsData.totalUsers === 0) return '0%';
+  return ((value / this.statisticsData.totalUsers) * 100).toFixed(1) + '%';
+}
+
+// Method to get top degrees for an industry
+getTopDegrees(degreeBreakdown: any): any[] {
+  if (!degreeBreakdown) return [];
+  
+  return Object.keys(degreeBreakdown)
+    .map(key => ({
+      name: key,
+      count: degreeBreakdown[key].count,
+      level: degreeBreakdown[key].level
+    }))
+    .sort((a, b) => b.count - a.count)  
+}
+
+// Method to load industry statistics
+industrystats(): void {
+  this.apiService.industrystats().subscribe({
+    next: (response) => {
+      this.statisticsData = response.statistics;
+      console.log('Industry statistics loaded:', this.statisticsData);
+      // Initialize sub-collapse states after data loads
+      this.initializeSubCollapseStates();
+    },
+    error: (error) => {
+      console.error('Error loading industry statistics:', error);
+      this.statisticsData = null;
+    }
+  });
+}
+subCollapse: { [key: string]: boolean } = {}; 
+private collapsibleIndustries = new Set<string>([
+    'School Education Level',
+    'Healthcare & Life Sciences'
+  ]);
+  
+toggleSubCollapse(industryName: string): void {
+  // Toggle only the clicked card
+  this.subCollapse[industryName] = !this.subCollapse[industryName];
+}
+scrollQualifications(industryName: string, direction: 'up' | 'down'): void {
+  console.log("Here Now", industryName);
+
+  // Use getSafeId to generate a valid selector
+  const container = document.querySelector(`#qualifications-${this.getSafeId(industryName)}`);
+  if (container) {
+    const scrollAmount = 100;
+    const currentScroll = container.scrollTop;
+    const targetScroll = direction === 'up' 
+      ? currentScroll - scrollAmount 
+      : currentScroll + scrollAmount;
+
+    container.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth'
+    });
+  }
+}
+getSafeId(name: string): string {
+  return name.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+}
+private initializeSubCollapseStates(): void {
+  if (this.statisticsData?.byIndustry) {
+    Object.keys(this.statisticsData.byIndustry).forEach(industryName => {
+      // Set default state to true (collapsed) - only initialize if not already set
+      if (this.subCollapse[industryName] === undefined) {
+        this.subCollapse[industryName] = true;
+      }
+    });
+  }
+}
+  // Enhanced view all industries method
+  onViewAllIndustries(): void {
+    console.log('Opening detailed industry analysis...');
+    
+    // You can implement a modal here or navigate to a detailed page
+    // For now, let's expand both collapse sections automatically
+    this.industryCollapseOpen = true;
+    this.degreeCollapseOpen = true;
+    
+    // Scroll to the statistics section
+    setTimeout(() => {
+      const element = document.querySelector('.industry-statistics-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
+
+    // If you have routing set up, you can navigate to a detailed page:
+    // this.router.navigate(['/detailed-statistics']);
   }
   getServices() {
   this.apiService.getServices().subscribe({

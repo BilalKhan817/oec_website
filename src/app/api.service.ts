@@ -309,6 +309,10 @@ getServices(): Observable<any> {
   return this.http.get<any>(`${this.baseUrl}/services`);
 }
 
+industrystats(): Observable<any> {
+  return this.http.post<any>(`https://jobs.oec.gov.pk/api/industry-user-stats_api`,{});
+}
+
   // ===== UTILITY METHODS =====
 
   /**

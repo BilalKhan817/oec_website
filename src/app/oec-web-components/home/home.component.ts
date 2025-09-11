@@ -57,12 +57,16 @@ processedBanners: any[] = [];
   servicesData: any;
   statisticsData: any;
 processedVideoUrl: any = null;
+processedIndustryData: any[] = [];
+baseUrl:any
+cardStates: { [industryName: string]: boolean } = {};
   // Add these new properties for collapse functionality
   industryCollapseOpen = true;
   degreeCollapseOpen = false;
   
   constructor(private apiService: ApiService,
   private sanitizer: DomSanitizer) {}
+  expandedCards: Set<string> = new Set();
   
   slides: Slide[] = [
     {
@@ -317,7 +321,14 @@ toggleDegreeCollapse(industryName: string) {
       .sort((a, b) => b.uniqueUsers - a.uniqueUsers)
       .slice(0, 50); // Show top 50 degree levels
   }
+trackByIndustryName(index: number, industry: any): string {
+  return industry.name;
+}
 
+// TrackBy function for degree items
+trackByDegreeName(index: number, degree: any): string {
+  return degree.name;
+}
     onDownloadReport(): void {
     if (!this.statisticsData) {
       console.log('No data available for download');
@@ -375,30 +386,35 @@ toggleDegreeCollapse(industryName: string) {
 
     console.log('Report downloaded successfully');
   }
-onIndustryDetails(industry: any): void {
+  onIndustryDetails(industry: any): void {
     console.log('Showing details for industry:', industry.name);
-    
-    // You could implement a modal dialog here with detailed statistics
-    // For now, let's log the detailed information
-    const details = {
-      industry: industry.name,
-      users: industry.data.uniqueUsers,
-      records: industry.data.totalEducationRecords,
-      marketShare: this.getPercentage(industry.data.uniqueUsers),
-      topDegrees: this.getTopDegrees(industry.data.degreeBreakdown),
-      allDegrees: Object.keys(industry.data.degreeBreakdown).map(key => ({
-        name: key,
-        count: industry.data.degreeBreakdown[key].count,
-        level: industry.data.degreeBreakdown[key].level
-      })).sort((a, b) => b.count - a.count)
-    };
-    
-    console.log('Industry Details:', details);
-    
-    // You could open a modal or navigate to a detailed view:
-    // this.openIndustryModal(details);
-    // or
-    // this.router.navigate(['/industry-details'], { state: { industry: details } });
+    // Add your navigation or modal logic here
+  }
+  exportToCSV(dataType: 'industries' | 'degrees'): void {
+    if (!this.statisticsData) return;
+
+    let csvContent = '';
+    let filename = '';
+
+    if (dataType === 'industries') {
+      csvContent = 'Industry Name,Unique Users,Total Education Records,Market Share %\n';
+      this.processedIndustryData.forEach(industry => {
+        const row = `"${industry.name}",${industry.uniqueUsers},${industry.totalRecords},${industry.percentage}\n`;
+        csvContent += row;
+      });
+      filename = 'OEC-Industries-Statistics.csv';
+    }
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
    getFormattedStatistics(): any {
     if (!this.statisticsData) return null;
@@ -415,39 +431,7 @@ onIndustryDetails(industry: any): void {
     };
   }
   // Method to export data to CSV format
-  exportToCSV(dataType: 'industries' | 'degrees'): void {
-    if (!this.statisticsData) return;
 
-    let csvContent = '';
-    let filename = '';
-
-    if (dataType === 'industries') {
-      csvContent = 'Industry Name,Unique Users,Total Education Records,Market Share %\n';
-      this.getIndustriesArray().forEach((industry:any) => {
-        const row = `"${industry.name}",${industry.data.uniqueUsers},${industry.data.totalEducationRecords},${this.getPercentage(industry.data.uniqueUsers)}\n`;
-        csvContent += row;
-      });
-      filename = 'OEC-Industries-Statistics.csv';
-    } else {
-      csvContent = 'Degree Name,Unique Users,Level,Percentage\n';
-      this.getTopDegreeLevel().forEach(degree => {
-        const row = `"${degree.name}",${degree.uniqueUsers},${degree.level},${degree.percentage}\n`;
-        csvContent += row;
-      });
-      filename = 'OEC-Degrees-Statistics.csv';
-    }
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  }
  searchStatistics(searchTerm: string): { industries: any[]; degrees: any[] } | null {
   if (!this.statisticsData || !searchTerm?.trim()) {
     return null;
@@ -468,96 +452,42 @@ onIndustryDetails(industry: any): void {
 
 
 getIndustryIcon(industryName: string): string {
-  const iconMap: { [key: string]: string } = {
-    // Manufacturing & Production
-    'Manufacturing': 'fas fa-industry',
-    'Textile': 'fas fa-tshirt',
-    'Food Processing': 'fas fa-utensils',
-    'Chemical': 'fas fa-flask',
-    'Automotive': 'fas fa-car',
-    'Electronics': 'fas fa-microchip',
-    'Pharmaceutical': 'fas fa-pills',
+    const iconMap: { [key: string]: string } = {
+      'Manufacturing': 'fas fa-industry',
+      'Healthcare': 'fas fa-heartbeat',
+      'Information Technology': 'fas fa-laptop-code',
+      'Education': 'fas fa-graduation-cap',
+      'Engineering': 'fas fa-cogs',
+      'Construction': 'fas fa-hard-hat',
+      'Finance': 'fas fa-chart-line',
+      'Agriculture': 'fas fa-seedling',
+      'Transportation': 'fas fa-truck',
+      'Retail': 'fas fa-shopping-cart',
+      'Healthcare & Life Sciences': 'fas fa-heartbeat',
+      'Engineering & ICT': 'fas fa-laptop-code',
+      'General Professional & Administrative': 'fas fa-user-tie',
+      'Arts & Social Sciences (General)': 'fas fa-palette',
+      'Business, Management & Consulting': 'fas fa-briefcase',
+      'Education & Training': 'fas fa-chalkboard-teacher',
+      'Science & Research': 'fas fa-microscope',
+      'Law & Governance': 'fas fa-balance-scale'
+    };
     
-    // Technology & IT
-    'Information Technology': 'fas fa-laptop-code',
-    'Software': 'fas fa-code',
-    'Telecommunications': 'fas fa-broadcast-tower',
-    'Digital Marketing': 'fas fa-digital-tachograph',
-    
-    // Services
-    'Healthcare': 'fas fa-heartbeat',
-    'Education': 'fas fa-graduation-cap',
-    'Banking': 'fas fa-university',
-    'Finance': 'fas fa-chart-line',
-    'Insurance': 'fas fa-shield-alt',
-    'Real Estate': 'fas fa-building',
-    'Hospitality': 'fas fa-concierge-bell',
-    'Tourism': 'fas fa-plane',
-    'Transportation': 'fas fa-truck',
-    'Logistics': 'fas fa-shipping-fast',
-    
-    // Construction & Engineering
-    'Construction': 'fas fa-hard-hat',
-    'Engineering': 'fas fa-cogs',
-    'Architecture': 'fas fa-drafting-compass',
-    'Civil Engineering': 'fas fa-road',
-    
-    // Agriculture & Natural Resources
-    'Agriculture': 'fas fa-seedling',
-    'Mining': 'fas fa-mountain',
-    'Oil & Gas': 'fas fa-oil-well',
-    'Energy': 'fas fa-bolt',
-    'Renewable Energy': 'fas fa-solar-panel',
-    
-    // Media & Communications
-    'Media': 'fas fa-tv',
-    'Broadcasting': 'fas fa-radio',
-    'Printing': 'fas fa-print',
-    'Advertising': 'fas fa-bullhorn',
-    
-    // Retail & Commerce
-    'Retail': 'fas fa-shopping-cart',
-    'E-commerce': 'fas fa-shopping-bag',
-    'Sales': 'fas fa-handshake',
-    
-    // Government & Public Sector
-    'Government': 'fas fa-landmark',
-    'Public Administration': 'fas fa-users-cog',
-    'Defense': 'fas fa-shield-alt',
-    'Law Enforcement': 'fas fa-gavel',
-    
-    // Professional Services
-    'Consulting': 'fas fa-user-tie',
-    'Legal': 'fas fa-balance-scale',
-    'Accounting': 'fas fa-calculator',
-    'Human Resources': 'fas fa-users',
-    
-    // Other Common Industries
-    'Sports': 'fas fa-futbol',
-    'Entertainment': 'fas fa-film',
-    'Fashion': 'fas fa-tshirt',
-    'Beauty': 'fas fa-spa',
-    'Security': 'fas fa-lock',
-    'Cleaning': 'fas fa-broom',
-    'Maintenance': 'fas fa-wrench'
-  };
-  
-  // Try exact match first
-  if (iconMap[industryName]) {
-    return iconMap[industryName];
-  }
-  
-  // Try partial match (case insensitive)
-  const lowerIndustry = industryName.toLowerCase();
-  for (const [key, value] of Object.entries(iconMap)) {
-    if (lowerIndustry.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerIndustry)) {
-      return value;
+    // Try exact match first
+    if (iconMap[industryName]) {
+      return iconMap[industryName];
     }
+    
+    // Try partial match
+    const lowerIndustry = industryName.toLowerCase();
+    for (const [key, value] of Object.entries(iconMap)) {
+      if (lowerIndustry.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerIndustry)) {
+        return value;
+      }
+    }
+    
+    return 'fas fa-briefcase'; // Default icon
   }
-  
-  // Default icon if no match found
-  return 'fas fa-briefcase';
-}
 
   getIndustriesArray(): any[] {
   if (!this.statisticsData?.byIndustry) return [];
@@ -569,54 +499,100 @@ getIndustryIcon(industryName: string): string {
 }
 
 // Method to get industry count
-getIndustryCount(): number {
-  return this.statisticsData?.byIndustry ? Object.keys(this.statisticsData.byIndustry).length : 0;
-}
 
 // Method to calculate percentage
-getPercentage(value: number): string {
-  if (!this.statisticsData?.totalUsers || this.statisticsData.totalUsers === 0) return '0%';
-  return ((value / this.statisticsData.totalUsers) * 100).toFixed(1) + '%';
-}
+ getPercentage(value: number): string {
+    if (!this.statisticsData?.totalUsers || this.statisticsData.totalUsers === 0) return '0%';
+    return ((value / this.statisticsData.totalUsers) * 100).toFixed(1) + '%';
+  }
 
 // Method to get top degrees for an industry
-getTopDegrees(degreeBreakdown: any): any[] {
-  if (!degreeBreakdown) return [];
-  
-  return Object.keys(degreeBreakdown)
-    .map(key => ({
-      name: key,
-      count: degreeBreakdown[key].count,
-      level: degreeBreakdown[key].level
-    }))
-    .sort((a, b) => b.count - a.count)  
-}
+ getTopDegrees(degreeBreakdown: any): any[] {
+    if (!degreeBreakdown) return [];
+    
+    return Object.keys(degreeBreakdown)
+      .map(key => ({
+        name: key,
+        count: degreeBreakdown[key].count,
+        level: degreeBreakdown[key].level
+      }))
+      .sort((a, b) => b.count - a.count);
+  }
 
-// Method to load industry statistics
-industrystats(): void {
-  this.apiService.industrystats().subscribe({
-    next: (response) => {
-      this.statisticsData = response.statistics;
-      console.log('Industry statistics loaded:', this.statisticsData);
-      // Initialize sub-collapse states after data loads
-      this.initializeSubCollapseStates();
-    },
-    error: (error) => {
-      console.error('Error loading industry statistics:', error);
-      this.statisticsData = null;
+// Simple toggle method - only affects the clicked card
+   toggleCard(industryName: any) {
+    if (this.expandedCards.has(industryName)) {
+      this.expandedCards.delete(industryName);
+    } else {
+      this.expandedCards.add(industryName);
     }
-  });
-}
+    console.log(`Toggled ${industryName}:`, this.isCardExpanded(industryName));
+  }
+
+  // Check if a specific card is expanded
+    isCardExpanded(industryName: string): boolean {
+    return this.expandedCards.has(industryName);
+  }
+
+   getProcessedIndustries(): any[] {
+    return this.processedIndustryData;
+  }
+
+   getIndustryCount(): number {
+    return this.processedIndustryData.length;
+  }
+
+// Initialize all cards as collapsed when data loads
+  industrystats(): void {
+    this.apiService.industrystats().subscribe({
+      next: (response) => {
+        this.statisticsData = response.statistics;
+        console.log('Industry statistics loaded:', this.statisticsData);
+        
+        // Process and cache the industry data to prevent reloading
+        this.processIndustryData();
+      },
+      error: (error) => {
+        console.error('Error loading industry statistics:', error);
+        this.statisticsData = null;
+        this.processedIndustryData = [];
+      }
+    });
+  }
+
+  private processIndustryData(): void {
+    if (!this.statisticsData?.byIndustry) {
+      this.processedIndustryData = [];
+      return;
+    }
+
+    this.processedIndustryData = Object.keys(this.statisticsData.byIndustry).map(key => {
+      const industryData = this.statisticsData.byIndustry[key];
+      
+      // Process top degrees once and cache them
+      const topDegrees = this.getTopDegrees(industryData.degreeBreakdown).slice(0, 5);
+      
+      return {
+        name: key,
+        data: industryData,
+        uniqueUsers: industryData.uniqueUsers,
+        percentage: this.getPercentage(industryData.uniqueUsers),
+        icon: this.getIndustryIcon(key),
+        topDegrees: topDegrees, // Cached top degrees
+        totalRecords: industryData.totalEducationRecords
+      };
+    }).sort((a, b) => b.uniqueUsers - a.uniqueUsers);
+
+    console.log('Processed industry data:', this.processedIndustryData);
+  }
+
 subCollapse: { [key: string]: boolean } = {}; 
 private collapsibleIndustries = new Set<string>([
     'School Education Level',
     'Healthcare & Life Sciences'
   ]);
   
-toggleSubCollapse(industryName: string): void {
-  // Toggle only the clicked card
-  this.subCollapse[industryName] = !this.subCollapse[industryName];
-}
+
 scrollQualifications(industryName: string, direction: 'up' | 'down'): void {
   console.log("Here Now", industryName);
 
@@ -641,12 +617,19 @@ getSafeId(name: string): string {
 private initializeSubCollapseStates(): void {
   if (this.statisticsData?.byIndustry) {
     Object.keys(this.statisticsData.byIndustry).forEach(industryName => {
-      // Set default state to true (collapsed) - only initialize if not already set
-      if (this.subCollapse[industryName] === undefined) {
-        this.subCollapse[industryName] = true;
-      }
+      // Set default state to true (collapsed) for all cards
+      this.subCollapse[industryName] = true;
     });
   }
+}
+
+// Update the toggleSubCollapse method to only toggle the specific card
+toggleSubCollapse(industryName: string): void {
+  // Only toggle the clicked card, don't affect others
+  this.subCollapse[industryName] = !this.subCollapse[industryName];
+  
+  // Optional: Log to debug which card is being toggled
+  console.log(`Toggled ${industryName}: ${this.subCollapse[industryName]}`);
 }
   // Enhanced view all industries method
   onViewAllIndustries(): void {
@@ -694,6 +677,9 @@ onLearnMoreClick(): void {
   window.open('/services', '_blank');
 }
  getAnnouncements(){
+  this.baseUrl = this.apiService.MainbaseUrl
+  console.log("baseUrl::::::: ",this.baseUrl);
+  
  this.apiService.getAnnouncements().subscribe({
    next: (announcements) => {
      this.announcements = announcements;

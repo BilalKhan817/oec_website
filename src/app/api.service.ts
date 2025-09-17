@@ -11,19 +11,21 @@ export interface ApiResponse<T> {
   data: T;
   error?: string;
 }
-
+// In your api.service.ts file, update the Announcement interface:
+// In your api.service.ts file, update the Announcement interface:
 export interface Announcement {
   _id: string;
   title: string;
-  deadline: string;
-  announcement_category: string;
-  orange_button_title: string;
-  orange_button_link: string;
-  blue_button_title: string;
-  blue_button_link: string;
-  createdAt: string;
-  updatedAt: string;
   flag?: string;
+  deadline?: Date | string;
+  announcement_category: string;
+  attachments: any[];
+  orange_button_title?: string;
+  orange_button_link?: string;
+  blue_button_title?: string; // Keep for backward compatibility
+  blue_button_link?: string;  // Keep for backward compatibility
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }
 
 export interface Banner {

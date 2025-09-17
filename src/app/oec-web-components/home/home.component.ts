@@ -14,7 +14,18 @@ interface Slide {
     secondary: { text: string; icon: string };
   };
 }
-
+interface Attachment {
+  _id: string;
+  file_title: string;
+  icon: 'advertisement' | 'announcement' | string;
+  attachment_type: 'attachment_file' | 'link';
+  file_path?: string;
+  file_url?: string;
+  link_url?: string;
+  original_name?: string;
+  file_size?: number;
+  mime_type?: string;
+}
 interface Executive {
   id: number;
   name: string;
@@ -325,6 +336,109 @@ trackByIndustryName(index: number, industry: any): string {
   return industry.name;
 }
 
+// Method to handle attachment clicks
+onAttachmentClick(attachment: Attachment): void {
+  if (attachment.attachment_type === 'attachment_file') {
+    // Handle file download
+    let fileUrl = attachment.file_url;
+    if (!fileUrl && attachment.file_path) {
+      // Construct URL from file_path and handle Windows backslashes
+      const normalizedPath = attachment.file_path.replace(/\\/g, '/');
+      fileUrl = normalizedPath.startsWith('/') 
+        ? this.baseUrl + normalizedPath
+        : this.baseUrl + '/' + normalizedPath;
+    }
+    if (fileUrl) {
+      window.open(fileUrl, '_blank');
+    }
+  } else if (attachment.attachment_type === 'link') {
+    // Handle external link
+    if (attachment.link_url) {
+      if (attachment.link_url.startsWith('http')) {
+        window.open(attachment.link_url, '_blank');
+      } else {
+        window.location.href = attachment.link_url;
+      }
+    }
+  }
+}
+
+// Method to get attachment icon class (using FontAwesome icons)
+getAttachmentIconClass(attachment: Attachment): string {
+  if (attachment.attachment_type === 'attachment_file') {
+    // Check file type by mime_type or file extension
+    if (attachment.mime_type?.includes('image')) {
+      return 'fas fa-image';
+    } else if (attachment.mime_type?.includes('pdf')) {
+      return 'fas fa-file-pdf';
+    } else if (attachment.mime_type?.includes('word') || attachment.mime_type?.includes('document')) {
+      return 'fas fa-file-word';
+    } else if (attachment.mime_type?.includes('excel') || attachment.mime_type?.includes('spreadsheet')) {
+      return 'fas fa-file-excel';
+    } else if (attachment.mime_type?.includes('powerpoint') || attachment.mime_type?.includes('presentation')) {
+      return 'fas fa-file-powerpoint';
+    } else if (attachment.mime_type?.includes('zip') || attachment.mime_type?.includes('rar')) {
+      return 'fas fa-file-archive';
+    } else {
+      return 'fas fa-file-download';
+    }
+  } else if (attachment.attachment_type === 'link') {
+    return 'fas fa-external-link-alt';
+  }
+  return 'fas fa-file';
+}
+
+// Method to format file size in human-readable format
+formatFileSize(bytes: number): string {
+  if (!bytes || bytes === 0) return '0 Bytes';
+  
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+// Method to check if announcement has attachments
+hasAttachments(announcement: Announcement): boolean {
+  return announcement.attachments && announcement.attachments.length > 0;
+}
+
+// Method to get attachment count
+getAttachmentCount(announcement: Announcement): number {
+  return announcement.attachments ? announcement.attachments.length : 0;
+}
+
+// Helper method to get full image URL for flags
+getFlagImageUrl(flagPath: string): string {
+  if (!flagPath) return '';
+  
+  // Handle different path formats
+  if (flagPath.startsWith('http')) {
+    return flagPath;
+  } else if (flagPath.startsWith('/')) {
+    return this.baseUrl + flagPath;
+  } else {
+    // Handle Windows backslashes and convert to forward slashes
+    const normalizedPath = flagPath.replace(/\\/g, '/');
+    return this.baseUrl + '/' + normalizedPath;
+  }
+}
+
+// Method to close modal from component
+closeAnnouncementModal(): void {
+  this.isModalVisible = false;
+  // Set flag to not show again today
+  const today = new Date().toDateString();
+  localStorage.setItem('oec-announcements-seen', today);
+}
+
+// Method to handle "View All Notices" button
+viewAllAnnouncements(): void {
+  // Navigate to announcements page or open in new tab
+  window.open('/announcements', '_blank');
+  // Or if you have Angular routing: this.router.navigate(['/announcements']);
+}
 // TrackBy function for degree items
 trackByDegreeName(index: number, degree: any): string {
   return degree.name;
@@ -676,18 +790,32 @@ onLearnMoreClick(): void {
   // Add navigation to services detail page
   window.open('/services', '_blank');
 }
- getAnnouncements(){
-  this.baseUrl = this.apiService.MainbaseUrl
-  console.log("baseUrl::::::: ",this.baseUrl);
+getAnnouncements(): void {
+  this.baseUrl = this.apiService.MainbaseUrl;
+  console.log("baseUrl::::::: ", this.baseUrl);
   
- this.apiService.getAnnouncements().subscribe({
-   next: (announcements) => {
-     this.announcements = announcements;
-   },
-   error: (error) => {
-     console.error('Error loading announcements:', error);
-   }
- });
+  this.apiService.getAnnouncements().subscribe({
+    next: (announcements: Announcement[]) => {
+      this.announcements = announcements;
+      // Process any date strings to Date objects if needed
+      this.announcements.forEach(announcement => {
+        if (typeof announcement.deadline === 'string') {
+          announcement.deadline = new Date(announcement.deadline);
+        }
+        if (typeof announcement.createdAt === 'string') {
+          announcement.createdAt = new Date(announcement.createdAt);
+        }
+        // Ensure attachments array exists for backward compatibility
+        if (!announcement.attachments) {
+          announcement.attachments = [];
+        }
+      });
+      console.log('Processed announcements:', this.announcements);
+    },
+    error: (error) => {
+      console.error('Error loading announcements:', error);
+    }
+  });
 }
 getAboutOec() {
   this.apiService.getAboutOec().subscribe({
@@ -786,7 +914,7 @@ getBannerTitleHtml(banner: Banner): SafeHtml {
   return this.sanitizer.bypassSecurityTrustHtml(banner.banner_title);
 }
 onAnnouncementClick(announcement: Announcement, type: 'orange' | 'blue'): void {
- const link = type === 'orange' ? announcement.orange_button_link : announcement.blue_button_link;
+ const link:any = type === 'orange' ? announcement.orange_button_link : announcement.blue_button_link;
  
  if (link.startsWith('http')) {
    window.open(link, '_blank');
@@ -890,15 +1018,18 @@ getAnnouncementBadgeClass(category: string): string {
   }
 
   private checkModalDisplay(): void {
-    const today = new Date().toDateString();
-    const modalShownToday = localStorage.getItem('oec-modal-shown') === today;
-    
-    if (!modalShownToday) {
-      setTimeout(() => {
+  const today = new Date().toDateString();
+  const modalShownToday = localStorage.getItem('oec-announcements-seen') === today;
+  
+  if (!modalShownToday) {
+    setTimeout(() => {
+      // Only show modal if we have announcements
+      if (this.announcements && this.announcements.length > 0) {
         this.isModalVisible = true;
-      }, 2000);
-    }
+      }
+    }, 2000);
   }
+}
 
   closeModal(): void {
     this.isModalVisible = false;
@@ -912,7 +1043,9 @@ getAnnouncementBadgeClass(category: string): string {
       localStorage.removeItem('oec-modal-shown');
     }
   }
-
+isInvalidDate(date: any): boolean {
+  return date instanceof Date && isNaN(date.getTime());
+}
   animateCounters(): void {
     // Counter animation logic with staggered timing
     setTimeout(() => {

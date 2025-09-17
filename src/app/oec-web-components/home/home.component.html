@@ -1591,14 +1591,15 @@
 <app-footer></app-footer>
 
 <!-- OEC Announcements Modal -->
-<!-- OEC Announcements Modal with Smaller Fonts -->
+<!-- Updated OEC Announcements Modal -->
 <div id="oec-announcements-modal" class="modal-backdrop fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
     
     <!-- Modal Container -->
-    <div class="modal-container max-w-4xl w-full max-h-4xl bg-white rounded-xl shadow-2xl border border-emerald-200" >
+    <div class="modal-container max-w-4xl w-full max-h-4xl bg-white rounded-xl shadow-2xl border border-emerald-200">
         
         <!-- Close Button -->
-        <button class="absolute right-4 top-4 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all duration-200 z-10 shadow-md" onclick="closeModal()">
+        <button class="absolute right-4 top-4 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all duration-200 z-10 shadow-md" 
+                (click)="closeAnnouncementModal()">
             <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -1617,7 +1618,6 @@
             </div>
         </div>
         
-        
         <!-- Content -->
         <div class="p-5 max-h-80 overflow-y-auto custom-scroll" style="max-height: 30rem !important">
             <div class="space-y-4">
@@ -1631,68 +1631,86 @@
                         
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center space-x-2">
+                                <h2 class="text-base font-bold text-emerald-900 flex-1">
+                                {{ announcement.title }}
+                            </h2><span *ngIf="announcement?.flag"> 
+                                <img [src]="baseUrl + '/' + announcement.flag" alt="Country Flag" width="40" class="rounded border shadow-sm">
+                            </span>
                                 <!-- <span class="text-xs font-bold uppercase tracking-wide px-2 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-200"
                                       [ngClass]="getAnnouncementBadgeClass(announcement.announcement_category)">
                                     {{ announcement.announcement_category }}
-                                </span> -->
-                                <!-- <span class="text-xs text-emerald-600 font-mono">
+                                </span>
+                                <span class="text-xs text-emerald-600 font-mono">
                                     REF: OEC/{{ announcement.announcement_category }}/{{ (announcement.deadline | date:'yyyyMM') }}
                                 </span> -->
                             </div>
-                            <div class="text-right text-xs text-emerald-700" *ngIf="announcement.deadline">
+                            <div class="text-right text-xs text-emerald-700" *ngIf="announcement.deadline && !isInvalidDate(announcement.deadline)">
                                 <div class="font-semibold" style="color: red;">DEADLINE</div>
                                 <div class="font-mono">{{ announcement.deadline | date:'dd-MMM-yyyy' }}</div>
                             </div>
                         </div>
-                        <div class="ann_title mb-4">
-                            <h2 class="text-base font-bold text-emerald-900 mb-4">
-                                {{ announcement.title }}
-                            </h2> &nbsp;&nbsp;
-                            <span *ngIf="announcement?.flag"> 
-                                <img src="{{baseUrl}}/{{announcement.flag}}" alt="" width="50">
-                            </span>
+
+                        <!-- Title with Flag -->
+                        
+
+                        <!-- Attachments Section -->
+                        <div *ngIf="announcement.attachments && announcement.attachments.length > 0" class="mb-4">
+                            <h4 class="text-sm font-semibold text-emerald-800 mb-2">Attachments:</h4>
+                            <div class="space-y-2">
+                                <div *ngFor="let attachment of announcement.attachments" 
+                                     class="flex items-center justify-between bg-emerald-50 rounded-lg p-3 border border-emerald-200">
+                                    <div class="flex items-center space-x-3">
+                                        <!-- Attachment Icon -->
+                                        <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                            <svg *ngIf="attachment.icon === 'advertisement' || attachment.attachment_type === 'attachment_file'" 
+                                                 class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                            </svg>
+                                            <svg *ngIf="attachment.icon === 'announcement' || attachment.attachment_type === 'link'" 
+                                                 class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                            </svg>
+                                        </div>
+                                        
+                                        <!-- Attachment Info -->
+                                        <div>
+                                            <div class="text-sm font-medium text-emerald-900">{{ attachment.file_title }}</div>
+                                            <div class="text-xs text-emerald-600">
+                                                <span *ngIf="attachment.attachment_type === 'attachment_file'">
+                                                    {{ attachment.original_name }} 
+                                                    <!-- <span *ngIf="attachment.file_size">({{ (attachment.file_size / 1024) | number:'1.0-1' }} KB)</span> -->
+                                                </span>
+                                                <span *ngIf="attachment.attachment_type === 'link'">External Link</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action Button -->
+                                    <button (click)="onAttachmentClick(attachment)" 
+                                            class="px-3 py-1 text-xs font-medium text-emerald-700 bg-white border border-emerald-300 rounded hover:bg-emerald-50 transition-colors duration-200">
+                                        <span *ngIf="attachment.attachment_type === 'attachment_file'">Download</span>
+                                        <span *ngIf="attachment.attachment_type === 'link'">Open Link</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <!-- Title -->
                         
-                        
-                        <!-- Action Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <!-- Primary Button -->
+                        <!-- Primary Action Button (Orange Button) -->
+                        <div class="flex flex-col sm:flex-row gap-3" *ngIf="announcement.orange_button_title || announcement.orange_button_link">
                             <button (click)="onAnnouncementClick(announcement, 'orange')" *ngIf="announcement.orange_button_title"
                                     class="inline-flex items-center justify-center px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded hover:bg-emerald-700 transition-colors duration-200 flex-1">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <!-- <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
+                                </svg> -->
                                 {{ announcement.orange_button_title }}
-                            </button>
-                            
-                            <!-- Secondary Button -->
-                            <button (click)="onAnnouncementClick(announcement, 'blue')" *ngIf="announcement.blue_button_title"
-                                    class="inline-flex items-center justify-center px-4 py-2 bg-white text-emerald-700 text-sm font-semibold rounded border border-emerald-300 hover:bg-emerald-50 transition-colors duration-200 flex-1">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                {{ announcement.blue_button_title }}
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                </svg>
                             </button>
                         </div>
                     </div>
                     
-                    <!-- Footer Stamp -->
-                    <!-- <div class="px-4 py-2 bg-emerald-50/50 text-xs text-emerald-600 flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <span class="font-semibold">ISSUED BY:</span>
-                            <span>Overseas Employment Corporation</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <svg class="w-3 h-3 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="font-mono text-emerald-700">VERIFIED</span>
-                        </div>
-                    </div> -->
+                    <!-- Footer with Creation Date -->
+                   
                 </div>
             </div>
         </div>
@@ -1703,10 +1721,10 @@
                 
                 <!-- Acknowledgment Checkbox -->
                 <div class="flex items-center space-x-2 text-sm text-emerald-700">
-                    <input type="checkbox" id="govt-disclaimer" class="w-4 h-4 text-emerald-600 border-emerald-400 rounded focus:ring-emerald-500">
+                    <!-- <input type="checkbox" id="govt-disclaimer" class="w-4 h-4 text-emerald-600 border-emerald-400 rounded focus:ring-emerald-500">
                     <label for="govt-disclaimer" class="cursor-pointer">
                         I acknowledge reading these official announcements
-                    </label>
+                    </label> -->
                 </div>
                 
                 <!-- Footer Buttons -->
@@ -1715,25 +1733,19 @@
                             class="px-4 py-2 text-emerald-700 hover:text-emerald-800 text-sm font-semibold transition-colors duration-200">
                         DISMISS
                     </button>
-                    <button class="px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded hover:bg-emerald-700 transition-colors duration-200">
+                    <!-- <button (click)="viewAllAnnouncements()" 
+                            class="px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded hover:bg-emerald-700 transition-colors duration-200">
                         VIEW ALL NOTICES
-                    </button>
+                    </button> -->
                 </div>
             </div>
             
-            <!-- Government Footer -->
-            <div class="mt-3 pt-3 border-t border-emerald-300 text-center text-xs text-emerald-600">
-                <div class="flex items-center justify-center space-x-4">
-                    <span class="font-semibold">Government of Pakistan</span>
-                    <span>|</span>
-                    <span>Ministry of Overseas Pakistanis</span>
-                    <span>|</span>
-                    <span>OEC</span>
-                </div>
-            </div>
+          
         </div>
     </div>
 </div>
+
+
 
 
 </div>

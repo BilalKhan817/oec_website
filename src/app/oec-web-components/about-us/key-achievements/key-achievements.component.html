@@ -92,10 +92,9 @@
   <section class="achievements-section">
     <h2 class="achievements-section-title">💻 Digital Transformation</h2>
     <ul class="achievements-list achievements-checks">
-      <li>✅ Centralized Online Job Portal with real-time updates and application status</li>
-      <li>✅ Validator Mechanism for document verification and shortlisting</li>
-      <li>✅ Development of AI-Based Portal (2025–2026) to automate job matching and employer analytics</li>
-      <li>✅ Online Fee Payment System introduced for greater ease and transparency</li>
+      <li *ngFor="let transformation of digitalTransformation">
+        ✅ {{ transformation.title }}
+      </li>
     </ul>
   </section>
 
@@ -104,10 +103,9 @@
     <div class="partnerships-content">
       <p><strong>Long-standing MoUs with:</strong></p>
       <ul class="achievements-list">
-        <li>HRD Korea</li>
-        <li>Ministry of Health – Saudi Arabia</li>
-        <li>MNGHA – Kingdom of Saudi Arabia</li>
-        <li>NAVTTC, TEVTA, BEOE, and JICA</li>
+        <li *ngFor="let partner of partnerships">
+          {{ partner.name }}
+        </li>
       </ul>
     </div>
   </section>

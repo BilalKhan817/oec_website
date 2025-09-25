@@ -343,6 +343,13 @@ industrystats(): Observable<any> {
       );
   }
 
+  getPartnerships(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/partnerships`);
+  }
+  
+  getDigitalTransformation(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/digital-transformations`);
+  }
   /**
    * Check API health
    */

@@ -289,7 +289,6 @@ cardStates: { [industryName: string]: boolean } = {};
   ngOnInit(): void {
     this.startSlideShow();
     this.initializeAnimations();
-    this.checkModalDisplay();
     this.initializeCounterAnimations();
     this.getAnnouncements()
     this.getActiveBanners()
@@ -431,6 +430,13 @@ closeAnnouncementModal(): void {
   // Set flag to not show again today
   const today = new Date().toDateString();
   localStorage.setItem('oec-announcements-seen', today);
+}
+
+// Method to manually show modal (useful for testing)
+showAnnouncementModal(): void {
+  if (this.announcements && this.announcements.length > 0) {
+    this.isModalVisible = true;
+  }
 }
 
 // Method to handle "View All Notices" button
@@ -792,11 +798,14 @@ onLearnMoreClick(): void {
 }
 getAnnouncements(): void {
   this.baseUrl = this.apiService.MainbaseUrl;
-  console.log("baseUrl::::::: ", this.baseUrl);
-  
+  console.log("=== FETCHING ANNOUNCEMENTS ===");
+  console.log("baseUrl:", this.baseUrl);
+
   this.apiService.getAnnouncements().subscribe({
     next: (announcements: Announcement[]) => {
+      console.log('✓ Announcements received from API:', announcements);
       this.announcements = announcements;
+
       // Process any date strings to Date objects if needed
       this.announcements.forEach(announcement => {
         if (typeof announcement.deadline === 'string') {
@@ -810,10 +819,16 @@ getAnnouncements(): void {
           announcement.attachments = [];
         }
       });
-      console.log('Processed announcements:', this.announcements);
+
+      console.log('✓ Processed announcements count:', this.announcements.length);
+      console.log('✓ Processed announcements data:', this.announcements);
+
+      // Show modal after announcements are loaded
+      console.log('→ Calling checkModalDisplay()');
+      this.checkModalDisplay();
     },
     error: (error) => {
-      console.error('Error loading announcements:', error);
+      console.error('✗ Error loading announcements:', error);
     }
   });
 }
@@ -1020,14 +1035,22 @@ getAnnouncementBadgeClass(category: string): string {
   private checkModalDisplay(): void {
   const today = new Date().toDateString();
   const modalShownToday = localStorage.getItem('oec-announcements-seen') === today;
-  
-  if (!modalShownToday) {
+
+  console.log('=== MODAL DISPLAY CHECK ===');
+  console.log('Today:', today);
+  console.log('Modal shown today?', modalShownToday);
+  console.log('Announcements count:', this.announcements?.length);
+  console.log('Announcements data:', this.announcements);
+
+  // Always show modal for now (remove localStorage check temporarily for debugging)
+  if (this.announcements && this.announcements.length > 0) {
+    console.log('✓ Showing modal with', this.announcements.length, 'announcements');
     setTimeout(() => {
-      // Only show modal if we have announcements
-      if (this.announcements && this.announcements.length > 0) {
-        this.isModalVisible = true;
-      }
+      this.isModalVisible = true;
+      console.log('✓ Modal visibility set to TRUE');
     }, 2000);
+  } else {
+    console.log('✗ Not showing modal - no announcements');
   }
 }
 

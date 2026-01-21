@@ -11,8 +11,6 @@ export interface ApiResponse<T> {
   data: T;
   error?: string;
 }
-// In your api.service.ts file, update the Announcement interface:
-// In your api.service.ts file, update the Announcement interface:
 export interface Announcement {
   _id: string;
   title: string;
@@ -22,10 +20,61 @@ export interface Announcement {
   attachments: any[];
   orange_button_title?: string;
   orange_button_link?: string;
-  blue_button_title?: string; // Keep for backward compatibility
-  blue_button_link?: string;  // Keep for backward compatibility
+  blue_button_title?: string;
+  blue_button_link?: string;
   createdAt: Date | string;
   updatedAt: Date | string;
+}
+
+export interface SubItem {
+  _id?: string;
+  title: string;
+  icon?: string;
+  description?: string;
+  link?: string;
+  link_type?: 'internal' | 'external';
+  image_url?: string;
+  badge_text?: string;
+  badge_color?: string;
+  expandable?: boolean;
+  expand_content?: string;
+  order?: number;
+}
+
+export interface Tab {
+  _id?: string;
+  tab_title: string;
+  tab_icon?: string;
+  tab_id: string;
+  items: SubItem[];
+  order?: number;
+}
+
+export interface MenuItem {
+  _id?: string;
+  title: string;
+  icon: string;
+  link?: string;
+  link_type?: 'internal' | 'external' | 'none';
+  has_dropdown?: boolean;
+  dropdown_type?: 'simple' | 'tabs' | 'mega';
+  dropdown_width?: string;
+  tabs?: Tab[];
+  items?: SubItem[];
+  is_active?: boolean;
+  order?: number;
+}
+
+export interface TopBarButton {
+  _id?: string;
+  title: string;
+  icon?: string;
+  link: string;
+  link_type?: 'internal' | 'external';
+  button_style?: 'default' | 'highlight';
+  show_on_mobile?: boolean;
+  is_active?: boolean;
+  order?: number;
 }
 
 export interface Banner {
@@ -53,11 +102,11 @@ export interface Banner {
   providedIn: 'root'
 })
 export class ApiService {
-  public MainbaseUrl = 'https://oec.gov.pk'
-  private baseUrl = 'https://oec.gov.pk/api'; // Update this to your API URL
+  // public MainbaseUrl = 'https://oec.gov.pk'
+  // private baseUrl = 'https://oec.gov.pk/api'; // Update this to your API URL
   
-  // public MainbaseUrl = 'http://localhost:3000'
-  // public baseUrl = 'http://localhost:3000/api'; // Update this to your API URL
+  public MainbaseUrl = 'http://localhost:3000'
+  public baseUrl = 'http://localhost:3000/api'; // Update this to your API URL
   
   // BehaviorSubjects for real-time data updates
   private announcementsSubject = new BehaviorSubject<Announcement[]>([]);
@@ -393,6 +442,47 @@ industrystats(): Observable<any> {
     formData.append('is_active', bannerData.is_active ? 'true' : 'false');
     
     return formData;
+  }
+
+  // ===== MENU METHODS =====
+
+  /**
+   * Get all active menu items for public website
+   */
+  getMenuItems(): Observable<MenuItem[]> {
+    return this.http.get<ApiResponse<MenuItem[]>>(`${this.baseUrl}/menu-items`)
+      .pipe(
+        map(response => {
+          if (response.success) {
+            return response.data;
+          }
+          throw new Error(response.message || 'Failed to fetch menu items');
+        }),
+        catchError(this.handleError<MenuItem[]>('getMenuItems', []))
+      );
+  }
+
+  /**
+   * Get all active top bar buttons for public website
+   */
+  getTopBarButtons(): Observable<TopBarButton[]> {
+    return this.http.get<ApiResponse<TopBarButton[]>>(`${this.baseUrl}/top-bar-buttons`)
+      .pipe(
+        map(response => {
+          if (response.success) {
+            return response.data;
+          }
+          throw new Error(response.message || 'Failed to fetch top bar buttons');
+        }),
+        catchError(this.handleError<TopBarButton[]>('getTopBarButtons', []))
+      );
+  }
+
+  /**
+   * Get all navbar descriptions for About Us menu
+   */
+  getNavbarDescriptions(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/navbar-descriptions`);
   }
 
   /**

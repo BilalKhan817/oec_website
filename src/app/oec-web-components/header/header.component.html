@@ -118,7 +118,7 @@
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600 mb-3">Leading organization for overseas employment.</p>
+                                                    <p class="text-sm text-gray-600 mb-3">{{ navbarDescriptions.aboutOec || 'Leading organization for overseas employment.' }}</p>
                                                     <a routerLink="/about-us"  (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
                                                         View More →
                                                     </a>
@@ -134,7 +134,7 @@
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600 mb-3">Comprehensive overview of our organization's structure, services, and impact.</p>
+                                                    <p class="text-sm text-gray-600 mb-3">{{ navbarDescriptions.oecAtGlance || 'Quick facts and statistics about OEC' }}</p>
                                                     <div class="grid grid-cols-2 gap-4 text-xs">
                                                         <div class="bg-green-50 p-2 rounded">
                                                             <strong>Established:</strong> 1976
@@ -160,7 +160,7 @@
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600">Legal framework and regulations governing overseas employment.</p>
+                                                    <p class="text-sm text-gray-600">{{ navbarDescriptions.governingLaw || 'Legal framework and regulations governing overseas employment.' }}</p>
                                                     <ul class="mt-2 space-y-1 text-xs text-gray-500">
                                                         <li>• Emigration Ordinance 1979</li>
                                                         <li>• Emigration Rules 1979</li>
@@ -181,7 +181,7 @@
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600">Core functions and services provided by OEC.</p>
+                                                    <p class="text-sm text-gray-600">{{ navbarDescriptions.ourFunctions || 'Core functions and services provided by OEC.' }}</p>
                                                     <div class="mt-2 grid grid-cols-1 gap-2 text-xs">
                                                         <div class="flex items-center space-x-2">
                                                             <i class="fas fa-check-circle text-green-500"></i>

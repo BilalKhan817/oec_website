@@ -17,7 +17,7 @@ export class GoverningLawComponent implements OnInit {
   }
 
   loadGoverningLawContent(): void {
-    this.apiService.getGoverningLaw().subscribe({
+    this.apiService.getGoverningLawContent().subscribe({
       next: (response: any) => {
         if (response.success && response.data) {
           this.content = response.data;

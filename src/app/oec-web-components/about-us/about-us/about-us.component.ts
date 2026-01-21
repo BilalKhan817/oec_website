@@ -17,7 +17,7 @@ export class AboutUsComponent implements OnInit {
   }
 
   loadAboutUsContent(): void {
-    this.apiService.getAboutUsContent().subscribe({
+    this.apiService.getAboutUsContentPage().subscribe({
       next: (response: any) => {
         if (response.success && response.data) {
           this.content = response.data;

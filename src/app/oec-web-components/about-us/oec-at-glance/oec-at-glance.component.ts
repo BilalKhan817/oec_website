@@ -17,7 +17,7 @@ export class OecAtGlanceComponent implements OnInit {
   }
 
   loadOecAtGlanceContent(): void {
-    this.apiService.getOecAtGlance().subscribe({
+    this.apiService.getOecAtGlanceContent().subscribe({
       next: (response: any) => {
         if (response.success && response.data) {
           this.content = response.data;

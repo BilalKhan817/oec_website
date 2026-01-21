@@ -102,11 +102,11 @@ export interface Banner {
   providedIn: 'root'
 })
 export class ApiService {
-  // public MainbaseUrl = 'https://oec.gov.pk'
-  // private baseUrl = 'https://oec.gov.pk/api'; // Update this to your API URL
+  public MainbaseUrl = 'https://oec.gov.pk'
+  private baseUrl = 'https://oec.gov.pk/api'; // Update this to your API URL
   
-  public MainbaseUrl = 'http://localhost:3000'
-  public baseUrl = 'http://localhost:3000/api'; // Update this to your API URL
+  // public MainbaseUrl = 'http://localhost:3000'
+  // public baseUrl = 'http://localhost:3000/api'; // Update this to your API URL
   
   // BehaviorSubjects for real-time data updates
   private announcementsSubject = new BehaviorSubject<Announcement[]>([]);
@@ -414,6 +414,22 @@ industrystats(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/oec-at-glance-page`)
       .pipe(catchError(this.handleError<any>('getOecAtGlance', {})));
   }
+  getAboutUsContentPage(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/content`)
+      .pipe(catchError(this.handleError<any>('getAboutUsContent', {})));
+  }
+  getGoverningLawContent(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/governing-law`)
+      .pipe(catchError(this.handleError<any>('getGoverningLaw', {})));
+  }
+  getOecAtGlanceContent(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/oec-at-glance`)
+      .pipe(catchError(this.handleError<any>('getOecAtGlance', {})));
+  }
+  getOurFunctionsContent(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/our-functions`)
+      .pipe(catchError(this.handleError<any>('getOurFunctions', {})));
+  }
 
   getOurFunctions(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/our-functions-page`)
@@ -499,7 +515,7 @@ industrystats(): Observable<any> {
   // ===== CONTACT US APIS =====
 
   getContactUs(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/contact-us/all`)
+    return this.http.get<any>(`${this.baseUrl}/contact-us`)
       .pipe(catchError(this.handleError<any>('getContactUs', {})));
   }
 

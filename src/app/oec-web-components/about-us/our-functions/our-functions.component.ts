@@ -17,7 +17,7 @@ export class OurFunctionsComponent implements OnInit {
   }
 
   loadOurFunctionsContent(): void {
-    this.apiService.getOurFunctions().subscribe({
+    this.apiService.getOurFunctionsContent().subscribe({
       next: (response: any) => {
         if (response.success && response.data) {
           this.content = response.data;

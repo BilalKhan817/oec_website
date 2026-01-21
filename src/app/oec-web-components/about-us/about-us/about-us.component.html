@@ -1,4 +1,13 @@
 <app-header></app-header>
+
+<!-- Loading State -->
+<div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; min-height: 400px; padding: 48px;">
+  <div style="text-align: center;">
+    <div style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #1976d2; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+    <p style="margin-top: 16px; color: #666;">Loading About Us content...</p>
+  </div>
+</div>
+
 <!-- Decorative animated elements -->
 <div class="decorative-elements">
   <div class="floating-circle circle-1"></div>
@@ -13,7 +22,7 @@
   <div class="pulsing-dot dot-2"></div>
   <div class="pulsing-dot dot-3"></div>
 </div>
-<div class="about-container animate-fade-in-up">
+<div class="about-container animate-fade-in-up" *ngIf="!isLoading && content">
   <div class="protector-breadcrumb">
       <a  class="breadcrumb-link">Home</a>
       <span class="breadcrumb-separator">/</span>
@@ -21,125 +30,73 @@
       <span class="breadcrumb-separator">/</span>
     <span class="breadcrumb-current">About Us</span>
   </div>
-  <h1 class="about-title">ABOUT US</h1>
-  <h2 class="about-org">Overseas Employment Corporation (OEC)</h2>
+  <h1 class="about-title">{{ content.page_title }}</h1>
+  <h2 class="about-org">{{ content.organization_name }}</h2>
   <div class="about-meta">
-    Established 1976 | Ministry of Overseas Pakistanis &amp; Human Resource
-    Development
+    Established {{ content.established_year }} | {{ content.ministry_name }}
   </div>
 
   <section class="about-section">
-    <h3 class="about-section-title">Introduction</h3>
-    <p>
-      The Overseas Employment Corporation (OEC) is the only government-owned
-      public sector organization in Pakistan responsible for the recruitment and
-      deployment of Pakistani manpower to reputable foreign employers.<br />
-      Founded in 1976, OEC operates under the Ministry of Overseas Pakistanis
-      &amp; Human Resource Development (OP&amp;HRD) and adheres to the
-      Emigration Ordinance, 1979. It serves as a reliable bridge between
-      Pakistani job seekers and foreign employers, ensuring ethical recruitment,
-      legal migration, and welfare of the workforce abroad.
-    </p>
+    <h3 class="about-section-title">{{ content.introduction_title }}</h3>
+    <p>{{ content.introduction_content }}</p>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Legal Mandate</h3>
+    <h3 class="about-section-title">{{ content.legal_mandate_title }}</h3>
     <ul class="about-list">
-      <li>
-        Registered under: <b>The Companies Act, 1913</b> (now the Companies Act,
-        2017)
-      </li>
-      <li>The Emigration Ordinance, 1979</li>
-      <li>
-        Governed in coordination with the Bureau of Emigration &amp; Overseas
-        Employment (BEOE) and other regulatory authorities
-      </li>
+      <li *ngFor="let item of content.legal_mandate_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Role</h3>
+    <h3 class="about-section-title">{{ content.our_role_title }}</h3>
     <ul class="about-list">
-      <li>Transparent, merit-based, and cost-effective overseas employment</li>
-      <li>Employer-led recruitment aligned with skill demand</li>
-      <li>Documentation and post-selection support services</li>
-      <li>No private middlemen or agents involved</li>
-      <li>Secure pre-departure and post-deployment processes</li>
+      <li *ngFor="let item of content.our_role_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Target Sectors</h3>
+    <h3 class="about-section-title">{{ content.target_sectors_title }}</h3>
     <ul class="about-list about-icons">
-      <li>🏥 Healthcare (Nurses, Doctors, Paramedics)</li>
-      <li>🏗️ Skilled Labor (Construction, Mechanical, Electrical)</li>
-      <li>🧑‍🏭 Manufacturing &amp; Industrial Sectors</li>
-      <li>🧑‍💼 Administrative &amp; Technical Services</li>
-      <li>🇰🇷 Special Programs: Korea EPS (Employment Permit System)</li>
+      <li *ngFor="let item of content.target_sectors_items">{{ item.icon }} {{ item.text }}</li>
     </ul>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Unique Strength</h3>
+    <h3 class="about-section-title">{{ content.unique_strength_title }}</h3>
     <ul class="about-list about-checks">
-      <li>✅ Sole public sector manpower exporter</li>
-      <li>✅ Official recruitment partner for foreign governments</li>
-      <li>✅ Data-driven system for job-matching</li>
-      <li>✅ 100% digital pre-registration and shortlisting</li>
-      <li>✅ Transparent fee structure with full public disclosure</li>
+      <li *ngFor="let item of content.unique_strength_items">✅ {{ item.text }}</li>
     </ul>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Vision</h3>
-    <blockquote class="about-quote">
-      To be Pakistan’s most trusted gateway for safe and dignified overseas
-      employment.
-    </blockquote>
+    <h3 class="about-section-title">{{ content.vision_title }}</h3>
+    <blockquote class="about-quote">{{ content.vision_content }}</blockquote>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Mission</h3>
-    <blockquote class="about-quote">
-      To facilitate legal and transparent employment of Pakistani workers in
-      global labor markets by adhering to high standards of integrity,
-      efficiency, and public service.
-    </blockquote>
+    <h3 class="about-section-title">{{ content.mission_title }}</h3>
+    <blockquote class="about-quote">{{ content.mission_content }}</blockquote>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Core Values</h3>
+    <h3 class="about-section-title">{{ content.core_values_title }}</h3>
     <ul class="about-list">
-      <li>Integrity – Ethical practices in all operations</li>
-      <li>Transparency – No hidden processes or fees</li>
-      <li>Merit – Fair and equal opportunities for all</li>
-      <li>Efficiency – Swift, accurate processing</li>
-      <li>Accountability – Public trust and auditability</li>
-      <li>Dignity – Respect for every applicant’s journey</li>
+      <li *ngFor="let item of content.core_values_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Impact</h3>
+    <h3 class="about-section-title">{{ content.impact_title }}</h3>
     <ul class="about-list">
-      <li>Over 150,000+ workers deployed across 30+ countries</li>
-      <li>400,000+ registered applicants in our national database</li>
-      <li>25,000+ trained in Korean &amp; Japanese languages</li>
-      <li>
-        Government-to-Government (G2G) agreements with KSA, Korea, Japan, Italy,
-        and more
-      </li>
+      <li *ngFor="let item of content.impact_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="about-section">
-    <h3 class="about-section-title">Our Future Goals</h3>
+    <h3 class="about-section-title">{{ content.future_goals_title }}</h3>
     <ul class="about-list">
-      <li>Launch of AI-Powered Job Matching Portal</li>
-      <li>Expansion into European markets</li>
-      <li>Mobile app for job seekers</li>
-      <li>Real-time document validation systems</li>
-      <li>Enhanced language training partnerships (NAVTTC, TEVTA, etc.)</li>
+      <li *ngFor="let item of content.future_goals_items">{{ item.text }}</li>
     </ul>
   </section>
 </div>

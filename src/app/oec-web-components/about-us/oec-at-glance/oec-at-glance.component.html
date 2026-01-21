@@ -1,4 +1,13 @@
 <app-header></app-header>
+
+<!-- Loading State -->
+<div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; min-height: 400px; padding: 48px;">
+  <div style="text-align: center;">
+    <div style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #1976d2; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+    <p style="margin-top: 16px; color: #666;">Loading OEC at Glance content...</p>
+  </div>
+</div>
+
 <!-- Decorative animated elements -->
 <div class="decorative-elements">
     <div class="floating-circle circle-1"></div>
@@ -13,8 +22,9 @@
     <div class="pulsing-dot dot-2"></div>
     <div class="pulsing-dot dot-3"></div>
   </div>
+
 <!-- OEC at a Glance content -->
-<div class="glance-container animate-fade-in-up">
+<div class="glance-container animate-fade-in-up" *ngIf="!isLoading && content">
   <div class="protector-breadcrumb">
     <a  class="breadcrumb-link">Home</a>
     <span class="breadcrumb-separator">/</span>
@@ -24,117 +34,84 @@
     <span class="breadcrumb-separator">/</span>
     <span class="breadcrumb-current">OEC at Glance</span>
   </div>
-  <h1 class="glance-title">OEC at Glance</h1>
-  <div class="glance-meta">A visual and statistical snapshot of OEC’s national impact and international reach.</div>
+  <h1 class="glance-title">{{ content.page_title }}</h1>
+  <div class="glance-meta">{{ content.page_subtitle }}</div>
 
   <section class="glance-section">
-    <div class="glance-label">📅 Year of Establishment</div>
-    <div class="glance-value">1976 <span class="glance-note">Under the Ministry of Overseas Pakistanis &amp; Human Resource Development</span></div>
+    <div class="glance-label">{{ content.establishment_icon }} {{ content.establishment_label }}</div>
+    <div class="glance-value">{{ content.establishment_year }} <span class="glance-note">{{ content.establishment_note }}</span></div>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">📜 Legal Foundation</div>
+    <div class="glance-label">{{ content.legal_icon }} {{ content.legal_label }}</div>
     <ul class="glance-list">
-      <li>Incorporated under the Companies Act 1913 (now Companies Act 2017)</li>
-      <li>Governed by the Emigration Ordinance 1979</li>
+      <li *ngFor="let item of content.legal_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🏢 Headquarters</div>
+    <div class="glance-label">{{ content.headquarters_icon }} {{ content.headquarters_label }}</div>
     <ul class="glance-list">
-      <li>📍 Islamabad, Pakistan</li>
-      <li>Regional Offices: Lahore, Karachi, Peshawar, Quetta</li>
-      <li>Satellite: OEC Travels Office, Islamabad</li>
+      <li *ngFor="let item of content.headquarters_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">👷 Workforce Deployed</div>
-    <div class="glance-value">150,000+ Pakistani workers successfully deployed to:</div>
+    <div class="glance-label">{{ content.workforce_icon }} {{ content.workforce_label }}</div>
+    <div class="glance-value">{{ content.workforce_value }}</div>
     <ul class="glance-list glance-flags">
-      <li>Saudi Arabia 🇸🇦</li>
-      <li>South Korea 🇰🇷</li>
-      <li>Italy 🇮🇹</li>
-      <li>Japan 🇯🇵</li>
-      <li>Qatar 🇶🇦</li>
-      <li>UAE 🇦🇪</li>
-      <li>Kuwait 🇰🇼</li>
-      <li>and many more…</li>
+      <li *ngFor="let country of content.workforce_countries">
+        <span *ngIf="country.flag">{{ country.flag }} </span>{{ country.country }}
+      </li>
     </ul>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🗂️ Registered Job Seekers</div>
-    <div class="glance-value">400,000+ active applicants across Pakistan</div>
-    <div class="glance-note">Regularly verified and matched to live demands</div>
+    <div class="glance-label">{{ content.job_seekers_icon }} {{ content.job_seekers_label }}</div>
+    <div class="glance-value">{{ content.job_seekers_value }}</div>
+    <div class="glance-note">{{ content.job_seekers_note }}</div>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🌍 International Employers Served</div>
-    <div class="glance-value">4,500+ reputable employers &amp; organizations</div>
+    <div class="glance-label">{{ content.employers_icon }} {{ content.employers_label }}</div>
+    <div class="glance-value">{{ content.employers_value }}</div>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🤝 Key Programs &amp; Agreements</div>
+    <div class="glance-label">{{ content.programs_icon }} {{ content.programs_label }}</div>
     <ul class="glance-list">
-      <li>EPS – Korea (HRD Korea)</li>
-      <li>MNGHA – KSA (Ministry of National Guard Health Affairs)</li>
-      <li>Italy – Healthcare Deployment (Nurses)</li>
-      <li>Bilateral G2G &amp; G2Private Projects</li>
+      <li *ngFor="let item of content.programs_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🗣️ Language Training &amp; Development</div>
+    <div class="glance-label">{{ content.training_icon }} {{ content.training_label }}</div>
     <ul class="glance-list">
-      <li>25,000+ trained under Korea EPS program</li>
-      <li>Collaboration with NAVTTC, TEVTA, JICA &amp; HRD Korea</li>
-      <li>Korean, Japanese &amp; Italian language training support</li>
+      <li *ngFor="let item of content.training_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">💻 Technological Milestones</div>
+    <div class="glance-label">{{ content.tech_icon }} {{ content.tech_label }}</div>
     <ul class="glance-list">
-      <li>Centralized Digital Pre-Registration System</li>
-      <li>AI-Based Job Portal (in development)</li>
-      <li>Secure Shortlisting, Document Validation &amp; Visa Support System</li>
+      <li *ngFor="let item of content.tech_items">{{ item.text }}</li>
     </ul>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🛠️ Core Functions in One Glance</div>
+    <div class="glance-label">{{ content.functions_icon }} {{ content.functions_label }}</div>
     <div class="glance-process">
-      <div class="glance-process-step">
-        <div class="glance-step-label">📢 Demand Advertising</div>
-        <div class="glance-step-desc">Verified jobs published on the website</div>
-      </div>
-      <div class="glance-process-step">
-        <div class="glance-step-label">📝 Registration &amp; Shortlisting</div>
-        <div class="glance-step-desc">Transparent merit-based processing</div>
-      </div>
-      <div class="glance-process-step">
-        <div class="glance-step-label">🤝 Interview Coordination</div>
-        <div class="glance-step-desc">Employer-led interviews (online or physical)</div>
-      </div>
-      <div class="glance-process-step">
-        <div class="glance-step-label">📄 Medical, Visa &amp; Protector</div>
-        <div class="glance-step-desc">Complete document &amp; compliance handling</div>
-      </div>
-      <div class="glance-process-step">
-        <div class="glance-step-label">✈️ Final Deployment</div>
-        <div class="glance-step-desc">Ticketing, clearance, and departure support</div>
+      <div class="glance-process-step" *ngFor="let step of content.functions_steps">
+        <div class="glance-step-label">{{ step.icon }} {{ step.label }}</div>
+        <div class="glance-step-desc">{{ step.description }}</div>
       </div>
     </div>
   </section>
 
   <section class="glance-section">
-    <div class="glance-label">🏛️ Organizational Structure</div>
+    <div class="glance-label">{{ content.org_structure_icon }} {{ content.org_structure_label }}</div>
     <ul class="glance-list">
-      <li>Fully government-owned</li>
-      <li>Administered by MD and Executive Directors</li>
-      <li>Supported by a technical team, regional offices &amp; validator panels</li>
+      <li *ngFor="let item of content.org_structure_items">{{ item.text }}</li>
     </ul>
   </section>
 </div>

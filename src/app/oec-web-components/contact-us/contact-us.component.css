@@ -21,13 +21,13 @@
 }
 
 .contact-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   margin-top: 2rem;
 }
 
-.feedback-section, .support-section {
+.feedback-section, .support-section, .headquarters-section, .regional-offices-section, .travel-office-section {
   margin-bottom: 2.2rem;
   padding-bottom: 1rem;
 }
@@ -170,6 +170,76 @@
   color: #334155;
   font-size: 0.98rem;
   margin: 0;
+}
+
+/* Office Cards Styling */
+.offices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.office-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.08);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.office-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(16,185,129,0.15);
+}
+
+.headquarters-card, .travel-card {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 2px solid #10b981;
+}
+
+.office-city {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #059669;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(16,185,129,0.2);
+}
+
+.office-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.office-address, .office-phone, .office-email {
+  color: #334155;
+  font-size: 0.95rem;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.info-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+/* Map Embed Styling */
+.office-map {
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(16,185,129,0.2);
+  box-shadow: 0 2px 8px rgba(16,185,129,0.1);
+}
+
+.office-map iframe {
+  display: block;
+  border-radius: 0.75rem;
 }
 
 /* Breadcrumb Styling */
@@ -386,17 +456,20 @@
   .contact-us-container {
     padding: 1.2rem 0.5rem;
   }
-  
+
   .contact-content {
-    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
+  .offices-grid {
+    grid-template-columns: 1fr;
+  }
+
   .support-cards {
     flex-direction: row;
     flex-wrap: wrap;
   }
-  
+
   .support-card {
     flex: 1 1 250px;
   }

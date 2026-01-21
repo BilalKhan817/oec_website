@@ -15,77 +15,151 @@
   <div class="pulsing-dot dot-3"></div>
 </div>
 
-<div class="contact-us-container animate-fade-in-up">
+<!-- Loading State -->
+<div *ngIf="isLoading" class="loading-container" style="text-align: center; padding: 50px;">
+  <p>Loading content...</p>
+</div>
+
+<!-- Main Content -->
+<div class="contact-us-container animate-fade-in-up" *ngIf="!isLoading && content">
   <div class="protector-breadcrumb">
     <a class="breadcrumb-link">Home</a>
     <span class="breadcrumb-separator">/</span>
     <span class="breadcrumb-current">Contact Us</span>
   </div>
 
-  <h1 class="contact-us-title">Get in Touch with OEC</h1>
-  
+  <h1 class="contact-us-title">{{ content.page_title }}</h1>
+
   <div class="contact-content">
+    <!-- Headquarters Section -->
+    <section class="headquarters-section" *ngIf="content.headquarters_section">
+      <h2 class="section-title">{{ content.headquarters_section.icon }} {{ content.headquarters_section.title }}</h2>
+      <div class="office-card headquarters-card">
+        <div class="office-info">
+          <p class="office-address"><span class="info-icon">📍</span> {{ content.headquarters_section.address }}</p>
+          <p class="office-phone"><span class="info-icon">📞</span> {{ content.headquarters_section.phone }}</p>
+          <p class="office-email"><span class="info-icon">✉️</span> {{ content.headquarters_section.email }}</p>
+        </div>
+        <div class="office-map" *ngIf="content.headquarters_section.map_embed_url">
+          <iframe
+            [src]="sanitizeUrl(content.headquarters_section.map_embed_url)"
+            width="100%"
+            height="200"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regional Offices Section -->
+    <section class="regional-offices-section" *ngIf="content.regional_offices_section">
+      <h2 class="section-title">{{ content.regional_offices_section.icon }} {{ content.regional_offices_section.title }}</h2>
+      <div class="offices-grid">
+        <div class="office-card" *ngFor="let office of content.regional_offices_section.offices">
+          <h3 class="office-city">{{ office.city }}</h3>
+          <div class="office-info">
+            <p class="office-address"><span class="info-icon">📍</span> {{ office.address }}</p>
+            <p class="office-phone"><span class="info-icon">📞</span> {{ office.phone }}</p>
+            <p class="office-email"><span class="info-icon">✉️</span> {{ office.email }}</p>
+          </div>
+          <div class="office-map" *ngIf="office.map_embed_url">
+            <iframe
+              [src]="sanitizeUrl(office.map_embed_url)"
+              width="100%"
+              height="180"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OEC Travel Office Section -->
+    <section class="travel-office-section" *ngIf="content.travel_office_section">
+      <h2 class="section-title">{{ content.travel_office_section.icon }} {{ content.travel_office_section.title }}</h2>
+      <div class="office-card travel-card">
+        <div class="office-info">
+          <p class="office-address"><span class="info-icon">📍</span> {{ content.travel_office_section.address }}</p>
+          <p class="office-phone"><span class="info-icon">📞</span> {{ content.travel_office_section.phone }}</p>
+        </div>
+        <div class="office-map" *ngIf="content.travel_office_section.map_embed_url">
+          <iframe
+            [src]="sanitizeUrl(content.travel_office_section.map_embed_url)"
+            width="100%"
+            height="200"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
     <!-- Feedback Section -->
-    <section class="feedback-section">
-      <h2 class="section-title">📝 Feedback</h2>
-      <p class="section-desc">
-        If you need information, want to share feedback or highlight a concern, we are here. 
-        You can also drop an email to us your feedback through the form given below.
-      </p>
-      
+    <section class="feedback-section" *ngIf="content.feedback_section">
+      <h2 class="section-title">{{ content.feedback_section.icon }} {{ content.feedback_section.title }}</h2>
+      <p class="section-desc">{{ content.feedback_section.description }}</p>
+
       <form class="contact-form" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name" class="form-label">Name *</label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
-            class="form-input" 
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-input"
             placeholder="Enter Name"
             [(ngModel)]="contactForm.name"
             required
           >
         </div>
-        
+
         <div class="form-group">
           <label for="email" class="form-label">Email *</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            class="form-input" 
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-input"
             placeholder="Enter Email"
             [(ngModel)]="contactForm.email"
             required
           >
         </div>
-        
+
         <div class="form-group">
           <label for="subject" class="form-label">Subject *</label>
-          <input 
-            type="text" 
-            id="subject" 
-            name="subject" 
-            class="form-input" 
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            class="form-input"
             placeholder="Enter Subject"
             [(ngModel)]="contactForm.subject"
             required
           >
         </div>
-        
+
         <div class="form-group">
           <label for="message" class="form-label">Message *</label>
-          <textarea 
-            id="message" 
-            name="message" 
-            class="form-textarea" 
+          <textarea
+            id="message"
+            name="message"
+            class="form-textarea"
             placeholder="Enter Message"
             rows="5"
             [(ngModel)]="contactForm.message"
             required
           ></textarea>
         </div>
-        
+
         <button type="submit" class="submit-btn">
           <span class="btn-text">Send Message</span>
           <span class="btn-icon">📤</span>
@@ -93,37 +167,12 @@
       </form>
     </section>
 
-    <!-- Customer Support Section -->
-    <section class="support-section">
-      <h2 class="section-title">🆘 Customer Support</h2>
-      
-      <div class="support-cards">
-        <div class="support-card">
-          <div class="support-icon">📞</div>
-          <div class="support-content">
-            <h3 class="support-title">Call Us</h3>
-            <p class="support-detail">+92-51-9253246-54</p>
-          </div>
-        </div>
-        
-        <div class="support-card">
-          <div class="support-icon">📍</div>
-          <div class="support-content">
-            <h3 class="support-title">Office Location</h3>
-            <p class="support-detail">Near Zero Point, G-7/1 Islamabad</p>
-          </div>
-        </div>
-        
-        <div class="support-card">
-          <div class="support-icon">✉️</div>
-          <div class="support-content">
-            <h3 class="support-title">Email</h3>
-            <p class="support-detail">admin@oec.gov.pk</p>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
+</div>
+
+<!-- No Content State -->
+<div *ngIf="!isLoading && !content" class="no-content" style="text-align: center; padding: 50px;">
+  <p>No content available. Please contact the administrator.</p>
 </div>
 
 <app-footer></app-footer>

@@ -399,6 +399,42 @@ industrystats(): Observable<any> {
   getDigitalTransformation(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/digital-transformations`);
   }
+
+  getAboutUsContent(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/content`)
+      .pipe(
+        catchError(this.handleError<any>('getAboutUsContent', {}))
+      );
+  }
+
+  getOecAtGlance(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/oec-at-glance`)
+      .pipe(
+        catchError(this.handleError<any>('getOecAtGlance', {}))
+      );
+  }
+
+  getGoverningLaw(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/governing-law`)
+      .pipe(
+        catchError(this.handleError<any>('getGoverningLaw', {}))
+      );
+  }
+
+  getOurFunctions(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/our-functions`)
+      .pipe(
+        catchError(this.handleError<any>('getOurFunctions', {}))
+      );
+  }
+
+  getContactUs(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/contact-us`)
+      .pipe(
+        catchError(this.handleError<any>('getContactUs', {}))
+      );
+  }
+
   /**
    * Check API health
    */

@@ -395,44 +395,112 @@ industrystats(): Observable<any> {
   getPartnerships(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/partnerships`);
   }
-  
+
   getDigitalTransformation(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/digital-transformations`);
   }
 
   getAboutUsContent(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/about-us/content`)
-      .pipe(
-        catchError(this.handleError<any>('getAboutUsContent', {}))
-      );
-  }
-
-  getOecAtGlance(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/about-us/oec-at-glance`)
-      .pipe(
-        catchError(this.handleError<any>('getOecAtGlance', {}))
-      );
+    return this.http.get<any>(`${this.baseUrl}/about-us/about-oec-page`)
+      .pipe(catchError(this.handleError<any>('getAboutUsContent', {})));
   }
 
   getGoverningLaw(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/about-us/governing-law`)
-      .pipe(
-        catchError(this.handleError<any>('getGoverningLaw', {}))
-      );
+    return this.http.get<any>(`${this.baseUrl}/about-us/governing-law-page`)
+      .pipe(catchError(this.handleError<any>('getGoverningLaw', {})));
+  }
+
+  getOecAtGlance(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/oec-at-glance-page`)
+      .pipe(catchError(this.handleError<any>('getOecAtGlance', {})));
   }
 
   getOurFunctions(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/about-us/our-functions`)
-      .pipe(
-        catchError(this.handleError<any>('getOurFunctions', {}))
-      );
+    return this.http.get<any>(`${this.baseUrl}/about-us/our-functions-page`)
+      .pipe(catchError(this.handleError<any>('getOurFunctions', {})));
   }
 
+  getMissionVision(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/mission-vision-page`)
+      .pipe(catchError(this.handleError<any>('getMissionVision', {})));
+  }
+
+  getAchievements(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/achievements-page`)
+      .pipe(catchError(this.handleError<any>('getAchievements', {})));
+  }
+
+  getWhyChooseOec(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/why-choose-oec-page`)
+      .pipe(catchError(this.handleError<any>('getWhyChooseOec', {})));
+  }
+
+  getOurExecutives(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/about-us/our-executives-page`)
+      .pipe(catchError(this.handleError<any>('getOurExecutives', {})));
+  }
+
+  // ===== EMIGRANTS APIS =====
+
+  getEPSKorea(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/emigrants/eps-korea-page`)
+      .pipe(catchError(this.handleError<any>('getEPSKorea', {})));
+  }
+
+  getLabourContracts(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/emigrants/labour-contracts-page`)
+      .pipe(catchError(this.handleError<any>('getLabourContracts', {})));
+  }
+
+  getEPSResults(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/emigrants/eps-results-page`)
+      .pipe(catchError(this.handleError<any>('getEPSResults', {})));
+  }
+
+  getServiceAgreements(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/emigrants/service-agreements-page`)
+      .pipe(catchError(this.handleError<any>('getServiceAgreements', {})));
+  }
+
+  getIndustries(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/emigrants/industries-page`)
+      .pipe(catchError(this.handleError<any>('getIndustries', {})));
+  }
+
+  // ===== DEVELOPMENT HUB APIS =====
+
+  getDevelopmentHub(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/us-submenu/development-hub`)
+      .pipe(catchError(this.handleError<any>('getDevelopmentHub', [])));
+  }
+
+  // ===== MEDIA CENTER APIS =====
+
+  getLatestAnnouncements(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/latest-announcements`)
+      .pipe(catchError(this.handleError<any>('getLatestAnnouncements', {})));
+  }
+
+  getPressReleases(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/press-releases`)
+      .pipe(catchError(this.handleError<any>('getPressReleases', {})));
+  }
+
+  getNewsHighlights(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/news-highlights`)
+      .pipe(catchError(this.handleError<any>('getNewsHighlights', {})));
+  }
+
+  getEvents(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/events`)
+      .pipe(catchError(this.handleError<any>('getEvents', [])));
+  }
+
+  // ===== CONTACT US APIS =====
+
   getContactUs(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/contact-us`)
-      .pipe(
-        catchError(this.handleError<any>('getContactUs', {}))
-      );
+    return this.http.get<any>(`${this.baseUrl}/contact-us/all`)
+      .pipe(catchError(this.handleError<any>('getContactUs', {})));
   }
 
   /**

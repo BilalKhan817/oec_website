@@ -113,12 +113,12 @@
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fa-solid fa-building text-green-600"></i>
-                                                        <span class="font-semibold">About OEC</span>
+                                                        <span class="font-semibold">{{ aboutOecData?.title || 'About OEC' }}</span>
                                                     </div>
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600 mb-3">{{ navbarDescriptions.aboutOec || 'Leading organization for overseas employment.' }}</p>
+                                                    <p class="text-sm text-gray-600 mb-3">{{ aboutOecData?.navbar_description || aboutOecData?.introduction || navbarDescriptions.aboutOec || 'Leading organization for overseas employment.' }}</p>
                                                     <a routerLink="/about-us"  (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
                                                         View More →
                                                     </a>
@@ -129,18 +129,18 @@
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-eye text-green-600"></i>
-                                                        <span class="font-semibold">OEC at Glance</span>
+                                                        <span class="font-semibold">{{ oecAtGlanceData?.title || 'OEC at Glance' }}</span>
                                                     </div>
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600 mb-3">{{ navbarDescriptions.oecAtGlance || 'Quick facts and statistics about OEC' }}</p>
+                                                    <p class="text-sm text-gray-600 mb-3">{{ oecAtGlanceData?.navbar_description || oecAtGlanceData?.introduction || navbarDescriptions.oecAtGlance || 'Quick facts and statistics about OEC' }}</p>
                                                     <div class="grid grid-cols-2 gap-4 text-xs">
-                                                        <div class="bg-green-50 p-2 rounded">
-                                                            <strong>Established:</strong> 1976
+                                                        <div class="bg-green-50 p-2 rounded" *ngIf="oecAtGlanceData?.established_year">
+                                                            <strong>Established:</strong> {{ oecAtGlanceData.established_year }}
                                                         </div>
-                                                        <div class="bg-blue-50 p-2 rounded">
-                                                            <strong>Workers Sent:</strong> 11M+
+                                                        <div class="bg-blue-50 p-2 rounded" *ngIf="oecAtGlanceData?.workers_sent">
+                                                            <strong>Workers Sent:</strong> {{ oecAtGlanceData.workers_sent }}
                                                         </div>
                                                     </div>
                                                     <a [routerLink]="'/oec-at-glance'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
@@ -155,16 +155,14 @@
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-gavel text-green-600"></i>
-                                                        <span class="font-semibold">Governing Law</span>
+                                                        <span class="font-semibold">{{ governingLawData?.title || 'Governing Law' }}</span>
                                                     </div>
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600">{{ navbarDescriptions.governingLaw || 'Legal framework and regulations governing overseas employment.' }}</p>
-                                                    <ul class="mt-2 space-y-1 text-xs text-gray-500">
-                                                        <li>• Emigration Ordinance 1979</li>
-                                                        <li>• Emigration Rules 1979</li>
-                                                        <li>• OEC Act 1976</li>
+                                                    <p class="text-sm text-gray-600">{{ governingLawData?.navbar_description || governingLawData?.introduction || navbarDescriptions.governingLaw || 'Legal framework and regulations governing overseas employment.' }}</p>
+                                                    <ul class="mt-2 space-y-1 text-xs text-gray-500" *ngIf="governingLawData?.legal_points && governingLawData.legal_points.length > 0">
+                                                        <li *ngFor="let point of governingLawData.legal_points.slice(0, 3)">• {{ point }}</li>
                                                     </ul>
                                                     <a [routerLink]="'/governing-law'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
                                                         View More →
@@ -176,20 +174,16 @@
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-cogs text-green-600"></i>
-                                                        <span class="font-semibold">Our Functions</span>
+                                                        <span class="font-semibold">{{ ourFunctionsData?.title || 'Our Functions' }}</span>
                                                     </div>
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600">{{ navbarDescriptions.ourFunctions || 'Core functions and services provided by OEC.' }}</p>
-                                                    <div class="mt-2 grid grid-cols-1 gap-2 text-xs">
-                                                        <div class="flex items-center space-x-2">
+                                                    <p class="text-sm text-gray-600">{{ ourFunctionsData?.navbar_description || ourFunctionsData?.introduction || navbarDescriptions.ourFunctions || 'Core functions and services provided by OEC.' }}</p>
+                                                    <div class="mt-2 grid grid-cols-1 gap-2 text-xs" *ngIf="ourFunctionsData?.function_points && ourFunctionsData.function_points.length > 0">
+                                                        <div *ngFor="let point of ourFunctionsData.function_points.slice(0, 2)" class="flex items-center space-x-2">
                                                             <i class="fas fa-check-circle text-green-500"></i>
-                                                            <span>Worker Registration</span>
-                                                        </div>
-                                                        <div class="flex items-center space-x-2">
-                                                            <i class="fas fa-check-circle text-green-500"></i>
-                                                            <span>Employment Promotion</span>
+                                                            <span>{{ point }}</span>
                                                         </div>
                                                     </div>
                                                     <a [routerLink]="'/our-functions'" (click)="$event.stopPropagation()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
@@ -204,31 +198,13 @@
                                 <!-- Leadership Tab -->
                                 <div id="about-leadership" class="tab-content">
                                     <div class="grid grid-cols-3 gap-6">
-                                        
-                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                            <img src="../../../assets/images/minister.jpg" alt="Executives" class="w-full h-40 object-cover">
+                                        <div *ngFor="let leader of ourExecutivesData?.leadership_items" class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                            <img [src]="leader.image || '../../../assets/images/minister.jpg'" [alt]="leader.title" class="w-full h-40 object-cover">
                                             <div class="p-4">
-                                                <h3 class="font-bold text-gray-800">Our Executives</h3>
-                                                <!-- <p class="text-sm text-gray-600">Senior Management</p> -->
-                                                <a [routerLink]="'/our-executives'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">Meet Team →</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                            <img src="../../../assets/images/md.jpg" alt="Managing Director" class="w-full h-40 object-cover">
-                                            <div class="p-4">
-                                                <h3 class="font-bold text-gray-800">Managing Director</h3>
-                                                <!-- <p class="text-sm text-gray-600">Executive Leadership</p> -->
-                                                <a [routerLink]="'/managing-director-message'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">Read Message →</a>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                            <img src="../../../assets/images/board.png" alt="Board of Directors" class="w-full h-40 object-cover">
-                                            <div class="p-4">
-                                                <h3 class="font-bold text-gray-800">Board of Directors</h3>
-                                                <!-- <p class="text-sm text-gray-600">Governance Body</p> -->
-                                                <a [routerLink]="'/board-of-directors'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">View Board →</a>
+                                                <h3 class="font-bold text-gray-800">{{ leader.title }}</h3>
+                                                <a [routerLink]="getLeadershipRoute(leader.title)" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium inline-block">
+                                                    {{ getLeadershipLinkText(leader.title) }} →
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -241,38 +217,32 @@
                                             <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6">
                                                 <div class="flex items-center space-x-3 mb-4">
                                                     <i class="fas fa-bullseye text-2xl text-green-600"></i>
-                                                    <h3 class="text-lg font-bold text-green-800">Our Mission</h3>
+                                                    <h3 class="text-lg font-bold text-green-800">{{ missionVisionData?.mission_title || 'Our Mission' }}</h3>
                                                 </div>
-                                                <p class="text-gray-700 leading-relaxed">To facilitate safe, legal, and dignified overseas employment opportunities for Pakistani workers while ensuring their welfare and protection abroad.</p>
+                                                <p class="text-gray-700 leading-relaxed">{{ missionVisionData?.mission_statement || 'To facilitate safe, legal, and dignified overseas employment opportunities for Pakistani workers while ensuring their welfare and protection abroad.' }}</p>
                                             </div>
-                                            
+
                                             <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
                                                 <div class="flex items-center space-x-3 mb-4">
                                                     <i class="fas fa-eye text-2xl text-blue-600"></i>
-                                                    <h3 class="text-lg font-bold text-blue-800">Our Vision</h3>
+                                                    <h3 class="text-lg font-bold text-blue-800">{{ missionVisionData?.vision_title || 'Our Vision' }}</h3>
                                                 </div>
-                                                <p class="text-gray-700 leading-relaxed">To be the leading organization in overseas employment services, recognized globally for excellence and innovation.</p>
+                                                <p class="text-gray-700 leading-relaxed">{{ missionVisionData?.vision_statement || 'To be the leading organization in overseas employment services, recognized globally for excellence and innovation.' }}</p>
                                             </div>
                                         </div>
                                         
                                         <div class="space-y-4">
                                             <h3 class="text-lg font-bold text-gray-800 mb-4">Core Values</h3>
-                                            <div class="space-y-3">
-                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                                                    <i class="fas fa-shield-alt text-green-600"></i>
-                                                    <span class="font-medium">Integrity</span>
-                                                </div>
-                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                                                    <i class="fas fa-star text-yellow-500"></i>
-                                                    <span class="font-medium">Excellence</span>
-                                                </div>
-                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                                                    <i class="fas fa-lightbulb text-blue-600"></i>
-                                                    <span class="font-medium">Innovation</span>
-                                                </div>
-                                                <div class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                                                    <i class="fas fa-handshake text-purple-600"></i>
-                                                    <span class="font-medium">Service</span>
+                                            <div class="space-y-3" *ngIf="missionVisionData?.core_values && missionVisionData.core_values.length > 0">
+                                                <div *ngFor="let value of missionVisionData.core_values.slice(0, 4)" class="flex items-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
+                                                    <i class="fas {{ value.icon }}"
+                                                       [ngClass]="{
+                                                         'text-green-600': value.order === 1,
+                                                         'text-yellow-500': value.order === 2,
+                                                         'text-blue-600': value.order === 3,
+                                                         'text-purple-600': value.order === 4
+                                                       }"></i>
+                                                    <span class="font-medium">{{ value.title }}</span>
                                                 </div>
                                             </div>
                                             <div class="space-y-4">
@@ -287,24 +257,16 @@
                                     <div class="grid grid-cols-2 gap-8">
                                         <div class="space-y-4">
                                             <h3 class="text-lg font-bold text-gray-800 mb-4">Key Achievements</h3>
-                                            <div class="space-y-4">
-                                                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                                            <div class="space-y-4" *ngIf="achievementsData?.statistics && achievementsData.statistics.length > 0">
+                                                <div *ngFor="let stat of achievementsData.statistics.slice(0, 2); let i = index"
+                                                     [ngClass]="i % 2 === 0 ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-blue-500 to-blue-600'"
+                                                     class="text-white rounded-xl p-6">
                                                     <div class="flex items-center justify-between">
                                                         <div>
-                                                            <h4 class="text-2xl font-bold">150K+</h4>
-                                                            <p class="text-green-100">Workers Sent Abroad</p>
+                                                            <h4 class="text-2xl font-bold">{{ stat.value }}</h4>
+                                                            <p [ngClass]="i % 2 === 0 ? 'text-green-100' : 'text-blue-100'">{{ stat.label }}</p>
                                                         </div>
-                                                        <i class="fas fa-users text-3xl text-green-200"></i>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
-                                                    <div class="flex items-center justify-between">
-                                                        <div>
-                                                            <h4 class="text-2xl font-bold">$150B+</h4>
-                                                            <p class="text-blue-100">Remittances Generated</p>
-                                                        </div>
-                                                        <i class="fas fa-dollar-sign text-3xl text-blue-200"></i>
+                                                        <i class="fas {{ stat.icon }} text-3xl" [ngClass]="i % 2 === 0 ? 'text-green-200' : 'text-blue-200'"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -356,24 +318,16 @@
                                     <div class="grid grid-cols-2 gap-8">
                                         <div class="space-y-4">
                                             <h3 class="text-lg font-bold text-gray-800 mb-4">Why Choose OEC?</h3>
-                                            <div class="space-y-4">
-                                                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-6">
+                                            <div class="space-y-4" *ngIf="whyChooseOecData?.reasons && whyChooseOecData.reasons.length > 0">
+                                                <div *ngFor="let reason of whyChooseOecData.reasons.slice(0, 2); let i = index"
+                                                     [ngClass]="i % 2 === 0 ? 'bg-gradient-to-r from-green-500 to-green-600' : 'bg-gradient-to-r from-blue-500 to-blue-600'"
+                                                     class="text-white rounded-xl p-6">
                                                     <div class="flex items-center justify-between">
                                                         <div>
-                                                            <h4 class="text-xl font-bold">Government Owned</h4>
-                                                            <p class="text-green-100">Sole public sector manpower exporter</p>
+                                                            <h4 class="text-xl font-bold">{{ reason.title }}</h4>
+                                                            <p [ngClass]="i % 2 === 0 ? 'text-green-100' : 'text-blue-100'">{{ reason.description }}</p>
                                                         </div>
-                                                        <i class="fas fa-shield-alt text-3xl text-green-200"></i>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
-                                                    <div class="flex items-center justify-between">
-                                                        <div>
-                                                            <h4 class="text-xl font-bold">Transparent Process</h4>
-                                                            <p class="text-blue-100">No hidden fees or middlemen</p>
-                                                        </div>
-                                                        <i class="fas fa-eye text-3xl text-blue-200"></i>
+                                                        <i class="fas {{ reason.icon }} text-3xl" [ngClass]="i % 2 === 0 ? 'text-green-200' : 'text-blue-200'"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -381,41 +335,26 @@
                                         
                                         <div class="space-y-4">
                                             <h3 class="text-lg font-bold text-gray-800 mb-4">Key Advantages</h3>
-                                            <div class="space-y-3">
-                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
-                                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                                        <i class="fas fa-check text-green-600 text-sm"></i>
+                                            <div class="space-y-3" *ngIf="whyChooseOecData?.benefits && whyChooseOecData.benefits.length > 0">
+                                                <div *ngFor="let benefit of whyChooseOecData.benefits.slice(0, 4); let i = index" class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
+                                                    <div class="w-8 h-8 rounded-full flex items-center justify-center"
+                                                         [ngClass]="{
+                                                           'bg-green-100': i === 0,
+                                                           'bg-blue-100': i === 1,
+                                                           'bg-purple-100': i === 2,
+                                                           'bg-orange-100': i === 3
+                                                         }">
+                                                        <i class="fas {{ benefit.icon }} text-sm"
+                                                           [ngClass]="{
+                                                             'text-green-600': i === 0,
+                                                             'text-blue-600': i === 1,
+                                                             'text-purple-600': i === 2,
+                                                             'text-orange-600': i === 3
+                                                           }"></i>
                                                     </div>
                                                     <div>
-                                                        <p class="font-medium">Merit-based Selection</p>
-                                                        <p class="text-sm text-gray-600">Fair and equal opportunities</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
-                                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                                        <i class="fas fa-globe text-blue-600 text-sm"></i>
-                                                    </div>
-                                                    <div>
-                                                        <p class="font-medium">Global Partnerships</p>
-                                                        <p class="text-sm text-gray-600">Government-to-government agreements</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
-                                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                                        <i class="fas fa-headset text-purple-600 text-sm"></i>
-                                                    </div>
-                                                    <div>
-                                                        <p class="font-medium">24/7 Support</p>
-                                                        <p class="text-sm text-gray-600">Comprehensive assistance</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-center space-x-4 p-3 bg-white rounded-lg shadow-sm">
-                                                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                                                        <i class="fas fa-certificate text-orange-600 text-sm"></i>
-                                                    </div>
-                                                    <div>
-                                                        <p class="font-medium">Certified Training</p>
-                                                        <p class="text-sm text-gray-600">Skills development programs</p>
+                                                        <p class="font-medium">{{ benefit.title }}</p>
+                                                        <p class="text-sm text-gray-600">{{ benefit.description }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -458,10 +397,10 @@
                                 <div id="emigrants-eps" class="tab-content active">
                                     <div class="grid grid-cols-2 gap-6">
                                         <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                            <img src="../../../assets/images/eps.jpg" alt="EPS Korea" class="w-full h-32 object-cover">
+                                            <img [src]="epsKoreaData?.image || '../../../assets/images/eps.jpg'" alt="EPS Korea" class="w-full h-32 object-cover">
                                             <div class="p-4">
-                                                <h3 class="font-bold text-gray-800 mb-2">Employment Permit System</h3>
-                                                <p class="text-sm text-gray-600 mb-3">Government-to-government program for Korean employment</p>
+                                                <h3 class="font-bold text-gray-800 mb-2">{{ epsKoreaData?.title || 'Employment Permit System' }}</h3>
+                                                <p class="text-sm text-gray-600 mb-3">{{ epsKoreaData?.description || 'Government-to-government program for Korean employment' }}</p>
                                                 <div class="flex space-x-2">
                                                     <button class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Labour Contracts</button>
                                                     <button class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Results</button>
@@ -474,24 +413,14 @@
                                                 <div class="flex items-center justify-between">
                                                     <div class="flex items-center space-x-3">
                                                         <i class="fas fa-file-contract text-red-600"></i>
-                                                        <span class="font-semibold">Labour Contracts</span>
+                                                        <span class="font-semibold">{{ labourContractsData?.title || 'Labour Contracts' }}</span>
                                                     </div>
                                                     <i class="fas fa-chevron-right expand-icon transition-transform"></i>
                                                 </div>
                                                 <div class="expand-content mt-4">
-                                                    <p class="text-sm text-gray-600">Standard employment contracts for Korean employment.</p>
-                                                    <div class="mt-2 space-y-1 text-xs text-gray-500">
-                                                        <div class="flex justify-between"><span>Contract Duration:</span>
-                                                           <span class="font-medium">3 Years</span>
-                                                       </div>
-                                                       <div class="flex justify-between">
-                                                           <span>Minimum Wage:</span>
-                                                           <span class="font-medium">₩9,160/hour</span>
-                                                       </div>
-                                                       <div class="flex justify-between">
-                                                           <span>Working Hours:</span>
-                                                           <span class="font-medium">40 hours/week</span>
-                                                       </div>
+                                                    <p class="text-sm text-gray-600">{{ labourContractsData?.description || 'Standard employment contracts for Korean employment.' }}</p>
+                                                    <div class="mt-2 space-y-1 text-xs text-gray-500" *ngIf="labourContractsData?.points && labourContractsData.points.length > 0">
+                                                        <div *ngFor="let point of labourContractsData.points">{{ point }}</div>
                                                    </div>
                                                </div>
                                            </div>
@@ -729,17 +658,13 @@
                                <div id="media-news" class="tab-content active">
                                    <div class="space-y-4">
                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                           <img src="../../../assets/images/eps_2.jpg" alt="News" class="w-full h-24 object-cover">
+                                           <img [src]="latestAnnouncementsData?.image || '../../../assets/images/eps_2.jpg'" alt="News" class="w-full h-24 object-cover">
                                            <div class="p-4">
-                                               <h3 class="font-bold text-gray-800 text-sm mb-2">Latest Announcements</h3>
+                                               <h3 class="font-bold text-gray-800 text-sm mb-2">{{ latestAnnouncementsData?.title || 'Latest Announcements' }}</h3>
                                                <div class="space-y-2 text-xs">
-                                                   <div class="flex items-center space-x-2">
+                                                   <div *ngFor="let point of latestAnnouncementsData?.points || []" class="flex items-center space-x-2">
                                                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                                       <span>EPS Korea 2024 Results Announced</span>
-                                                   </div>
-                                                   <div class="flex items-center space-x-2">
-                                                       <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                                                       <span>New Training Programs Launched</span>
+                                                       <span>{{ point }}</span>
                                                    </div>
                                                </div>
                                                <div class="space-y-4 mx-4">
@@ -813,21 +738,12 @@
                                <!-- Events Tab -->
                                <div id="media-events" class="tab-content">
                                    <div class="grid grid-cols-2 gap-6">
-                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                           <img src="../../../assets/images/akmal_Sab.jpg" alt="Photo Gallery" class="w-full h-20 object-cover">
+                                       <div *ngFor="let event of eventsData" class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
+                                           <img [src]="event?.image || '../../../assets/images/akmal_Sab.jpg'" alt="{{ event?.title }}" class="w-full h-20 object-cover">
                                            <div class="p-3">
-                                               <h3 class="font-bold text-gray-800 text-sm">Pictures Gallery</h3>
-                                               <p class="text-xs text-gray-600">Event photos and moments</p>
+                                               <h3 class="font-bold text-gray-800 text-sm">{{ event?.title }}</h3>
+                                               <p class="text-xs text-gray-600">{{ event?.description }}</p>
                                                <a [routerLink]="'/gallery'" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">View Gallery →</a>
-                                           </div>
-                                       </div>
-                                       
-                                       <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                           <img src="../../../assets/images/md.jpg" alt="Video Gallery" class="w-full h-20 object-cover">
-                                           <div class="p-3">
-                                               <h3 class="font-bold text-gray-800 text-sm">Video Gallery</h3>
-                                               <p class="text-xs text-gray-600">Documentary and interviews</p>
-                                               <a [routerLink]="'/gallery'" class="mt-2 text-xs text-red-600 hover:text-red-700 font-medium">Watch Videos →</a>
                                            </div>
                                        </div>
                                    </div>

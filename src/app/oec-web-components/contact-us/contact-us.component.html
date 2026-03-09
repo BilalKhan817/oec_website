@@ -33,13 +33,73 @@
   <div class="contact-content">
     <!-- Headquarters Section -->
     <section class="headquarters-section" *ngIf="content.headquarters_section">
-      <h2 class="section-title">{{ content.headquarters_section.icon }} {{ content.headquarters_section.title }}</h2>
+      <h2 id="headquarters" class="section-title">{{ content.headquarters_section.icon }} {{ content.headquarters_section.title }}</h2>
       <div class="office-card headquarters-card">
         <div class="office-info">
           <p class="office-address"><span class="info-icon">📍</span> {{ content.headquarters_section.address }}</p>
-          <p class="office-phone"><span class="info-icon">📞</span> {{ content.headquarters_section.phone }}</p>
-          <p class="office-email"><span class="info-icon">✉️</span> {{ content.headquarters_section.email }}</p>
+
+          <!-- Multiple Phones -->
+          <ng-container *ngIf="content.headquarters_section.phones?.length; else hqSinglePhone">
+            <p class="office-phone" *ngFor="let phone of content.headquarters_section.phones">
+              <span class="info-icon">📞</span> {{ phone }}
+            </p>
+          </ng-container>
+          <ng-template #hqSinglePhone>
+            <p class="office-phone" *ngIf="content.headquarters_section.phone">
+              <span class="info-icon">📞</span> {{ content.headquarters_section.phone }}
+            </p>
+          </ng-template>
+
+          <!-- Multiple Emails -->
+          <ng-container *ngIf="content.headquarters_section.emails?.length; else hqSingleEmail">
+            <p class="office-email" *ngFor="let email of content.headquarters_section.emails">
+              <span class="info-icon">✉️</span> {{ email }}
+            </p>
+          </ng-container>
+          <ng-template #hqSingleEmail>
+            <p class="office-email" *ngIf="content.headquarters_section.email">
+              <span class="info-icon">✉️</span> {{ content.headquarters_section.email }}
+            </p>
+          </ng-template>
         </div>
+
+        <!-- Contact Persons Table -->
+        <div class="contact-persons-wrapper" *ngIf="content.headquarters_section.contact_persons?.length">
+          <h3 class="contact-persons-heading">Contact Persons</h3>
+          <div class="table-responsive">
+            <table class="contact-persons-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Full Name</th>
+                  <th>Designation</th>
+                  <th>Phone(s)</th>
+                  <th>Email(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of content.headquarters_section.contact_persons; let idx = index">
+                  <td>{{ idx + 1 }}</td>
+                  <td>{{ person.full_name }}</td>
+                  <td>{{ person.designation }}</td>
+                  <td>
+                    <ng-container *ngIf="person.phones?.length; else hqCpSinglePhone">
+                      <div *ngFor="let ph of person.phones" class="multi-value">{{ ph }}</div>
+                    </ng-container>
+                    <ng-template #hqCpSinglePhone>{{ person.phone }}</ng-template>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="person.emails?.length; else hqCpSingleEmail">
+                      <div *ngFor="let em of person.emails" class="multi-value">{{ em }}</div>
+                    </ng-container>
+                    <ng-template #hqCpSingleEmail>{{ person.email }}</ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="office-map" *ngIf="content.headquarters_section.latitude">
           <div id="hq-map" class="leaflet-map-container"></div>
         </div>
@@ -48,15 +108,75 @@
 
     <!-- Regional Offices Section -->
     <section class="regional-offices-section" *ngIf="content.regional_offices_section">
-      <h2 class="section-title">{{ content.regional_offices_section.icon }} {{ content.regional_offices_section.title }}</h2>
+      <h2 id="regional-offices" class="section-title">{{ content.regional_offices_section.icon }} {{ content.regional_offices_section.title }}</h2>
       <div class="offices-grid">
         <div class="office-card" *ngFor="let office of content.regional_offices_section.offices; let i = index">
           <h3 class="office-city">{{ office.city }}</h3>
           <div class="office-info">
             <p class="office-address"><span class="info-icon">📍</span> {{ office.address }}</p>
-            <p class="office-phone"><span class="info-icon">📞</span> {{ office.phone }}</p>
-            <p class="office-email"><span class="info-icon">✉️</span> {{ office.email }}</p>
+
+            <!-- Multiple Phones -->
+            <ng-container *ngIf="office.phones?.length; else regSinglePhone">
+              <p class="office-phone" *ngFor="let phone of office.phones">
+                <span class="info-icon">📞</span> {{ phone }}
+              </p>
+            </ng-container>
+            <ng-template #regSinglePhone>
+              <p class="office-phone" *ngIf="office.phone">
+                <span class="info-icon">📞</span> {{ office.phone }}
+              </p>
+            </ng-template>
+
+            <!-- Multiple Emails -->
+            <ng-container *ngIf="office.emails?.length; else regSingleEmail">
+              <p class="office-email" *ngFor="let email of office.emails">
+                <span class="info-icon">✉️</span> {{ email }}
+              </p>
+            </ng-container>
+            <ng-template #regSingleEmail>
+              <p class="office-email" *ngIf="office.email">
+                <span class="info-icon">✉️</span> {{ office.email }}
+              </p>
+            </ng-template>
           </div>
+
+          <!-- Contact Persons Table -->
+          <div class="contact-persons-wrapper" *ngIf="office.contact_persons?.length">
+            <h3 class="contact-persons-heading">Contact Persons</h3>
+            <div class="table-responsive">
+              <table class="contact-persons-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Designation</th>
+                    <th>Phone(s)</th>
+                    <th>Email(s)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let person of office.contact_persons; let idx = index">
+                    <td>{{ idx + 1 }}</td>
+                    <td>{{ person.full_name }}</td>
+                    <td>{{ person.designation }}</td>
+                    <td>
+                      <ng-container *ngIf="person.phones?.length; else regCpSinglePhone">
+                        <div *ngFor="let ph of person.phones" class="multi-value">{{ ph }}</div>
+                      </ng-container>
+                      <ng-template #regCpSinglePhone>{{ person.phone }}</ng-template>
+                    </td>
+                    <td>
+                      <ng-container *ngIf="person.emails?.length; else regCpSingleEmail">
+                        <div *ngFor="let em of person.emails" class="multi-value">{{ em }}</div>
+                      </ng-container>
+                      <ng-template #regCpSingleEmail>{{ person.email }}</ng-template>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div class="office-map" *ngIf="office.latitude">
             <div [id]="'regional-office-map-' + i" class="leaflet-map-container"></div>
           </div>
@@ -66,12 +186,68 @@
 
     <!-- OEC Travel Office Section -->
     <section class="travel-office-section" *ngIf="content.travel_office_section">
-      <h2 class="section-title">{{ content.travel_office_section.icon }} {{ content.travel_office_section.title }}</h2>
+      <h2 id="travel-office" class="section-title">{{ content.travel_office_section.icon }} {{ content.travel_office_section.title }}</h2>
       <div class="office-card travel-card">
         <div class="office-info">
           <p class="office-address"><span class="info-icon">📍</span> {{ content.travel_office_section.address }}</p>
-          <p class="office-phone"><span class="info-icon">📞</span> {{ content.travel_office_section.phone }}</p>
+
+          <!-- Multiple Phones -->
+          <ng-container *ngIf="content.travel_office_section.phones?.length; else travelSinglePhone">
+            <p class="office-phone" *ngFor="let phone of content.travel_office_section.phones">
+              <span class="info-icon">📞</span> {{ phone }}
+            </p>
+          </ng-container>
+          <ng-template #travelSinglePhone>
+            <p class="office-phone" *ngIf="content.travel_office_section.phone">
+              <span class="info-icon">📞</span> {{ content.travel_office_section.phone }}
+            </p>
+          </ng-template>
+
+          <!-- Multiple Emails -->
+          <ng-container *ngIf="content.travel_office_section.emails?.length">
+            <p class="office-email" *ngFor="let email of content.travel_office_section.emails">
+              <span class="info-icon">✉️</span> {{ email }}
+            </p>
+          </ng-container>
         </div>
+
+        <!-- Contact Persons Table -->
+        <div class="contact-persons-wrapper" *ngIf="content.travel_office_section.contact_persons?.length">
+          <h3 class="contact-persons-heading">Contact Persons</h3>
+          <div class="table-responsive">
+            <table class="contact-persons-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Full Name</th>
+                  <th>Designation</th>
+                  <th>Phone(s)</th>
+                  <th>Email(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of content.travel_office_section.contact_persons; let idx = index">
+                  <td>{{ idx + 1 }}</td>
+                  <td>{{ person.full_name }}</td>
+                  <td>{{ person.designation }}</td>
+                  <td>
+                    <ng-container *ngIf="person.phones?.length; else travelCpSinglePhone">
+                      <div *ngFor="let ph of person.phones" class="multi-value">{{ ph }}</div>
+                    </ng-container>
+                    <ng-template #travelCpSinglePhone>{{ person.phone }}</ng-template>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="person.emails?.length; else travelCpSingleEmail">
+                      <div *ngFor="let em of person.emails" class="multi-value">{{ em }}</div>
+                    </ng-container>
+                    <ng-template #travelCpSingleEmail>{{ person.email }}</ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="office-map" *ngIf="content.travel_office_section.latitude">
           <div id="travel-office-map" class="leaflet-map-container"></div>
         </div>
@@ -80,7 +256,7 @@
 
     <!-- Feedback Section -->
     <section class="feedback-section" *ngIf="content.feedback_section">
-      <h2 class="section-title">{{ content.feedback_section.icon }} {{ content.feedback_section.title }}</h2>
+      <h2 id="feedback" class="section-title">{{ content.feedback_section.icon }} {{ content.feedback_section.title }}</h2>
       <p class="section-desc">{{ content.feedback_section.description }}</p>
 
       <form class="contact-form" (ngSubmit)="onSubmit()">

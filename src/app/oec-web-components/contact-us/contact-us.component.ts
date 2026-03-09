@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../api.service';
 import * as L from 'leaflet';
 
@@ -31,11 +32,21 @@ export class ContactUsComponent implements OnInit, AfterViewInit {
     message: ''
   };
 
+  private fragment: string | null = null;
+
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.fragment.subscribe(fragment => {
+      this.fragment = fragment;
+      // If content is already loaded, scroll immediately
+      if (this.content && fragment) {
+        setTimeout(() => this.scrollToFragment(), 100);
+      }
+    });
     this.loadContactUsContent();
   }
 
@@ -48,9 +59,10 @@ export class ContactUsComponent implements OnInit, AfterViewInit {
       next: (response: any) => {
         if (response.success && response.data) {
           this.content = response.data;
-          // Initialize maps after content is loaded
+          // Initialize maps and scroll to fragment after content is rendered
           setTimeout(() => {
             this.initializeMaps();
+            this.scrollToFragment();
           }, 500);
         }
         this.isLoading = false;
@@ -112,7 +124,7 @@ export class ContactUsComponent implements OnInit, AfterViewInit {
 
     L.marker([lat, lng], { icon: customIcon })
       .addTo(this.headquartersMap)
-      .bindPopup('<b>OEC Headquarters</b>')
+      .bindPopup('<b>OEC Headquarter</b>')
       .openPopup();
 
     // Force map to recalculate its size
@@ -186,6 +198,15 @@ export class ContactUsComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       map.invalidateSize();
     }, 100);
+  }
+
+  scrollToFragment(): void {
+    if (this.fragment) {
+      const el = document.getElementById(this.fragment);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   }
 
   onSubmit() {

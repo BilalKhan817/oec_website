@@ -174,8 +174,8 @@
 
 /* Office Cards Styling */
 .offices-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
@@ -257,6 +257,85 @@
 .headquarters-card .leaflet-map-container,
 .travel-card .leaflet-map-container {
   height: 300px;
+}
+
+/* Contact Persons Table */
+.contact-persons-wrapper {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.contact-persons-heading {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #059669;
+  margin-bottom: 0.7rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.contact-persons-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.08);
+}
+
+.contact-persons-table thead {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.contact-persons-table thead th {
+  color: white;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.contact-persons-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.2s ease;
+}
+
+.contact-persons-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.contact-persons-table tbody tr:hover {
+  background: #f0fdf4;
+}
+
+.contact-persons-table tbody td {
+  padding: 0.65rem 1rem;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.contact-persons-table tbody td:first-child {
+  font-weight: 600;
+  color: #059669;
+  width: 40px;
+  text-align: center;
+}
+
+.multi-value {
+  padding: 2px 0;
+  white-space: nowrap;
+  border-bottom: 1px dashed rgba(16, 185, 129, 0.15);
+}
+
+.multi-value:last-child {
+  border-bottom: none;
 }
 
 /* Breadcrumb Styling */
@@ -479,7 +558,7 @@
   }
 
   .offices-grid {
-    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .support-cards {
@@ -505,25 +584,25 @@
   .contact-us-title {
     font-size: 1.3rem;
   }
-  
+
   .section-title {
     font-size: 1.05rem;
   }
-  
+
   .contact-form {
     padding: 1rem;
   }
-  
+
   .support-card {
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
   }
-  
+
   .support-icon {
     font-size: 1.5rem;
   }
-  
+
   .protector-breadcrumb {
     font-size: 0.88rem;
     padding: 0.4rem 0.7rem;
@@ -536,5 +615,14 @@
   .headquarters-card .leaflet-map-container,
   .travel-card .leaflet-map-container {
     height: 220px;
+  }
+
+  .contact-persons-table {
+    font-size: 0.82rem;
+  }
+
+  .contact-persons-table thead th,
+  .contact-persons-table tbody td {
+    padding: 0.5rem 0.6rem;
   }
 }

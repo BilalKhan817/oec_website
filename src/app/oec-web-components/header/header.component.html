@@ -397,7 +397,7 @@
                                 <div id="emigrants-eps" class="tab-content active">
                                     <div class="grid grid-cols-2 gap-6">
                                         <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg">
-                                            <img [src]="epsKoreaData?.image || '../../../assets/images/eps.jpg'" alt="EPS Korea" class="w-full h-32 object-cover">
+                                            <img [src]="getImageUrl(epsKoreaData?.image) || '../../../assets/images/eps.jpg'" alt="EPS Korea" class="w-full h-32 object-cover">
                                             <div class="p-4">
                                                 <h3 class="font-bold text-gray-800 mb-2">{{ epsKoreaData?.title || 'Employment Permit System' }}</h3>
                                                 <p class="text-sm text-gray-600 mb-3">{{ epsKoreaData?.description || 'Government-to-government program for Korean employment' }}</p>
@@ -658,7 +658,7 @@
                                <div id="media-news" class="tab-content active">
                                    <div class="space-y-4">
                                        <div class="image-card bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                           <img [src]="latestAnnouncementsData?.image || '../../../assets/images/eps_2.jpg'" alt="News" class="w-full h-24 object-cover">
+                                           <img [src]="getImageUrl(latestAnnouncementsData?.image) || '../../../assets/images/eps_2.jpg'" alt="News" class="w-full h-24 object-cover">
                                            <div class="p-4">
                                                <h3 class="font-bold text-gray-800 text-sm mb-2">{{ latestAnnouncementsData?.title || 'Latest Announcements' }}</h3>
                                                <div class="space-y-2 text-xs">

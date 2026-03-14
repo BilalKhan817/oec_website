@@ -336,6 +336,12 @@ export class HeaderComponent implements OnInit {
     }
   }
   
+  getImageUrl(imagePath: string): string {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http')) return imagePath;
+    return this.apiService.MainbaseUrl + imagePath;
+  }
+
   private initializeScrollEffects(): void {
     let scrollTimer: any = null;
     window.addEventListener('scroll', () => {

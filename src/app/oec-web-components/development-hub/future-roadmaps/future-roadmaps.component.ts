@@ -13,7 +13,6 @@ export class FutureRoadmapsComponent {
    * Handles expansion goal interactions
    */
   onExpansionGoalClick(goalName: string): void {
-    console.log(`Expansion goal clicked: ${goalName}`);
     // TODO: Implement expansion goal details modal
   }
 
@@ -21,7 +20,6 @@ export class FutureRoadmapsComponent {
    * Handles technology initiative interactions
    */
   onTechnologyInitiativeClick(initiativeName: string): void {
-    console.log(`Technology initiative clicked: ${initiativeName}`);
     // TODO: Implement technology initiative details modal
   }
 
@@ -29,7 +27,6 @@ export class FutureRoadmapsComponent {
    * Handles goal card interactions
    */
   onGoalCardClick(goalName: string): void {
-    console.log(`Goal card clicked: ${goalName}`);
     // TODO: Implement goal details modal
   }
 
@@ -37,7 +34,6 @@ export class FutureRoadmapsComponent {
    * Handles timeline milestone interactions
    */
   onTimelineMilestoneClick(year: string, milestone: string): void {
-    console.log(`Timeline milestone clicked: ${year} - ${milestone}`);
     // TODO: Implement timeline milestone details
   }
 
@@ -45,7 +41,6 @@ export class FutureRoadmapsComponent {
    * Handles impact stat interactions
    */
   onImpactStatClick(statName: string): void {
-    console.log(`Impact stat clicked: ${statName}`);
     // TODO: Implement detailed impact information
   }
 

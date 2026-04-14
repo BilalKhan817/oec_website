@@ -163,7 +163,6 @@ export class DocumentDownloadsComponent implements OnInit {
 
   filterDocuments() {
     // Implementation for filtering documents based on search term
-    console.log('Filtering documents with term:', this.searchTerm);
   }
 
   toggleFilter(tag: FilterTag) {
@@ -173,6 +172,5 @@ export class DocumentDownloadsComponent implements OnInit {
     tag.active = true;
     
     // Implementation for filtering documents based on selected tag
-    console.log('Filtering by tag:', tag.name);
   }
 }

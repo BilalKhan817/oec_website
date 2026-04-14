@@ -13,7 +13,6 @@ export class SignedMousComponent {
    * Handles MoU country interactions
    */
   onMouCountryClick(countryName: string): void {
-    console.log(`MoU country clicked: ${countryName}`);
     // TODO: Implement MoU country details modal
   }
 
@@ -21,7 +20,6 @@ export class SignedMousComponent {
    * Handles MoU type card interactions
    */
   onMouTypeCardClick(typeName: string): void {
-    console.log(`MoU type card clicked: ${typeName}`);
     // TODO: Implement MoU type details modal
   }
 
@@ -29,7 +27,6 @@ export class SignedMousComponent {
    * Handles document link interactions
    */
   onDocumentLinkClick(documentName: string): void {
-    console.log(`Document link clicked: ${documentName}`);
     // TODO: Implement document download or preview
   }
 
@@ -37,7 +34,6 @@ export class SignedMousComponent {
    * Handles contact item interactions
    */
   onContactItemClick(contactType: string, contactValue: string): void {
-    console.log(`Contact item clicked: ${contactType} - ${contactValue}`);
     // TODO: Implement contact actions (email, phone, website)
   }
 

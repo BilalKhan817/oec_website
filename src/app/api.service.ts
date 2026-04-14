@@ -102,11 +102,11 @@ export interface Banner {
   providedIn: 'root'
 })
 export class ApiService {
-  public MainbaseUrl = 'https://oec.gov.pk'
-  private baseUrl = 'https://oec.gov.pk/api'; 
+  // public MainbaseUrl = 'https://oec.gov.pk'
+  // private baseUrl = 'https://oec.gov.pk/api'; 
   
-  // public MainbaseUrl = 'http://localhost:3000'
-  // public baseUrl = 'http://localhost:3000/api'; 
+  public MainbaseUrl = 'http://localhost:3000'
+  public baseUrl = 'http://localhost:3000/api'; 
   
   // BehaviorSubjects for real-time data updates
   private announcementsSubject = new BehaviorSubject<Announcement[]>([]);
@@ -510,6 +510,25 @@ industrystats(): Observable<any> {
   getEvents(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/media-center/events`)
       .pipe(catchError(this.handleError<any>('getEvents', [])));
+  }
+
+  // ===== FAQs =====
+
+  getFaqCategories(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/faqs`)
+      .pipe(catchError(this.handleError<any>('getFaqCategories', { success: false, data: [] })));
+  }
+
+  getFaqSettings(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/faqs/settings`)
+      .pipe(catchError(this.handleError<any>('getFaqSettings', { success: false, data: {} })));
+  }
+
+  // ===== REPORTS & ANALYTICS =====
+
+  getReportDocuments(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/reports-analytics/page`)
+      .pipe(catchError(this.handleError<any>('getReportDocuments', { success: false, data: [] })));
   }
 
   // ===== CONTACT US APIS =====

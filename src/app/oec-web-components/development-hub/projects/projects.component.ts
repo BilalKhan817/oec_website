@@ -13,7 +13,6 @@ export class ProjectsComponent {
    * Handles project card interactions
    */
   onProjectClick(projectName: string): void {
-    console.log(`Project clicked: ${projectName}`);
     // TODO: Implement project details modal or navigation
   }
 
@@ -21,7 +20,6 @@ export class ProjectsComponent {
    * Handles efficiency card interactions
    */
   onEfficiencyCardClick(cardName: string): void {
-    console.log(`Efficiency card clicked: ${cardName}`);
     // TODO: Implement efficiency details modal
   }
 
@@ -29,7 +27,6 @@ export class ProjectsComponent {
    * Handles impact stat interactions
    */
   onImpactStatClick(statName: string): void {
-    console.log(`Impact stat clicked: ${statName}`);
     // TODO: Implement detailed impact information
   }
 

@@ -381,19 +381,16 @@ export class GalleryComponent implements OnInit {
 
   downloadPhoto(photo: Photo) {
     // Implementation for downloading photo
-    console.log('Downloading photo:', photo.title);
     // In a real implementation, this would trigger a download
   }
 
   sharePhoto(photo: Photo) {
     // Implementation for sharing photo
-    console.log('Sharing photo:', photo.title);
     // In a real implementation, this would open sharing options
   }
 
   shareVideo(video: Video) {
     // Implementation for sharing video
-    console.log('Sharing video:', video.title);
     // In a real implementation, this would open sharing options
   }
 }

@@ -28,8 +28,6 @@ export class BoardOfDirectorsComponent implements OnInit {
   downloadResource(resourceType: string): void {
     // This is a placeholder implementation
     // In a real application, you would implement actual file download logic
-    console.log(`Downloading ${resourceType}`);
-    
     // Example implementation for different resource types
     switch (resourceType) {
       case 'board-notification':
@@ -42,7 +40,7 @@ export class BoardOfDirectorsComponent implements OnInit {
         this.downloadFile('Board Charter', 'board-charter.pdf');
         break;
       default:
-        console.warn('Unknown resource type:', resourceType);
+        break;
     }
   }
 

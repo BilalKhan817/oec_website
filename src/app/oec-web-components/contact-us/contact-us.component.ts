@@ -212,7 +212,6 @@ export class ContactUsComponent implements OnInit, AfterViewInit {
   onSubmit() {
     if (this.contactForm.name && this.contactForm.email && this.contactForm.subject && this.contactForm.message) {
       // Here you would typically send the form data to your backend
-      console.log('Form submitted:', this.contactForm);
 
       // Show success message (you can implement a proper notification system)
       alert('Thank you for your message! We will get back to you soon.');

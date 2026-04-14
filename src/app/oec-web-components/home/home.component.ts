@@ -451,11 +451,9 @@ trackByDegreeName(index: number, degree: any): string {
 }
     onDownloadReport(): void {
     if (!this.statisticsData) {
-      console.log('No data available for download');
       return;
     }
 
-    console.log('Generating industry report...');
     this.generateReport();
   }
 
@@ -504,10 +502,8 @@ trackByDegreeName(index: number, degree: any): string {
     linkElement.click();
     document.body.removeChild(linkElement);
 
-    console.log('Report downloaded successfully');
   }
   onIndustryDetails(industry: any): void {
-    console.log('Showing details for industry:', industry.name);
     // Add your navigation or modal logic here
   }
   exportToCSV(dataType: 'industries' | 'degrees'): void {
@@ -646,7 +642,6 @@ getIndustryIcon(industryName: string): string {
     } else {
       this.expandedCards.add(industryName);
     }
-    console.log(`Toggled ${industryName}:`, this.isCardExpanded(industryName));
   }
 
   // Check if a specific card is expanded
@@ -667,8 +662,7 @@ getIndustryIcon(industryName: string): string {
     this.apiService.industrystats().subscribe({
       next: (response) => {
         this.statisticsData = response.statistics;
-        console.log('Industry statistics loaded:', this.statisticsData);
-        
+
         // Process and cache the industry data to prevent reloading
         this.processIndustryData();
       },
@@ -703,7 +697,6 @@ getIndustryIcon(industryName: string): string {
       };
     }).sort((a, b) => b.uniqueUsers - a.uniqueUsers);
 
-    console.log('Processed industry data:', this.processedIndustryData);
   }
 
 subCollapse: { [key: string]: boolean } = {}; 
@@ -714,8 +707,6 @@ private collapsibleIndustries = new Set<string>([
   
 
 scrollQualifications(industryName: string, direction: 'up' | 'down'): void {
-  console.log("Here Now", industryName);
-
   // Use getSafeId to generate a valid selector
   const container = document.querySelector(`#qualifications-${this.getSafeId(industryName)}`);
   if (container) {
@@ -748,13 +739,9 @@ toggleSubCollapse(industryName: string): void {
   // Only toggle the clicked card, don't affect others
   this.subCollapse[industryName] = !this.subCollapse[industryName];
   
-  // Optional: Log to debug which card is being toggled
-  console.log(`Toggled ${industryName}: ${this.subCollapse[industryName]}`);
 }
   // Enhanced view all industries method
   onViewAllIndustries(): void {
-    console.log('Opening detailed industry analysis...');
-    
     // You can implement a modal here or navigate to a detailed page
     // For now, let's expand both collapse sections automatically
     this.industryCollapseOpen = true;
@@ -783,7 +770,6 @@ toggleSubCollapse(industryName: string): void {
 }
 
 onServiceClick(service: any): void {
-  console.log('Service clicked:', service);
   // Add navigation or modal logic here
 }
 
@@ -798,12 +784,9 @@ onLearnMoreClick(): void {
 }
 getAnnouncements(): void {
   this.baseUrl = this.apiService.MainbaseUrl;
-  console.log("=== FETCHING ANNOUNCEMENTS ===");
-  console.log("baseUrl:", this.baseUrl);
 
   this.apiService.getAnnouncements().subscribe({
     next: (announcements: Announcement[]) => {
-      console.log('✓ Announcements received from API:', announcements);
       this.announcements = announcements;
 
       // Process any date strings to Date objects if needed
@@ -820,11 +803,7 @@ getAnnouncements(): void {
         }
       });
 
-      console.log('✓ Processed announcements count:', this.announcements.length);
-      console.log('✓ Processed announcements data:', this.announcements);
-
       // Show modal after announcements are loaded
-      console.log('→ Calling checkModalDisplay()');
       this.checkModalDisplay();
     },
     error: (error) => {
@@ -867,8 +846,6 @@ getExecutiveImageUrl(executive: any): string {
   return 'https://via.placeholder.com/300x200?text=No+Image';
 }
 getSafeUrl() {
-  console.log("HERE::::");
-  
   const url = this.aboutOecData?.youtube_video_link || 'https://www.youtube.com/embed/2FomaOFxmoQ';
   return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
@@ -897,7 +874,6 @@ getBannerSubtitleAsArray(banner: Banner): string[] {
 }
 getBannerImageUrl(banner: Banner): string {
   const imageUrl = this.apiService.getImageUrl(banner.background_image);
-  console.log('Image URL:', imageUrl);
   return imageUrl;
 }
  getActiveBanners(){
@@ -909,7 +885,6 @@ getBannerImageUrl(banner: Banner): string {
         ...banner,
         processedImageUrl: this.apiService.getImageUrl(banner.background_image)
       }));
-      console.log('Banners processed:', this.processedBanners);
     },
     error: (error) => {
       console.error('Error loading banners:', error);
@@ -954,7 +929,6 @@ getAnnouncementBackgroundClass(category: string): string {
 }
 
 getAnnouncementBadgeClass(category: string): string {
-  // console.log('Category:', category);
   const colorMap: { [key: string]: string } = {
     'urgent': 'bg-red-100 text-red-600',
     'general': 'bg-blue-100 text-blue-600', // Changed to blue
@@ -1036,21 +1010,11 @@ getAnnouncementBadgeClass(category: string): string {
   const today = new Date().toDateString();
   const modalShownToday = localStorage.getItem('oec-announcements-seen') === today;
 
-  console.log('=== MODAL DISPLAY CHECK ===');
-  console.log('Today:', today);
-  console.log('Modal shown today?', modalShownToday);
-  console.log('Announcements count:', this.announcements?.length);
-  console.log('Announcements data:', this.announcements);
-
   // Always show modal for now (remove localStorage check temporarily for debugging)
   if (this.announcements && this.announcements.length > 0) {
-    console.log('✓ Showing modal with', this.announcements.length, 'announcements');
     setTimeout(() => {
       this.isModalVisible = true;
-      console.log('✓ Modal visibility set to TRUE');
     }, 2000);
-  } else {
-    console.log('✗ Not showing modal - no announcements');
   }
 }
 
@@ -1137,13 +1101,11 @@ isInvalidDate(date: any): boolean {
 
   // Method to handle service card interactions
   onServiceCardClick(serviceId: number): void {
-    console.log('Service clicked:', serviceId);
     // Add navigation or modal logic here
   }
 
   // Method to handle news item clicks
   onNewsItemClick(newsId: number): void {
-    console.log('News item clicked:', newsId);
     // Add navigation logic here
   }
 
@@ -1168,7 +1130,7 @@ isInvalidDate(date: any): boolean {
         this.openExternalLink('https://jobs.oec.gov.pk/home');
         break;
       default:
-        console.log('CTA clicked:', action);
+        break;
     }
   }
 }

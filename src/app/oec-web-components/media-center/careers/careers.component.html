@@ -26,45 +26,10 @@
     <span class="breadcrumb-current">Careers</span>
   </div>
   <h1 class="careers-title">Join Our Mission to Serve Pakistan Globally</h1>
-  
-  <section class="careers-section">
-    <h2 class="careers-section-title">Purpose</h2>
-    <p>
-      This section lists career opportunities within the Overseas Employment Corporation 
-      (OEC), including permanent jobs, contract-based positions, internships, and consultant roles. It 
-      ensures transparency and encourages merit-based recruitment within the organization.
-    </p>
-  </section>
 
-  <section class="careers-section">
-    <h2 class="careers-section-title">What You'll Find Here</h2>
-    <div class="features-grid">
-      <div class="feature-item">
-        <span class="feature-icon">💼</span>
-        <span class="feature-text">Latest Job Vacancies at OEC</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🎓</span>
-        <span class="feature-text">Internship Programs</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">📋</span>
-        <span class="feature-text">Hiring Policies & Recruitment Procedures</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">👨‍💼</span>
-        <span class="feature-text">Consultant Opportunities</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">📝</span>
-        <span class="feature-text">Application Forms & Deadlines</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="careers-section">
+  <section class="careers-section" *ngIf="!isLoading">
     <h2 class="careers-section-title">Latest Job Postings</h2>
-    <div class="jobs-table">
+    <div class="jobs-table" *ngIf="jobPostings.length > 0">
       <div class="job-row header">
         <div class="job-position">Position Title</div>
         <div class="job-grade">Grade / Contract</div>
@@ -74,30 +39,31 @@
       </div>
       <div class="job-row" *ngFor="let job of jobPostings">
         <div class="job-position">
-          <span class="job-icon">{{job.icon}}</span>
           {{job.title}}
         </div>
         <div class="job-grade">
-          <span class="grade-badge" [class]="'grade-' + job.grade.toLowerCase()">
+          <span class="grade-badge">
             {{job.grade}}
           </span>
         </div>
         <div class="job-location">{{job.location}}</div>
         <div class="job-deadline">
           <span class="deadline-icon">📅</span>
-          {{job.deadline}}
+          {{formatDeadline(job.deadline)}}
         </div>
         <div class="job-action">
-          <a [href]="job.applyLink" class="apply-button" target="_blank">
-            <span class="action-icon">{{job.actionIcon}}</span>
-            {{job.actionText}}
+          <a [href]="job.applyLink || '#'" class="apply-button" target="_blank">
+            📝 Apply Now
           </a>
         </div>
       </div>
     </div>
+    <div class="empty-message" *ngIf="jobPostings.length === 0">
+      <p>No job postings available at the moment. Please check back later.</p>
+    </div>
   </section>
 
-  <section class="careers-section">
+  <section class="careers-section" *ngIf="!isLoading">
     <h2 class="careers-section-title">🎓 Internship Program</h2>
     <div class="internship-content">
       <p>OEC offers internships for graduates in the following areas:</p>
@@ -143,7 +109,7 @@
     </div>
   </section>
 
-  <section class="careers-section">
+  <section class="careers-section" *ngIf="!isLoading">
     <h2 class="careers-section-title">Hiring & Recruitment Policy</h2>
     <div class="policy-list">
       <div class="policy-item">
@@ -169,16 +135,16 @@
     </div>
   </section>
 
-  <section class="careers-section">
+  <section class="careers-section" *ngIf="!isLoading && downloadableForms.length > 0">
     <h2 class="careers-section-title">Downloadable Forms</h2>
     <div class="forms-grid">
       <div class="form-card" *ngFor="let form of downloadableForms">
-        <div class="form-icon">{{form.icon}}</div>
+        <div class="form-icon">📄</div>
         <div class="form-content">
           <h3 class="form-title">{{form.title}}</h3>
           <p class="form-description">{{form.description}}</p>
         </div>
-        <a [href]="form.downloadLink" class="download-button" target="_blank">
+        <a [href]="getFileUrl(form.file_url)" class="download-button" target="_blank">
           <span class="download-icon">📥</span>
           Download
         </a>
@@ -186,7 +152,7 @@
     </div>
   </section>
 
-  <section class="careers-section">
+  <section class="careers-section" *ngIf="!isLoading">
     <h2 class="careers-section-title">Contact Information</h2>
     <div class="contact-info">
       <div class="contact-item">
@@ -206,23 +172,13 @@
     </div>
   </section>
 
-  <section class="careers-section">
+  <section class="careers-section" *ngIf="!isLoading">
     <h2 class="careers-section-title">Career Statistics</h2>
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">💼</div>
         <div class="stat-number">{{totalPositions}}</div>
         <div class="stat-label">Open Positions</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🎓</div>
-        <div class="stat-number">{{internshipSlots}}</div>
-        <div class="stat-label">Internship Slots</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">👨‍💼</div>
-        <div class="stat-number">{{consultantRoles}}</div>
-        <div class="stat-label">Consultant Roles</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📝</div>

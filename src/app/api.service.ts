@@ -102,11 +102,11 @@ export interface Banner {
   providedIn: 'root'
 })
 export class ApiService {
-  // public MainbaseUrl = 'https://oec.gov.pk'
-  // private baseUrl = 'https://oec.gov.pk/api'; 
+  public MainbaseUrl = 'https://oec.gov.pk'
+  private baseUrl = 'https://oec.gov.pk/api'; 
   
-  public MainbaseUrl = 'http://localhost:3000'
-  public baseUrl = 'http://localhost:3000/api'; 
+  // public MainbaseUrl = 'http://localhost:3000'
+  // public baseUrl = 'http://localhost:3000/api'; 
   
   // BehaviorSubjects for real-time data updates
   private announcementsSubject = new BehaviorSubject<Announcement[]>([]);
@@ -522,6 +522,18 @@ industrystats(): Observable<any> {
   getFaqSettings(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/media-center/faqs/settings`)
       .pipe(catchError(this.handleError<any>('getFaqSettings', { success: false, data: {} })));
+  }
+
+  // ===== CAREERS =====
+
+  getJobPostings(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/careers/jobs`)
+      .pipe(catchError(this.handleError<any>('getJobPostings', { success: false, data: [] })));
+  }
+
+  getCareerForms(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/careers/forms`)
+      .pipe(catchError(this.handleError<any>('getCareerForms', { success: false, data: [] })));
   }
 
   // ===== REPORTS & ANALYTICS =====

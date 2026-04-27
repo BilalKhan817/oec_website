@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/api.service';
 
 interface JobPosting {
-  id: number;
+  _id: string;
   title: string;
   grade: string;
   location: string;
   deadline: string;
-  icon: string;
   applyLink: string;
-  actionIcon: string;
-  actionText: string;
 }
 
 interface DownloadableForm {
-  id: number;
+  _id: string;
   title: string;
   description: string;
-  icon: string;
-  downloadLink: string;
+  file_url: string;
 }
 
 @Component({
@@ -26,129 +23,55 @@ interface DownloadableForm {
   styleUrls: ['./careers.component.css']
 })
 export class CareersComponent implements OnInit {
-  
+
   jobPostings: JobPosting[] = [];
   downloadableForms: DownloadableForm[] = [];
-  
-  totalPositions: number = 0;
-  internshipSlots: number = 0;
-  consultantRoles: number = 0;
-  applicationForms: number = 0;
+  isLoading = true;
+
+  totalPositions = 0;
+  applicationForms = 0;
+
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.initializeJobPostings();
-    this.initializeDownloadableForms();
-    this.calculateStats();
+    this.loadJobs();
+    this.loadForms();
   }
 
-  initializeJobPostings() {
-    this.jobPostings = [
-      {
-        id: 1,
-        title: 'Assistant Director (IT)',
-        grade: 'BPS-17',
-        location: 'Islamabad',
-        deadline: 'March 15, 2025',
-        icon: '💻',
-        applyLink: '#',
-        actionIcon: '📝',
-        actionText: 'Apply Now'
+  loadJobs(): void {
+    this.apiService.getJobPostings().subscribe({
+      next: (response: any) => {
+        if (response.success && response.data) {
+          this.jobPostings = response.data;
+          this.totalPositions = this.jobPostings.length;
+        }
+        this.isLoading = false;
       },
-      {
-        id: 2,
-        title: 'HR Intern (Paid)',
-        grade: '3 Months',
-        location: 'Lahore Office',
-        deadline: 'March 30, 2025',
-        icon: '👥',
-        applyLink: '#',
-        actionIcon: '📝',
-        actionText: 'Apply Now'
-      },
-      {
-        id: 3,
-        title: 'Legal Advisor (Consultant)',
-        grade: 'Short-Term',
-        location: 'Remote/Islamabad',
-        deadline: 'April 10, 2025',
-        icon: '⚖️',
-        applyLink: '#',
-        actionIcon: '👁️',
-        actionText: 'View Details'
-      },
-      {
-        id: 4,
-        title: 'Marketing Officer',
-        grade: 'BPS-16',
-        location: 'Karachi',
-        deadline: 'March 25, 2025',
-        icon: '📢',
-        applyLink: '#',
-        actionIcon: '📝',
-        actionText: 'Apply Now'
-      },
-      {
-        id: 5,
-        title: 'International Relations Specialist',
-        grade: 'BPS-18',
-        location: 'Islamabad',
-        deadline: 'April 5, 2025',
-        icon: '🌍',
-        applyLink: '#',
-        actionIcon: '📝',
-        actionText: 'Apply Now'
-      },
-      {
-        id: 6,
-        title: 'Software Developer (Contract)',
-        grade: '6 Months',
-        location: 'Lahore',
-        deadline: 'March 20, 2025',
-        icon: '🔧',
-        applyLink: '#',
-        actionIcon: '📝',
-        actionText: 'Apply Now'
+      error: () => {
+        this.isLoading = false;
       }
-    ];
+    });
   }
 
-  initializeDownloadableForms() {
-    this.downloadableForms = [
-      {
-        id: 1,
-        title: 'Employment Application Form (BPS)',
-        description: 'Standard application form for BPS positions with all required fields and instructions.',
-        icon: '📝',
-        downloadLink: '#'
-      },
-      {
-        id: 2,
-        title: 'Consultant Registration Form',
-        description: 'Application form for consultant positions with detailed requirements and terms.',
-        icon: '📄',
-        downloadLink: '#'
-      },
-      {
-        id: 3,
-        title: 'Internship Application Template',
-        description: 'Template for internship applications with guidelines and requirements.',
-        icon: '📋',
-        downloadLink: '#'
-      },
-      {
-        id: 4,
-        title: 'Hiring SOP (Updated 2025)',
-        description: 'Standard Operating Procedures for hiring and recruitment processes.',
-        icon: '🗂️',
-        downloadLink: '#'
+  loadForms(): void {
+    this.apiService.getCareerForms().subscribe({
+      next: (response: any) => {
+        if (response.success && response.data) {
+          this.downloadableForms = response.data;
+          this.applicationForms = this.downloadableForms.length;
+        }
       }
-    ];
+    });
   }
 
-  calculateStats() {
-    this.totalPositions = this.jobPostings.length;
-    this.internshipSlots = 15; // Fixed number for internship slots
-    this.consultantRoles = this.jobPostings.filter(job => job.grade.toLowerCase().includes('consultant') || job.grade.toLowerCase().includes('short-term')).length;
-    this.applicationForms = this.downloadableForms.length;
+  getFileUrl(fileUrl: string): string {
+    if (!fileUrl) return '#';
+    return this.apiService.MainbaseUrl + fileUrl;
+  }
+
+  formatDeadline(deadline: string): string {
+    if (!deadline) return '-';
+    const date = new Date(deadline);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 }

@@ -26,47 +26,29 @@
     <span class="breadcrumb-current">Gallery</span>
   </div>
   <h1 class="gallery-title">Capturing Our Journey, Milestones & Public Engagement</h1>
-  
-  <section class="gallery-section">
-    <h2 class="gallery-section-title">Purpose</h2>
-    <p>
-      This section visually documents OEC's official events, international delegations, MoU signings, 
-      training sessions, job fairs, orientation programs, and other key milestones.
-    </p>
-    <p>
-      It serves as a multimedia archive of OEC's public-facing activities — enhancing transparency 
-      and public trust.
-    </p>
-  </section>
 
-  <section class="gallery-section">
+  <section class="gallery-section" *ngIf="!isLoading && photoGalleries.length > 0">
     <h2 class="gallery-section-title">📸 Photo Gallery</h2>
-    
+
     <div class="photo-categories">
-      <div class="photo-category" *ngFor="let category of photoCategories">
+      <div class="photo-category" *ngFor="let gallery of photoGalleries">
         <h3 class="category-header">
-          <span class="category-icon">{{category.icon}}</span>
-          {{category.name}}
+          {{gallery.title}}
         </h3>
-        <p class="category-description">{{category.description}}</p>
-        
+        <p class="category-description" *ngIf="gallery.description">{{gallery.description}}</p>
+
         <div class="photo-grid">
-          <div class="photo-card" *ngFor="let photo of category.photos" (click)="openPhotoModal(photo)">
+          <div class="photo-card" *ngFor="let photo of gallery.photos" (click)="openPhotoModal(photo)">
             <div class="photo-wrapper">
-              <img [src]="photo.imageUrl" [alt]="photo.title" class="photo-image">
+              <img [src]="getImageUrl(photo.image_url)" [alt]="photo.caption" class="photo-image">
               <div class="photo-overlay">
                 <div class="photo-info">
-                  <h4 class="photo-title">{{photo.title}}</h4>
-                  <p class="photo-date">{{photo.date}}</p>
-                  <p class="photo-caption">{{photo.caption}}</p>
+                  <h4 class="photo-title">{{photo.caption}}</h4>
                 </div>
                 <div class="photo-actions">
                   <button class="zoom-button" (click)="openPhotoModal(photo)">
                     <span class="zoom-icon">🔍</span>
                   </button>
-                  <button class="download-button" (click)="downloadPhoto(photo)">
-                    <span class="download-icon">📥</span>
-                  </button>
                 </div>
               </div>
             </div>
@@ -76,38 +58,30 @@
     </div>
   </section>
 
-  <section class="gallery-section">
+  <section class="gallery-section" *ngIf="!isLoading && videoGalleries.length > 0">
     <h2 class="gallery-section-title">🎥 Video Gallery</h2>
-    
+
     <div class="video-categories">
-      <div class="video-category" *ngFor="let category of videoCategories">
+      <div class="video-category" *ngFor="let gallery of videoGalleries">
         <h3 class="category-header">
-          <span class="category-icon">{{category.icon}}</span>
-          {{category.name}}
+          {{gallery.title}}
         </h3>
-        <p class="category-description">{{category.description}}</p>
-        
+        <p class="category-description" *ngIf="gallery.description">{{gallery.description}}</p>
+
         <div class="video-grid">
-          <div class="video-card" *ngFor="let video of category.videos">
+          <div class="video-card" *ngFor="let video of gallery.videos">
             <div class="video-thumbnail">
-              <img [src]="video.thumbnailUrl" [alt]="video.title" class="thumbnail-image">
               <div class="play-overlay" (click)="playVideo(video)">
                 <span class="play-icon">▶️</span>
               </div>
-              <div class="video-duration">{{video.duration}}</div>
+              <div class="video-duration" *ngIf="video.duration">{{video.duration}}</div>
             </div>
             <div class="video-info">
-              <h4 class="video-title">{{video.title}}</h4>
-              <p class="video-date">{{video.date}}</p>
-              <p class="video-description">{{video.description}}</p>
+              <h4 class="video-title">{{video.caption}}</h4>
               <div class="video-actions">
                 <button class="watch-button" (click)="playVideo(video)">
                   <span class="watch-icon">👁️</span>
                   Watch
-                </button>
-                <button class="share-button" (click)="shareVideo(video)">
-                  <span class="share-icon">📤</span>
-                  Share
                 </button>
               </div>
             </div>
@@ -116,25 +90,18 @@
       </div>
     </div>
   </section>
+
+  <div class="empty-message" *ngIf="!isLoading && photoGalleries.length === 0 && videoGalleries.length === 0">
+    <p>No gallery content available at the moment. Please check back later.</p>
+  </div>
+
   <!-- Photo Modal -->
   <div class="modal-overlay" *ngIf="selectedPhoto" (click)="closePhotoModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <button class="modal-close" (click)="closePhotoModal()">×</button>
-      <img [src]="selectedPhoto.imageUrl" [alt]="selectedPhoto.title" class="modal-image">
+      <img [src]="getImageUrl(selectedPhoto.image_url)" [alt]="selectedPhoto.caption" class="modal-image">
       <div class="modal-info">
-        <h3 class="modal-title">{{selectedPhoto.title}}</h3>
-        <p class="modal-date">{{selectedPhoto.date}}</p>
-        <p class="modal-caption">{{selectedPhoto.caption}}</p>
-        <div class="modal-actions">
-          <button class="modal-download" (click)="downloadPhoto(selectedPhoto)">
-            <span class="download-icon">📥</span>
-            Download
-          </button>
-          <button class="modal-share" (click)="sharePhoto(selectedPhoto)">
-            <span class="share-icon">📤</span>
-            Share
-          </button>
-        </div>
+        <h3 class="modal-title">{{selectedPhoto.caption}}</h3>
       </div>
     </div>
   </div>
@@ -144,23 +111,15 @@
     <div class="modal-content video-modal" (click)="$event.stopPropagation()">
       <button class="modal-close" (click)="closeVideoModal()">×</button>
       <div class="video-player">
-        <iframe 
-          [src]="selectedVideo.embedUrl | safe" 
-          frameborder="0" 
+        <iframe
+          [src]="selectedVideo.video_url | safe"
+          frameborder="0"
           allowfullscreen
           class="video-iframe">
         </iframe>
       </div>
       <div class="modal-info">
-        <h3 class="modal-title">{{selectedVideo.title}}</h3>
-        <p class="modal-date">{{selectedVideo.date}}</p>
-        <p class="modal-caption">{{selectedVideo.description}}</p>
-        <div class="modal-actions">
-          <button class="modal-share" (click)="shareVideo(selectedVideo)">
-            <span class="share-icon">📤</span>
-            Share
-          </button>
-        </div>
+        <h3 class="modal-title">{{selectedVideo.caption}}</h3>
       </div>
     </div>
   </div>

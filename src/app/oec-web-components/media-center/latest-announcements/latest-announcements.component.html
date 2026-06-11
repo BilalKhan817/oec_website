@@ -26,137 +26,81 @@
     <span class="breadcrumb-current">Latest Announcements</span>
   </div>
   <h1 class="announcements-title">Important Notices for Applicants, Employers, and Partners</h1>
-  
-  <section class="announcements-section">
-    <h2 class="announcements-section-title">Purpose</h2>
-    <p>
-      This section displays all time-sensitive, public-facing notices issued by OEC. Whether it's a 
-      new job demand, EPS result, interview schedule, or fee deadline — this is the go-to hub for 
-      updates.
-    </p>
-  </section>
 
-  <section class="announcements-section">
-    <h2 class="announcements-section-title">Display Features</h2>
-    <div class="features-grid">
-      <div class="feature-item">
-        <span class="feature-icon">📅</span>
-        <span class="feature-text">Posting Date</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">📄</span>
-        <span class="feature-text">Title of Announcement</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">📝</span>
-        <span class="feature-text">Short Description</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🔗</span>
-        <span class="feature-text">Download PDF or Read More</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="announcements-section">
+  <section class="announcements-section" *ngIf="!isLoading && announcements.length > 0">
     <h2 class="announcements-section-title">Filters</h2>
     <div class="filters-container">
       <div class="filter-group">
         <label for="countryFilter">Country:</label>
         <select id="countryFilter" [(ngModel)]="selectedCountry" (change)="filterAnnouncements()">
           <option value="">All Countries</option>
-          <option value="Korea">Korea</option>
-          <option value="KSA">KSA</option>
-          <option value="Italy">Italy</option>
-          <option value="Japan">Japan</option>
-          <option value="UAE">UAE</option>
+          <option *ngFor="let c of getUniqueCountries()" [value]="c">{{c}}</option>
         </select>
       </div>
       <div class="filter-group">
         <label for="categoryFilter">Category:</label>
         <select id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterAnnouncements()">
           <option value="">All Categories</option>
-          <option value="EPS">EPS</option>
-          <option value="Interviews">Interviews</option>
-          <option value="Fee Notice">Fee Notice</option>
-          <option value="Orientation">Orientation</option>
-          <option value="Job Demand">Job Demand</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label for="dateFilter">Date Range:</label>
-        <select id="dateFilter" [(ngModel)]="selectedDateRange" (change)="filterAnnouncements()">
-          <option value="">All Dates</option>
-          <option value="today">Today</option>
-          <option value="week">This Week</option>
-          <option value="month">This Month</option>
-          <option value="quarter">This Quarter</option>
+          <option *ngFor="let cat of getUniqueCategories()" [value]="cat">{{cat}}</option>
         </select>
       </div>
     </div>
   </section>
 
-  <section class="announcements-section">
-    <h2 class="announcements-section-title">Sample Announcements</h2>
+  <section class="announcements-section" *ngIf="!isLoading && filteredAnnouncements.length > 0">
+    <h2 class="announcements-section-title">Announcements</h2>
     <div class="announcements-list">
       <div class="announcement-card" *ngFor="let announcement of filteredAnnouncements">
         <div class="announcement-header">
           <div class="announcement-title">
-            <span class="announcement-icon">{{announcement.icon}}</span>
             {{announcement.title}}
           </div>
-          <div class="announcement-date">
-            <span class="date-icon">📅</span>
-            Posted: {{announcement.postedDate}}
+          <div class="announcement-date" *ngIf="announcement.date">
+            Posted: {{announcement.date}}
           </div>
         </div>
-        <div class="announcement-description">
+        <div class="announcement-description" *ngIf="announcement.description">
           {{announcement.description}}
         </div>
         <div class="announcement-meta">
-          <span class="announcement-category" [class]="'category-' + announcement.category.toLowerCase()">
+          <span class="announcement-category" *ngIf="announcement.category">
             {{announcement.category}}
           </span>
-          <span class="announcement-country">
-            <span class="country-flag">{{announcement.countryFlag}}</span>
+          <span class="announcement-country" *ngIf="announcement.country">
             {{announcement.country}}
           </span>
+          <span class="urgent-tag" *ngIf="announcement.is_urgent">Urgent</span>
         </div>
-        <div class="announcement-actions">
+        <div class="announcement-actions" *ngIf="announcement.link">
           <a [href]="announcement.link" class="action-button" target="_blank">
-            <span class="action-icon">{{announcement.actionIcon}}</span>
-            {{announcement.actionText}}
+            View Details
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="announcements-section">
+  <section class="announcements-section" *ngIf="!isLoading && announcements.length > 0">
     <h2 class="announcements-section-title">Quick Stats</h2>
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">📢</div>
         <div class="stat-number">{{totalAnnouncements}}</div>
         <div class="stat-label">Total Announcements</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">🔥</div>
         <div class="stat-number">{{urgentAnnouncements}}</div>
         <div class="stat-label">Urgent Notices</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">📅</div>
-        <div class="stat-number">{{thisWeekAnnouncements}}</div>
-        <div class="stat-label">This Week</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🌍</div>
         <div class="stat-number">{{activeCountries}}</div>
         <div class="stat-label">Active Countries</div>
       </div>
     </div>
   </section>
+
+  <div class="empty-message" *ngIf="!isLoading && announcements.length === 0">
+    <p>No announcements available at the moment. Please check back later.</p>
+  </div>
 </div>
 
 <app-footer></app-footer>

@@ -492,6 +492,22 @@ industrystats(): Observable<any> {
 
   // ===== MEDIA CENTER APIS =====
 
+  // --- Full PAGE content endpoints (separate from the navbar menu endpoints) ---
+  getLatestAnnouncementsPage(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/latest-announcements-page`)
+      .pipe(catchError(this.handleError<any>('getLatestAnnouncementsPage', { success: false, data: [] })));
+  }
+
+  getPressReleasesPage(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/press-releases-page`)
+      .pipe(catchError(this.handleError<any>('getPressReleasesPage', { success: false, data: [] })));
+  }
+
+  getNewsHighlightsPage(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/news-highlights-page`)
+      .pipe(catchError(this.handleError<any>('getNewsHighlightsPage', { success: false, data: [] })));
+  }
+
   getLatestAnnouncements(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/media-center/latest-announcements`)
       .pipe(catchError(this.handleError<any>('getLatestAnnouncements', {})));
@@ -534,6 +550,18 @@ industrystats(): Observable<any> {
   getCareerForms(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/media-center/careers/forms`)
       .pipe(catchError(this.handleError<any>('getCareerForms', { success: false, data: [] })));
+  }
+
+  // ===== GALLERY =====
+
+  getMediaGalleriesPage(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/media-galleries-page`)
+      .pipe(catchError(this.handleError<any>('getMediaGalleriesPage', { success: false, data: [] })));
+  }
+
+  getMediaGalleries(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/media-center/media-galleries`)
+      .pipe(catchError(this.handleError<any>('getMediaGalleries', { success: false, data: [] })));
   }
 
   // ===== REPORTS & ANALYTICS =====

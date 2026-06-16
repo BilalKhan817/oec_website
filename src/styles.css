@@ -1511,13 +1511,13 @@
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
 
 .animate-scroll-left {
     animation: scroll-left 40s linear infinite;
-    width: 300%; /* Triple width to accommodate three sets of logos */
+    width: max-content; /* sized to content; list is rendered twice for a seamless -50% loop */
 }
 
 /* Pause animation on hover */

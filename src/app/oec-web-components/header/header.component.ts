@@ -204,8 +204,8 @@ export class HeaderComponent implements OnInit {
 
     this.apiService.getPressReleases().subscribe({
       next: (response: any) => {
-        if (response.success) {
-          this.pressReleasesData = response.data;
+        if (response.success && response.data && response.data.length > 0) {
+          this.pressReleasesData = response.data[0]; // first record holds the points
         }
       },
       error: (error) => console.error('Error loading Press Releases:', error)
@@ -213,8 +213,8 @@ export class HeaderComponent implements OnInit {
 
     this.apiService.getNewsHighlights().subscribe({
       next: (response: any) => {
-        if (response.success) {
-          this.newsHighlightsData = response.data;
+        if (response.success && response.data && response.data.length > 0) {
+          this.newsHighlightsData = response.data[0]; // first record holds the points
         }
       },
       error: (error) => console.error('Error loading News Highlights:', error)
@@ -339,7 +339,12 @@ export class HeaderComponent implements OnInit {
   getImageUrl(imagePath: string): string {
     if (!imagePath) return '';
     if (imagePath.startsWith('http')) return imagePath;
-    return this.apiService.MainbaseUrl + imagePath;
+    // Normalize Windows backslashes and ensure a single leading slash.
+    let path = imagePath.replace(/\\/g, '/');
+    if (!path.startsWith('/')) {
+      path = '/' + path;
+    }
+    return this.apiService.MainbaseUrl + path;
   }
 
   private initializeScrollEffects(): void {

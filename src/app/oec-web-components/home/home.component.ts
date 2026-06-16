@@ -296,6 +296,121 @@ cardStates: { [industryName: string]: boolean } = {};
     this.getExecutives()
     this.industrystats()
   this.getServices();
+    this.loadPartners();
+    this.loadNewsAnnouncements();
+    this.loadImpactStats();
+    this.loadJobPortalStats();
+  }
+
+  // ===== Home "OEC Job Portal – Live Snapshot" numbers (editable from the portal) =====
+  loadJobPortalStats(): void {
+    this.apiService.getJobPortalStats().subscribe({
+      next: (response: any) => {
+        if (response && response.success && response.data) {
+          const d = response.data;
+          this.jobPortalStats = {
+            totalJobSeekers: d.totalJobSeekers || this.jobPortalStats.totalJobSeekers,
+            interestedJobSeekers: d.interestedJobSeekers || this.jobPortalStats.interestedJobSeekers,
+            activeJobs: d.activeJobs || this.jobPortalStats.activeJobs,
+            oecJobs: d.oecJobs || this.jobPortalStats.oecJobs,
+            oepJobs: d.oepJobs || this.jobPortalStats.oepJobs,
+            foreignEmployers: d.foreignEmployers || this.jobPortalStats.foreignEmployers,
+            activeOEPs: d.activeOEPs || this.jobPortalStats.activeOEPs
+          };
+        }
+      },
+      error: (error: any) => console.error('Error loading job portal stats:', error)
+    });
+  }
+
+  // Interested ÷ Total as a percentage (for the progress bar width).
+  get interestedPercent(): number {
+    const num = (v: string) => parseInt((v || '').replace(/[^\d]/g, ''), 10) || 0;
+    const i = num(this.jobPortalStats.interestedJobSeekers);
+    const t = num(this.jobPortalStats.totalJobSeekers);
+    return t > 0 ? Math.min(100, Math.round((i / t) * 100)) : 0;
+  }
+
+  // ===== Home "OEC's Real-World Impact" numbers (editable from the portal) =====
+  loadImpactStats(): void {
+    this.apiService.getImpactStats().subscribe({
+      next: (response: any) => {
+        if (response && response.success && response.data) {
+          const d = response.data;
+          this.stats = {
+            emigrantsDispatched: d.emigrantsDispatched || this.stats.emigrantsDispatched,
+            jobSeekers: d.jobSeekers || this.stats.jobSeekers,
+            overseasReturnees: d.overseasReturnees || this.stats.overseasReturnees,
+            koreanLanguageTrained: d.koreanLanguageTrained || this.stats.koreanLanguageTrained,
+            japaneseLanguageTrained: d.japaneseLanguageTrained || this.stats.japaneseLanguageTrained
+          };
+          // Re-run counters so they reflect the loaded values (covers the case
+          // where the section already animated with the defaults).
+          this.animateCounters();
+        }
+      },
+      error: (error: any) => console.error('Error loading impact stats:', error)
+    });
+  }
+
+  // ===== Home "News & Announcements" (sourced from the Latest Announcements page) =====
+  newsAnnouncements: any[] = [];
+  newsGradients = [
+    'from-emerald-500 to-blue-600',
+    'from-blue-500 to-indigo-600',
+    'from-purple-500 to-pink-600',
+    'from-orange-500 to-red-500',
+    'from-cyan-500 to-blue-600',
+    'from-pink-500 to-rose-600'
+  ];
+
+  loadNewsAnnouncements(): void {
+    this.apiService.getLatestAnnouncementsPage().subscribe({
+      next: (response: any) => {
+        if (response && response.success && response.data) {
+          this.newsAnnouncements = response.data.slice(0, 6);
+        }
+      },
+      error: (error: any) => console.error('Error loading news announcements:', error)
+    });
+  }
+
+  // First ~20 words of the description as a short summary.
+  newsSummary(text: string): string {
+    if (!text) { return ''; }
+    const words = text.trim().split(/\s+/);
+    return words.length <= 20 ? text : words.slice(0, 20).join(' ') + '…';
+  }
+
+  partners: any[] = [];
+  partnerStats: any = { global_partners: '', countries: '' };
+
+  loadPartners(): void {
+    this.apiService.getPartners().subscribe({
+      next: (response: any) => {
+        if (response && response.success && response.data) {
+          this.partners = response.data;
+        }
+      },
+      error: (error) => console.error('Error loading partners:', error)
+    });
+    this.apiService.getPartnerStats().subscribe({
+      next: (response: any) => {
+        if (response && response.success && response.data) {
+          this.partnerStats = response.data;
+        }
+      },
+      error: (error: any) => console.error('Error loading partner stats:', error)
+    });
+  }
+
+  partnerLogo(path: string): string {
+    return this.apiService.getImageUrl(path);
+  }
+
+  // Animate (marquee) only when there are enough partners to need scrolling.
+  get manyPartners(): boolean {
+    return this.partners.length > 5;
   }
 
 

@@ -396,6 +396,36 @@ industrystats(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/partnerships`);
   }
 
+  // "Our Trusted Partners" logos on the home page (active only)
+  getPartners(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/partners?active=true`)
+      .pipe(catchError(this.handleError<any>('getPartners', { success: false, data: [] })));
+  }
+
+  // Editable stats shown under the partners slider
+  getPartnerStats(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/partners/stats`)
+      .pipe(catchError(this.handleError<any>('getPartnerStats', { success: false, data: {} })));
+  }
+
+  // Editable "Real-World Impact" numbers on the home page
+  getImpactStats(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/impact-stats`)
+      .pipe(catchError(this.handleError<any>('getImpactStats', { success: false, data: {} })));
+  }
+
+  // Editable "OEC Job Portal – Live Snapshot" numbers on the home page
+  getJobPortalStats(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/jobportal-stats`)
+      .pipe(catchError(this.handleError<any>('getJobPortalStats', { success: false, data: {} })));
+  }
+
+  // Footer contact details + social links
+  getFooterSettings(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/footer-settings`)
+      .pipe(catchError(this.handleError<any>('getFooterSettings', { success: false, data: {} })));
+  }
+
   getDigitalTransformation(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/about-us/digital-transformations`);
   }
